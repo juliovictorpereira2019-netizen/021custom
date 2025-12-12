@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>021 CUSTOMS - RELATÓRIO DE ITEM - MECÂNICA</title>
+<link rel="icon" type="image/x-icon" href="https://i.imgur.com/SP9nsky.png">
+
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { user-select: none !important; }
+body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: #222; }
+.topbar { background: #2b2f33; color: #fff; padding: 12px 0; }
+.logo { font-weight:700; letter-spacing:0.6px; color:#fff; }
+.nav-links a { color:#fff; text-decoration:none; margin-left:18px; font-weight:600; }
+.nav-links a:hover { color:#cfcfcf; }
+.discord-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:8px 16px; border-radius:12px; background:linear-gradient(135deg,#7289da,#99a9f0); color:#fff; font-weight:700; text-decoration:none; transition:0.25s; font-size:0.9rem; }
+.discord-btn:hover { background:linear-gradient(135deg,#5b6ea1,#7f88d0); transform:translateY(-2px); }
+
+.calc-container { background-color: #fff; padding: 20px 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); max-width: 500px; width: 100%; margin: 40px auto; }
+.calc-container h1 { text-align: center; color: #333; margin-bottom: 20px; font-size: 24px; }
+.calc-container label { font-weight: bold; margin-top: 10px; display: block; font-size: 14px; }
+.calc-container input[type="text"] { width: 100%; padding: 8px 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+.checkbox-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px; }
+.checkbox-group label { font-weight: normal; background-color: #f1f3f5; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.checkbox-group input[type="checkbox"] { margin-right: 5px; }
+#relatorio { margin-top: 15px; width: 100%; height: 300px; font-family: monospace; background-color: #f8f9fa; padding: 10px; border: 1px solid #ccc; border-radius: 8px; white-space: pre; overflow-y: auto; font-size: 14px; }
+button.calc-btn { margin-top: 15px; width: 100%; padding: 10px; font-size: 15px; border: none; border-radius: 8px; background-color: #4caf50; color: white; cursor: pointer; transition: 0.2s; }
+button.calc-btn:hover { background-color: #45a049; }
+button.clear-btn { margin-top: 10px; width: 100%; padding: 10px; font-size: 15px; border: none; border-radius: 8px; background-color: #f44336; color: white; cursor: pointer; transition: 0.2s; }
+button.clear-btn:hover { background-color: #d73833; }
+</style>
+</head>
+<body oncontextmenu="return false">
+
+<!-- Topbar / Navbar -->
+<header class="topbar">
+<div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+        <img src="https://i.imgur.com/SP9nsky.png" alt="Logo" style="height:90px; width:auto; border-radius:8px;">
+        <div class="logo">021 CUSTOMS</div>
+    </div>
+    <nav class="d-none d-md-flex align-items-center nav-links">
+        <a href="#">Início</a>
+        <a href="#">Preços</a>
+        <a href="#">Loja</a>
+        <a href="#">Relatório</a>
+        <a href="#">Termos de Uso</a>
+        <a href="#">Funcionários</a>
+        <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Discord
+        </a>
+    </nav>
+</div>
+</header>
+
+<!-- Relatório -->
+<div class="calc-container">
+    <h1>Relatório de Item</h1>
+
+    <label>Nome do Mecânico Responsável:</label>
+    <input type="text" id="nomeVendedor" placeholder="Apenas letras">
+
+    <label>ID do Mecânico:</label>
+    <input type="text" id="idVendedor" placeholder="Apenas números">
+
+    <label>ID do Comprador:</label>
+    <input type="text" id="idComprador" placeholder="Apenas números">
+
+    <label>Selecione os itens:</label>
+    <div class="checkbox-group">
+        <label><input type="checkbox" name="item" value="Nitro"> Nitro (1000)</label>
+        <label><input type="checkbox" name="item" value="Carro 1"> Carro 1 (2000)</label>
+        <label><input type="checkbox" name="item" value="Carro 2"> Carro 2 (3000)</label>
+        <label><input type="checkbox" name="item" value="Carro 3"> Carro 3 (4000)</label>
+    </div>
+
+    <button class="calc-btn" onclick="copiarRelatorio()">Copiar Relatório</button>
+    <button class="clear-btn" onclick="limparTudo()">Limpar Tudo</button>
+
+    <h2 style="font-size:16px;margin-top:15px;">Relatório Gerado:</h2>
+    <textarea id="relatorio" readonly></textarea>
+</div>
+
+<!-- Footer -->
+<footer class="text-center py-4 text-muted">
+© <span id="year"></span> 021 CUSTOMS - Todos os direitos reservados
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Bloqueio F12, Ctrl+U, Ctrl+Shift+I
+(function(){
+    document.addEventListener("keydown", function(e){
+        if(e.key === "F12" || 
+           (e.ctrlKey && e.shiftKey && e.key === "I") ||
+           (e.ctrlKey && e.key === "u") ||
+           (e.ctrlKey && e.shiftKey && e.key === "C") ||
+           (e.ctrlKey && e.shiftKey && e.key === "J")){ 
+            e.preventDefault();
+        }
+    });
+})();
+
+// Bloqueio de caracteres inválidos
+const nomeInput = document.getElementById("nomeVendedor");
+const idInput = document.getElementById("idVendedor");
+const idCompradorInput = document.getElementById("idComprador");
+
+// Nome: apenas letras e espaços
+nomeInput.addEventListener("input", () => {
+    nomeInput.value = nomeInput.value.replace(/[^A-Za-z\s]/g, '');
+});
+
+// ID: apenas números
+idInput.addEventListener("input", () => {
+    idInput.value = idInput.value.replace(/[^0-9]/g, '');
+});
+idCompradorInput.addEventListener("input", () => {
+    idCompradorInput.value = idCompradorInput.value.replace(/[^0-9]/g, '');
+});
+
+// Valores dos itens
+const valores = {"Nitro":1000,"Carro 1":2000,"Carro 2":3000,"Carro 3":4000};
+
+// Gera relatório
+function gerarRelatorio(){
+    const n = nomeInput.value.trim();
+    const i = idInput.value.trim();
+    const c = idCompradorInput.value.trim();
+    const itens = Array.from(document.querySelectorAll('input[name="item"]:checked')).map(x=>x.value);
+    const relatorio = document.getElementById("relatorio");
+
+    if(!n || !i || !c || itens.length === 0){
+        relatorio.value = "";
+        return;
+    }
+
+    let total = 0;
+    let texto = "🛠️ **Relatório de Vendas - 021 CUSTOMS** 🛠️\n\n";
+
+    itens.forEach(item => {
+        let valor = valores[item];
+        total += valor;
+        texto += `📌 Item: ${item}\n👨‍🔧 Mecânico: ${n} (ID: ${i})\n🛒 Comprador ID: ${c}\n💰 Valor: ${valor}\n--------------------------\n`;
+    });
+
+    texto += `💵 **Valor Total: ${total}**\n`;
+    relatorio.value = texto;
+}
+
+// Copiar relatório
+function copiarRelatorio(){
+    gerarRelatorio();
+    const relatorio = document.getElementById("relatorio");
+    relatorio.select();
+    relatorio.setSelectionRange(0,99999);
+    navigator.clipboard.writeText(relatorio.value);
+    alert("Relatório copiado!");
+}
+
+// Limpar campos
+function limparTudo(){
+    nomeInput.value="";
+    idInput.value="";
+    idCompradorInput.value="";
+    document.querySelectorAll('input[name="item"]').forEach(x=>x.checked=false);
+    document.getElementById("relatorio").value="";
+}
+
+// Atualiza relatório em tempo real
+document.querySelectorAll("input,textarea").forEach(el=>{
+    el.addEventListener("input", gerarRelatorio);
+});
+document.querySelectorAll('input[name="item"]').forEach(cb=>{
+    cb.addEventListener("change", gerarRelatorio);
+});
+</script>
+
+</body>
+</html>
