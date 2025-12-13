@@ -60,6 +60,36 @@ body {
     font-weight:700;
 }
 
+/* DROPDOWN */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 18px;
+    font-weight:600;
+    cursor:pointer;
+}
+.dropdown-toggle::after {
+    content: " ▼";
+    font-size: 0.7em;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #2b2f33;
+    min-width: 150px;
+    border-radius: 6px;
+    z-index: 1000;
+}
+.dropdown-menu a {
+    color: #fff;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-menu a:hover {
+    background-color: #3a3f45;
+}
+
 /* LAYOUT */
 .container-max { max-width:1100px; }
 .card-gradient {
@@ -152,7 +182,15 @@ th {
     </div>
     <nav class="d-none d-md-flex nav-links align-items-center">
         <a href="#">Início</a>
-        <a href="tabela.html">Preços</a>
+
+        <!-- Preços com submenu Calculadora -->
+        <div class="dropdown">
+            <span class="dropdown-toggle">Preços</span>
+            <div class="dropdown-menu">
+                <a href="calculadora.html">Calculadora</a>
+            </div>
+        </div>
+
         <a href="shop.html">Loja</a>
         <a href="relatorio.html">Relatório</a>
         <a href="funcionarios.html">Funcionários</a>
@@ -281,6 +319,18 @@ document.addEventListener("keydown", function(e) {
         e.stopPropagation();
     }
 });
+
+// Dropdown submenu Calculadora
+const dropdown = document.querySelector('.dropdown');
+const menu = dropdown.querySelector('.dropdown-menu');
+
+dropdown.addEventListener('mouseenter', () => { menu.style.display = 'block'; });
+dropdown.addEventListener('mouseleave', () => { menu.style.display = 'none'; });
+dropdown.querySelector('.dropdown-toggle').addEventListener('click', e => {
+    e.preventDefault();
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+});
+
 document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
