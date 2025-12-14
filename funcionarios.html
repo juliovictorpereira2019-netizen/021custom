@@ -8,57 +8,131 @@
 
 <!-- Bootstrap 5 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
+
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: #222; }
-.topbar { background: #2b2f33; color: #fff; padding: 12px 0; }
-.logo { font-weight:700; letter-spacing:0.6px; color:#fff; }
-.nav-links a { color:#fff; text-decoration:none; margin-left:18px; font-weight:600; }
-.nav-links a:hover { color:#cfcfcf; }
-.discord-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:8px 16px; border-radius:12px; background:linear-gradient(135deg,#7289da,#99a9f0); color:#fff; font-weight:700; text-decoration:none; transition:0.25s; font-size:0.9rem; }
-.discord-btn:hover { background:linear-gradient(135deg,#5b6ea1,#7f88d0); transform:translateY(-2px); }
-.card-employee { border-radius: 16px; overflow: hidden; margin-bottom: 20px; cursor: pointer; transition: 0.3s; }
-.card-employee:hover { transform: translateY(-3px); }
-.card-employee img { height: 180px; object-fit: cover; }
-.subtitulo { font-weight:700; background:#e0e0e0; text-align:center; padding:5px 0; margin-bottom:10px; }
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: #f7f7f7;
+  color: #222;
+}
+
+.topbar {
+  background: #2b2f33;
+  color: #fff;
+  padding: 12px 0;
+}
+
+.logo {
+  font-weight:700;
+  letter-spacing:0.6px;
+  color:#fff;
+}
+
+.nav-links a {
+  color:#fff;
+  text-decoration:none;
+  margin-left:18px;
+  font-weight:600;
+}
+
+.nav-links a:hover {
+  color:#cfcfcf;
+}
+
+.discord-btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:8px 16px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#7289da,#99a9f0);
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  transition:0.25s;
+  font-size:0.9rem;
+}
+
+.discord-btn:hover {
+  background:linear-gradient(135deg,#5b6ea1,#7f88d0);
+  transform:translateY(-2px);
+}
+
+.card-employee {
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card-employee:hover {
+  transform: translateY(-3px);
+}
+
+.card-employee img {
+  height: 180px;
+  object-fit: cover;
+}
+
+.subtitulo {
+  font-weight:700;
+  background:#e0e0e0;
+  text-align:center;
+  padding:5px 0;
+  margin-bottom:10px;
+}
+
+/* 🔥 CENTRALIZA AUTOMATICAMENTE QUANDO TIVER SÓ 1 CARD */
+.row.single-card {
+  justify-content: center;
+}
+
+.row.single-card .col-lg-3 {
+  display: flex;
+  justify-content: center;
+}
 </style>
 </head>
+
 <body>
 
-<!-- Topbar / Navbar 021 CUSTOMS -->
+<!-- Topbar -->
 <header class="topbar">
-<div class="container d-flex justify-content-between align-items-center">
+  <div class="container d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center gap-3">
-        <img src="https://i.imgur.com/SP9nsky.png" alt="Logo" style="height:90px; width:auto; border-radius:8px;">
-        <div class="logo">021 CUSTOMS</div>
+      <img src="https://i.imgur.com/SP9nsky.png" alt="Logo" style="height:90px; border-radius:8px;">
+      <div class="logo">021 CUSTOMS</div>
     </div>
     <nav class="d-none d-md-flex align-items-center nav-links">
-        <a href="index.html">Início</a>
-        <a href="tabela.html">Preços</a>
-        <a href="shop.html">Loja</a>
-        <a href="relatorio.html">Relatorio</a>
-        <a href="#">Termos de Uso</a>
-        <a href="funcionarios.html">Funcionarios</a>
-        <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
-            <i class="fa-brands fa-discord"></i> Discord
-        </a>
+      <a href="index.html">Início</a>
+      <a href="tabela.html">Preços</a>
+      <a href="shop.html">Loja</a>
+      <a href="relatorio.html">Relatório</a>
+      <a href="#">Termos de Uso</a>
+      <a href="funcionarios.html">Funcionários</a>
+      <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
     </nav>
-</div>
+  </div>
 </header>
 
 <main class="container my-5">
 
-<!-- Funcionários / Cargos -->
 <section class="mb-5">
   <h2 class="mb-4 text-center">Nossa Equipe</h2>
 
   <!-- RESPONSÁVEL MECÂNICA -->
   <div class="subtitulo">RESPONSÁVEL MECÂNICA</div>
-  <div class="row justify-content-center mb-4">
+  <div class="row single-card mb-4">
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card card-employee">
         <img src="https://imgur.com/dRorkTC.png" class="card-img-top" alt="Carol Amud">
@@ -71,7 +145,7 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
   </div>
 
   <!-- LIDER -->
-  <div class="subtitulo">LIDER</div>
+  <div class="subtitulo">LÍDER</div>
   <div class="row justify-content-center mb-4">
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card card-employee">
@@ -98,7 +172,7 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
   <div class="row justify-content-center mb-4">
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card card-employee">
-        <img src="https://i.imgur.com/Fpg3OQK.png" class="card-img-top" alt="Vaga aberta">
+        <img src="https://i.imgur.com/Fpg3OQK.png" class="card-img-top">
         <div class="card-body text-center">
           <h5 class="mb-0">Vaga aberta</h5>
           <p class="small text-muted">021 CUSTOMS</p>
@@ -107,7 +181,7 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
     </div>
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card card-employee">
-        <img src="https://i.imgur.com/Fpg3OQK.png" class="card-img-top" alt="Vaga aberta">
+        <img src="https://i.imgur.com/Fpg3OQK.png" class="card-img-top">
         <div class="card-body text-center">
           <h5 class="mb-0">Vaga aberta</h5>
           <p class="small text-muted">021 CUSTOMS</p>
@@ -116,18 +190,9 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
     </div>
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card card-employee">
-        <img src="https://i.imgur.com/Fpg3OQK.png" class="card-img-top" alt="Vaga aberta">
+        <img src="https://i.imgur.com/Fpg3OQK.png" class="card-img-top">
         <div class="card-body text-center">
-          <h5 class="mb-0">Vaga aberta</h5>
-          <p class="small text-muted">021 CUSTOMS</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card card-employee">
-        <img src="https://i.imgur.com/Fpg3OQK.png" class="card-img-top" alt="Joao Britto">
-        <div class="card-body text-center">
-          <h5 class="mb-0">Joao Britto</h5>
+          <h5 class="mb-0">João Britto</h5>
           <p class="small text-muted">021 CUSTOMS</p>
         </div>
       </div>
@@ -135,7 +200,6 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
   </div>
 
 </section>
-
 </main>
 
 <footer class="text-center py-4 text-muted">
@@ -146,19 +210,16 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Bloqueio DevTools e clique direito
+// Bloqueios
 document.addEventListener('keydown', function(e) {
-    if(e.key === 'F12') e.preventDefault();
-    if(e.ctrlKey && e.shiftKey && ['I','C','J'].includes(e.key.toUpperCase())) e.preventDefault();
-    if(e.ctrlKey && e.key.toUpperCase() === 'U') e.preventDefault();
+  if (e.key === 'F12') e.preventDefault();
+  if (e.ctrlKey && e.shiftKey && ['I','C','J'].includes(e.key.toUpperCase())) e.preventDefault();
+  if (e.ctrlKey && e.key.toUpperCase() === 'U') e.preventDefault();
 });
-document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
-document.addEventListener('selectstart', function(e){ e.preventDefault(); });
-document.addEventListener('dragstart', function(e){ e.preventDefault(); });
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
 </script>
 
 </body>
 </html>
-
-
-
