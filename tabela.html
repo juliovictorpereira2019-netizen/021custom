@@ -15,160 +15,64 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-    --bg:#f7f9fb;
-    --top:#2b2f33;
-}
-
-/* 🔒 BLOQUEIO DE SELEÇÃO */
-body {
-    font-family:Inter, system-ui, sans-serif;
-    background:var(--bg);
-    color:#222;
-    user-select:none;
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
-}
+:root { --bg:#f7f9fb; --top:#2b2f33; }
+body { font-family:Inter, system-ui, sans-serif; background:var(--bg); color:#222; user-select:none; margin:0; }
 
 /* HEADER */
-.topbar {
-    background:var(--top);
-    color:#fff;
-    padding:12px 0;
-}
-.logo {
-    font-weight:700;
-    letter-spacing:.6px;
-}
-.nav-links a {
-    color:#fff;
-    margin-left:18px;
-    text-decoration:none;
-    font-weight:600;
-}
-.nav-links a:hover { color:#cfcfcf; }
-.discord-btn {
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 16px;
-    border-radius:12px;
-    background:linear-gradient(135deg,#7289da,#99a9f0);
-    color:#fff;
-    text-decoration:none;
-    font-weight:700;
-}
+.topbar { background:var(--top); color:#fff; padding:12px 0; }
+.logo { font-weight:700; letter-spacing:.6px; }
 
-/* DROPDOWN */
-.dropdown {
-    position: relative;
-    display: inline-block;
-    margin-left: 18px;
-    font-weight:600;
-    cursor:pointer;
-}
-.dropdown-toggle::after {
-    content: " ▼";
-    font-size: 0.7em;
-}
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background-color: #2b2f33;
-    min-width: 150px;
-    border-radius: 6px;
-    z-index: 1000;
-}
-.dropdown-menu a {
-    color: #fff;
-    padding: 10px 15px;
-    text-decoration: none;
-    display: block;
-}
-.dropdown-menu a:hover {
-    background-color: #3a3f45;
+/* Links desktop */
+.nav-links a { color:#fff; margin-left:18px; text-decoration:none; font-weight:600; }
+.nav-links a:hover { color:#cfcfcf; }
+.discord-btn { display:flex; align-items:center; gap:8px; padding:8px 16px; border-radius:12px; background:linear-gradient(135deg,#7289da,#99a9f0); color:#fff; text-decoration:none; font-weight:700; }
+
+/* Dropdown */
+.dropdown { position: relative; display:inline-block; margin-left:18px; font-weight:600; cursor:pointer; }
+.dropdown-toggle::after { content:" ▼"; font-size:0.7em; }
+.dropdown-menu { display:none; position:absolute; background-color:#2b2f33; min-width:150px; border-radius:6px; z-index:1000; }
+.dropdown-menu a { color:#fff; padding:10px 15px; text-decoration:none; display:block; }
+.dropdown-menu a:hover { background-color:#3a3f45; }
+
+/* Hamburger menu mobile */
+.navbar-toggler { border:none; background:transparent; outline:none; display:none; }
+.navbar-toggler span { display:block; width:25px; height:3px; background:#fff; margin:5px 0; }
+@media (max-width:768px) {
+    .d-md-flex { display:none !important; }
+    .navbar-toggler { display:block; }
+    .mobile-menu { display:none; background:var(--top); position:absolute; top:100%; left:0; width:100%; z-index:1000; padding:10px 0; }
+    .mobile-menu a { display:block; padding:10px 20px; color:#fff; font-weight:600; text-decoration:none; }
+    .mobile-menu a:hover { background:#3a3f45; }
+    .mobile-dropdown { padding-left:20px; }
+    .dropdown-menu-mobile { display:none; background:#2b2f33; border-radius:6px; margin-top:5px; }
+    .dropdown-menu-mobile a { padding-left:30px; }
 }
 
 /* LAYOUT */
 .container-max { max-width:1100px; }
-.card-gradient {
-    background:#fff;
-    border-radius:16px;
-    margin-top:18px;
-}
-.card-header-gradient {
-    padding:26px;
-    text-align:center;
-    color:#fff;
-}
+.card-gradient { background:#fff; border-radius:16px; margin-top:18px; }
+.card-header-gradient { padding:26px; text-align:center; color:#fff; }
 
 /* COLUNAS */
-.service-columns {
-    display:flex;
-    flex-wrap:wrap;
-    gap:20px;
-}
-.service-column {
-    flex:1;
-    min-width:300px;
-}
+.service-columns { display:flex; flex-wrap:wrap; gap:20px; }
+.service-column { flex:1; min-width:300px; }
 
 /* TÍTULOS */
-.subtitulo {
-    background:#e0e0e0;
-    padding:8px;
-    text-align:center;
-    font-weight:700;
-    border-radius:6px;
-}
+.subtitulo { background:#e0e0e0; padding:8px; text-align:center; font-weight:700; border-radius:6px; }
 
 /* TABELA */
-table {
-    border-collapse:collapse;
-    width:100%;
-    margin-top:10px;
-}
-th, td {
-    border:1px solid #ddd;
-    padding:12px;
-}
-th {
-    background:#f1f1f1;
-    font-weight:600;
-}
-.price-parceria {
-    color:#1f8a3d;
-    font-weight:700;
-    background:rgba(31,138,61,.1);
-    border-radius:6px;
-}
-.price-sem {
-    color:#d13b3b;
-    font-weight:700;
-    background:rgba(209,59,59,.1);
-    border-radius:6px;
-}
+table { border-collapse:collapse; width:100%; margin-top:10px; }
+th, td { border:1px solid #ddd; padding:12px; }
+th { background:#f1f1f1; font-weight:600; }
+.price-parceria { color:#1f8a3d; font-weight:700; background:rgba(31,138,61,.1); border-radius:6px; }
+.price-sem { color:#d13b3b; font-weight:700; background:rgba(209,59,59,.1); border-radius:6px; }
 
-/* MOBILE */
-.table-responsive-mobile {
-    width:100%;
-    overflow-x:auto;
-}
-@media (max-width:768px) {
-    table { min-width:520px; }
-}
+/* MOBILE TABLE */
+.table-responsive-mobile { width:100%; overflow-x:auto; }
+@media (max-width:768px) { table { min-width:520px; } }
 
 /* IMAGEM CONSERTO */
-.conserto-img {
-    display:block;
-    margin:16px auto;
-    width:100%;
-    max-width:420px;
-    height:auto;
-    object-fit:contain;
-    border-radius:14px;
-}
+.conserto-img { display:block; margin:16px auto; width:100%; max-width:420px; height:auto; object-fit:contain; border-radius:14px; }
 </style>
 </head>
 
@@ -180,24 +84,41 @@ th {
         <img src="https://i.imgur.com/SP9nsky.png" style="height:90px;border-radius:8px;">
         <div class="logo">021 CUSTOMS</div>
     </div>
-    <nav class="d-none d-md-flex nav-links align-items-center">
-        <a href="index.html">Início</a>
 
-        <!-- Preços com submenu Calculadora -->
+    <!-- Hamburger mobile -->
+    <button class="navbar-toggler" type="button" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+    </button>
+
+    <!-- Menu desktop -->
+    <nav class="d-md-flex nav-links align-items-center">
+        <a href="index.html">Início</a>
         <div class="dropdown">
             <span class="dropdown-toggle">Preços</span>
             <div class="dropdown-menu">
                 <a href="calculadora.html">Calculadora</a>
             </div>
         </div>
-
         <a href="shop.html">Loja</a>
         <a href="relatorio.html">Relatório</a>
         <a href="funcionarios.html">Funcionários</a>
-        <a href="https://discord.com/invite/wunSmxVt" class="discord-btn">
-            <i class="fa-brands fa-discord"></i> Discord
-        </a>
+        <a href="https://discord.com/invite/wunSmxVt" class="discord-btn"><i class="fa-brands fa-discord"></i> Discord</a>
     </nav>
+
+    <!-- Menu mobile -->
+    <div class="mobile-menu">
+        <a href="index.html">Início</a>
+        <div class="mobile-dropdown">
+            <a href="#" class="dropdown-toggle-mobile">Preços ▼</a>
+            <div class="dropdown-menu-mobile">
+                <a href="calculadora.html">Calculadora</a>
+            </div>
+        </div>
+        <a href="shop.html">Loja</a>
+        <a href="relatorio.html">Relatório</a>
+        <a href="funcionarios.html">Funcionários</a>
+        <a href="https://discord.com/invite/wunSmxVt" class="discord-btn">Discord</a>
+    </div>
 </div>
 </header>
 
@@ -247,50 +168,44 @@ th {
 </div>
 </div>
 
-<!-- PNEUS -->
+<!-- Serviços de Pneus -->
 <div class="service-column">
 <div class="subtitulo">Serviços de Pneus</div>
 <div class="table-responsive-mobile">
 <table>
 <tr><th>Serviço</th><th class="text-end">Com Parceria</th><th class="text-end">Sem Parceria</th></tr>
-<tr><td>Rodas Nacionais</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000,00</td></tr>
-<tr><td>Rodas Importadas</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000,00</td></tr>
-<tr><td>Cor das Rodas</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
-<tr><td>Fumaça</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
+<tr><td>Rodas Nacionais</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Rodas Importadas</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Cor das Rodas</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000</td></tr>
+<tr><td>Fumaça</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000</td></tr>
 </table>
 </div>
 
-<!-- 🔽 NOVA ABA ADICIONADA -->
 <div class="subtitulo mt-3">Serviços de Pintura e Luz</div>
 <div class="table-responsive-mobile">
 <table>
-<tr><th>Serviço</th><th class="text-end">Valor</th></tr>
-<tr><td>Pintura Primária</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
-<tr><td>Pintura Secundária</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
-<tr><td>Pintura Cromado</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
-<tr><td>Pintura Perolado</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
-<tr><td>Pintura Decal</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
-<tr><td>Xenon</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000,00</td></tr>
-<tr><td>Neon</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000,00</td></tr>
+<tr><th>Serviço</th><th class="text-end">Com Parceria</th><th class="text-end">Sem Parceria</th></tr>
+<tr><td>Pintura Primária</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000</td></tr>
+<tr><td>Pintura Secundária</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000</td></tr>
+<tr><td>Pintura Cromado</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000</td></tr>
+<tr><td>Pintura Perolado</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000</td></tr>
+<tr><td>Pintura Decal</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000</td></tr>
+<tr><td>Xenon</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Neon</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
 </table>
 </div>
 </div>
 
-<!-- CONSERTO -->
+<!-- Conserto -->
 <div class="service-column">
 <div class="subtitulo">Serviço Conserto</div>
-
-<img src="https://i.imgur.com/7l15PNN.jpg"
-     alt="Serviço de Conserto"
-     class="conserto-img"
-     loading="lazy">
-
+<img src="https://i.imgur.com/7l15PNN.jpg" alt="Serviço de Conserto" class="conserto-img" loading="lazy">
 <div class="table-responsive-mobile">
 <table>
 <tr><th>Tipo</th><th class="text-end">Com Parceria</th><th class="text-end">Sem Parceria</th></tr>
-<tr><td>Oficina</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 5.000,00</td></tr>
-<tr><td>Cidade</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 10.000,00</td></tr>
-<tr><td>Paleto</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 20.000,00</td></tr>
+<tr><td>Oficina</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 5.000</td></tr>
+<tr><td>Cidade</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 10.000</td></tr>
+<tr><td>Paleto</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 20.000</td></tr>
 </table>
 </div>
 </div>
@@ -304,37 +219,39 @@ th {
 © <span id="year"></span> João Britto - Todos os direitos reservados
 </footer>
 
-<!-- 🔐 PROTEÇÃO -->
 <script>
-document.addEventListener("contextmenu", e => e.preventDefault());
-document.addEventListener("selectstart", e => e.preventDefault());
-document.addEventListener("dragstart", e => e.preventDefault());
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Bloqueios
+document.addEventListener("contextmenu", e=>e.preventDefault());
+document.addEventListener("selectstart", e=>e.preventDefault());
+document.addEventListener("dragstart", e=>e.preventDefault());
 document.addEventListener("keydown", function(e) {
-    if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey && ["i","j","c"].includes(e.key.toLowerCase())) ||
-        (e.ctrlKey && ["u","c","s","a","x","v"].includes(e.key.toLowerCase()))
-    ) {
-        e.preventDefault();
-        e.stopPropagation();
+    if (e.key==="F12" || (e.ctrlKey && e.shiftKey && ["i","j","c"].includes(e.key.toLowerCase())) || (e.ctrlKey && ["u","c","s","a","x","v"].includes(e.key.toLowerCase()))) {
+        e.preventDefault(); e.stopPropagation();
     }
 });
 
-// Dropdown submenu Calculadora
+// Dropdown submenu desktop
 const dropdown = document.querySelector('.dropdown');
 const menu = dropdown.querySelector('.dropdown-menu');
+dropdown.addEventListener('mouseenter', () => menu.style.display='block');
+dropdown.addEventListener('mouseleave', () => menu.style.display='none');
+dropdown.querySelector('.dropdown-toggle').addEventListener('click', e=>{ e.preventDefault(); menu.style.display = menu.style.display==='block'?'none':'block'; });
 
-dropdown.addEventListener('mouseenter', () => { menu.style.display = 'block'; });
-dropdown.addEventListener('mouseleave', () => { menu.style.display = 'none'; });
-dropdown.querySelector('.dropdown-toggle').addEventListener('click', e => {
+// Hamburger mobile toggle
+const toggler = document.querySelector('.navbar-toggler');
+const mobileMenu = document.querySelector('.mobile-menu');
+toggler.addEventListener('click', ()=> mobileMenu.style.display = mobileMenu.style.display==='block'?'none':'block');
+
+// Mobile dropdown submenu
+const mobileDropdownToggle = document.querySelector('.dropdown-toggle-mobile');
+const mobileDropdownMenu = document.querySelector('.dropdown-menu-mobile');
+mobileDropdownToggle.addEventListener('click', e => {
     e.preventDefault();
-    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    mobileDropdownMenu.style.display = mobileDropdownMenu.style.display==='block'?'none':'block';
 });
-
-document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
 </body>
 </html>
-
-
