@@ -15,26 +15,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root { --bg:#f7f9fb; --top:#2b2f33; }
+:root {
+    --bg:#f7f9fb;
+    --top:#2b2f33;
+}
+
+/* 🔒 BLOQUEIO DE SELEÇÃO */
 body {
-    font-family: Inter, system-ui, sans-serif;
-    background: var(--bg);
-    color: #222;
-    user-select: none;
-    margin: 0;
+    font-family:Inter, system-ui, sans-serif;
+    background:var(--bg);
+    color:#222;
+    user-select:none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
 }
 
 /* HEADER */
 .topbar {
-    background: var(--top);
-    color: #fff;
-    padding: 12px 0;
-    position: relative;
-    z-index: 1000;
+    background:var(--top);
+    color:#fff;
+    padding:12px 0;
 }
-.logo { font-weight:700; letter-spacing:.6px; }
-
-/* Links desktop */
+.logo {
+    font-weight:700;
+    letter-spacing:.6px;
+}
 .nav-links a {
     color:#fff;
     margin-left:18px;
@@ -42,7 +48,6 @@ body {
     font-weight:600;
 }
 .nav-links a:hover { color:#cfcfcf; }
-
 .discord-btn {
     display:flex;
     align-items:center;
@@ -55,87 +60,34 @@ body {
     font-weight:700;
 }
 
-/* Dropdown desktop */
+/* DROPDOWN */
 .dropdown {
     position: relative;
-    display:inline-block;
-    margin-left:18px;
+    display: inline-block;
+    margin-left: 18px;
     font-weight:600;
     cursor:pointer;
 }
 .dropdown-toggle::after {
-    content:" ▼";
-    font-size:0.7em;
+    content: " ▼";
+    font-size: 0.7em;
 }
 .dropdown-menu {
-    display:none;
-    position:absolute;
-    background-color:#2b2f33;
-    min-width:150px;
-    border-radius:6px;
-    z-index:1000;
+    display: none;
+    position: absolute;
+    background-color: #2b2f33;
+    min-width: 150px;
+    border-radius: 6px;
+    z-index: 1000;
 }
 .dropdown-menu a {
-    color:#fff;
-    padding:10px 15px;
-    text-decoration:none;
-    display:block;
+    color: #fff;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
 }
-.dropdown-menu a:hover { background-color:#3a3f45; }
-
-/* HAMBURGER (ESCONDIDO NO PC) */
-.navbar-toggler {
-    border:none;
-    background:transparent;
-    outline:none;
-    display:none;
-}
-.navbar-toggler span {
-    display:block;
-    width:25px;
-    height:3px;
-    background:#fff;
-    margin:5px 0;
-}
-
-/* MOBILE */
-@media (max-width:768px) {
-    .d-md-flex {
-        display:none !important;
-    }
-
-    .navbar-toggler {
-        display:block;
-    }
-
-    .mobile-menu {
-        display:none;
-        background:var(--top);
-        width:100%;
-    }
-
-    .mobile-menu a {
-        display:block;
-        padding:12px 20px;
-        color:#fff;
-        font-weight:600;
-        text-decoration:none;
-        border-top:1px solid #3a3f45;
-    }
-
-    .mobile-menu a:hover {
-        background:#3a3f45;
-    }
-
-    .mobile-dropdown .dropdown-menu-mobile {
-        display:none;
-        background:#2b2f33;
-    }
-
-    .mobile-dropdown .dropdown-menu-mobile a {
-        padding-left:30px;
-        border-top:none;
-    }
+.dropdown-menu a:hover {
+    background-color: #3a3f45;
 }
 
 /* LAYOUT */
@@ -198,13 +150,24 @@ th {
     border-radius:6px;
 }
 
-/* MOBILE TABLE */
+/* MOBILE */
 .table-responsive-mobile {
     width:100%;
     overflow-x:auto;
 }
 @media (max-width:768px) {
     table { min-width:520px; }
+}
+
+/* IMAGEM CONSERTO */
+.conserto-img {
+    display:block;
+    margin:16px auto;
+    width:100%;
+    max-width:420px;
+    height:auto;
+    object-fit:contain;
+    border-radius:14px;
 }
 </style>
 </head>
@@ -213,21 +176,14 @@ th {
 
 <header class="topbar">
 <div class="container container-max d-flex justify-content-between align-items-center">
-
     <div class="d-flex align-items-center gap-3">
         <img src="https://i.imgur.com/SP9nsky.png" style="height:90px;border-radius:8px;">
         <div class="logo">021 CUSTOMS</div>
     </div>
+    <nav class="d-none d-md-flex nav-links align-items-center">
+        <a href="#">Início</a>
 
-    <!-- HAMBURGER MOBILE -->
-    <button class="navbar-toggler" type="button" aria-label="Abrir menu">
-        <span></span><span></span><span></span>
-    </button>
-
-    <!-- MENU DESKTOP -->
-    <nav class="d-md-flex nav-links align-items-center">
-        <a href="index.html">Início</a>
-
+        <!-- Preços com submenu Calculadora -->
         <div class="dropdown">
             <span class="dropdown-toggle">Preços</span>
             <div class="dropdown-menu">
@@ -242,23 +198,6 @@ th {
             <i class="fa-brands fa-discord"></i> Discord
         </a>
     </nav>
-</div>
-
-<!-- MENU MOBILE -->
-<div class="mobile-menu">
-    <a href="index.html">Início</a>
-
-    <div class="mobile-dropdown">
-        <a href="#" class="dropdown-toggle-mobile">Preços ▼</a>
-        <div class="dropdown-menu-mobile">
-            <a href="calculadora.html">Calculadora</a>
-        </div>
-    </div>
-
-    <a href="shop.html">Loja</a>
-    <a href="relatorio.html">Relatório</a>
-    <a href="funcionarios.html">Funcionários</a>
-    <a href="https://discord.com/invite/wunSmxVt" class="discord-btn">Discord</a>
 </div>
 </header>
 
@@ -275,25 +214,87 @@ th {
 </div>
 
 <div class="p-3 service-columns">
+
+<!-- OFICINA -->
 <div class="service-column">
 <div class="subtitulo">Serviços de Oficina</div>
-
 <div class="table-responsive-mobile">
 <table>
-<tr>
-<th>Serviço</th>
-<th class="text-end">Com Parceria</th>
-<th class="text-end">Sem Parceria</th>
-</tr>
-
+<tr><th>Serviço</th><th class="text-end">Com Parceria</th><th class="text-end">Sem Parceria</th></tr>
 <tr><td>Motor</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 150.000</td></tr>
 <tr><td>Bloco de Motor</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
 <tr><td>Som do Motor</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
 <tr><td>Freio</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 150.000</td></tr>
 <tr><td>Transmissão</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 280.000</td></tr>
+<tr><td>Turbo</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 250.000</td></tr>
+<tr><td>Hidráulica</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 95.000</td></tr>
+<tr><td>Blindagem</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 400.000</td></tr>
+<tr><td>Doors </td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Saia  </td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Parachoque Dianteiro</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Capô</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Escapamento</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Arch Cover</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Gaiola de Proteção</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Parachoque Traseiro</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Buzina</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Painel</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Para Lama</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Bancos</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Grelha</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
+<tr><td>Vidro</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 80.000</td></tr>
 </table>
 </div>
 </div>
+
+<!-- PNEUS -->
+<div class="service-column">
+<div class="subtitulo">Serviços de Pneus</div>
+<div class="table-responsive-mobile">
+<table>
+<tr><th>Serviço</th><th class="text-end">Com Parceria</th><th class="text-end">Sem Parceria</th></tr>
+<tr><td>Rodas Nacionais</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000,00</td></tr>
+<tr><td>Rodas Importadas</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000,00</td></tr>
+<tr><td>Cor das Rodas</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
+<tr><td>Fumaça</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
+</table>
+</div>
+
+<!-- 🔽 NOVA ABA ADICIONADA -->
+<div class="subtitulo mt-3">Serviços de Pintura e Luz</div>
+<div class="table-responsive-mobile">
+<table>
+<tr><th>Serviço</th><th class="text-end">Valor</th></tr>
+<tr><td>Pintura Primária</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
+<tr><td>Pintura Secundária</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
+<tr><td>Pintura Cromado</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
+<tr><td>Pintura Perolado</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
+<tr><td>Pintura Decal</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
+<tr><td>Xenon</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000,00</td></tr>
+<tr><td>Neon</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000,00</td></tr>
+</table>
+</div>
+</div>
+
+<!-- CONSERTO -->
+<div class="service-column">
+<div class="subtitulo">Serviço Conserto</div>
+
+<img src="https://i.imgur.com/7l15PNN.jpg"
+     alt="Serviço de Conserto"
+     class="conserto-img"
+     loading="lazy">
+
+<div class="table-responsive-mobile">
+<table>
+<tr><th>Tipo</th><th class="text-end">Com Parceria</th><th class="text-end">Sem Parceria</th></tr>
+<tr><td>Oficina</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 5.000,00</td></tr>
+<tr><td>Cidade</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 10.000,00</td></tr>
+<tr><td>Paleto</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 20.000,00</td></tr>
+</table>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -303,14 +304,11 @@ th {
 © <span id="year"></span> João Britto - Todos os direitos reservados
 </footer>
 
+<!-- 🔐 PROTEÇÃO -->
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
-
-/* BLOQUEIOS */
-document.addEventListener("contextmenu", e=>e.preventDefault());
-document.addEventListener("selectstart", e=>e.preventDefault());
-document.addEventListener("dragstart", e=>e.preventDefault());
-
+document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("selectstart", e => e.preventDefault());
+document.addEventListener("dragstart", e => e.preventDefault());
 document.addEventListener("keydown", function(e) {
     if (
         e.key === "F12" ||
@@ -322,32 +320,20 @@ document.addEventListener("keydown", function(e) {
     }
 });
 
-/* DROPDOWN DESKTOP */
+// Dropdown submenu Calculadora
 const dropdown = document.querySelector('.dropdown');
 const menu = dropdown.querySelector('.dropdown-menu');
 
-dropdown.addEventListener('mouseenter', () => menu.style.display = 'block');
-dropdown.addEventListener('mouseleave', () => menu.style.display = 'none');
-
-/* HAMBURGER */
-const toggler = document.querySelector('.navbar-toggler');
-const mobileMenu = document.querySelector('.mobile-menu');
-
-toggler.addEventListener('click', () => {
-    mobileMenu.style.display =
-        mobileMenu.style.display === 'block' ? 'none' : 'block';
-});
-
-/* DROPDOWN MOBILE */
-const mobileDropdownToggle = document.querySelector('.dropdown-toggle-mobile');
-const mobileDropdownMenu = document.querySelector('.dropdown-menu-mobile');
-
-mobileDropdownToggle.addEventListener('click', e => {
+dropdown.addEventListener('mouseenter', () => { menu.style.display = 'block'; });
+dropdown.addEventListener('mouseleave', () => { menu.style.display = 'none'; });
+dropdown.querySelector('.dropdown-toggle').addEventListener('click', e => {
     e.preventDefault();
-    mobileDropdownMenu.style.display =
-        mobileDropdownMenu.style.display === 'block' ? 'none' : 'block';
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
 });
+
+document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
 </body>
 </html>
+
