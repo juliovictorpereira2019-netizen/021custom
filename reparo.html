@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>021 CUSTOMS - RELATÓRIO DO REPARO - MECÂNICA</title>
+
+<link rel="icon" type="image/x-icon" href="https://i.imgur.com/SP9nsky.png">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{user-select:none}
+body{font-family:Inter,system-ui;background:#f7f7f7;color:#222}
+.topbar{background:#2b2f33;color:#fff;padding:12px 0}
+.logo{font-weight:700;letter-spacing:.6px}
+.nav-links a{
+color:#fff;text-decoration:none;
+margin-left:18px;font-weight:600
+}
+.nav-links a:hover{color:#cfcfcf}
+.discord-btn{
+display:inline-flex;align-items:center;gap:8px;
+padding:8px 16px;border-radius:12px;
+background:linear-gradient(135deg,#7289da,#99a9f0);
+color:#fff;font-weight:700;text-decoration:none
+}
+.calc-container{
+background:#fff;
+padding:20px 25px;
+border-radius:12px;
+box-shadow:0 4px 12px rgba(0,0,0,.1);
+max-width:520px;
+margin:40px auto
+}
+label{font-weight:600;margin-top:10px;display:block}
+input,textarea{
+width:100%;padding:8px;margin-top:5px;
+border-radius:6px;border:1px solid #ccc
+}
+.checkbox-group{
+display:flex;flex-wrap:wrap;gap:10px;margin-top:5px
+}
+.checkbox-group label{
+background:#f1f3f5;padding:6px 10px;border-radius:6px
+}
+button{
+width:100%;padding:10px;margin-top:12px;
+border:none;border-radius:8px;font-weight:700
+}
+.calc-btn{background:#4caf50;color:#fff}
+.discord-send{background:#5865F2;color:#fff}
+.clear-btn{background:#f44336;color:#fff}
+#relatorio{
+height:260px;margin-top:10px;
+font-family:monospace;background:#f8f9fa
+}
+</style>
+</head>
+
+<body>
+
+<!-- MENU / TOPBAR -->
+<header class="topbar">
+<div class="container d-flex justify-content-between align-items-center">
+<div class="d-flex align-items-center gap-3">
+<img src="https://i.imgur.com/SP9nsky.png" style="height:70px;border-radius:8px">
+<div class="logo">021 CUSTOMS</div>
+</div>
+
+<nav class="d-none d-md-flex align-items-center nav-links">
+<a href="index.html">Início</a>
+<a href="tabela.html">Preços</a>
+<a href="shop.html">Loja</a>
+<a href="relatorio.html">Relatório</a>
+<a href="#">Termos de Uso</a>
+<a href="funcionarios.html">Funcionários</a>
+<a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+<i class="fa-brands fa-discord"></i> Discord
+</a>
+</nav>
+</div>
+</header>
+
+<!-- RELATÓRIO -->
+<div class="calc-container">
+<h4 class="text-center">RELATÓRIO DO REPARO</h4>
+
+<label>Nome do Mecânico</label>
+<input id="nome">
+
+<label>ID Mecânico</label>
+<input id="idMec">
+
+<label>ID do Cliente</label>
+<input id="idCliente">
+
+<label>Itens</label>
+<div class="checkbox-group">
+<label><input type="checkbox" value="Mecânica"> Mecânica</label>
+<label><input type="checkbox" value="Cidade"> Cidade</label>
+<label><input type="checkbox" value="Paleto/Norte"> Paleto / Norte</label>
+</div>
+
+<label>Imagem do Serviço</label>
+<input type="file" id="imagem" accept="image/*">
+
+<button class="calc-btn" onclick="gerarRelatorio()">Gerar Relatório</button>
+<button class="discord-send" onclick="enviarDiscord()">Enviar no Discord</button>
+<button class="clear-btn" onclick="limpar()">Limpar</button>
+
+<textarea id="relatorio" readonly></textarea>
+</div>
+
+<footer class="text-center py-4 text-muted">
+© <span id="year"></span> 021 CUSTOMS
+</footer>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1450672311534616741/dMFr-CZtn3araEagqC-VTSDux-rOt0ExJEpgCefidkh0axMDhC5aah2EcGe-7LjHIeDz";
+
+const valores = {
+  "Mecânica": 5000,
+  "Cidade": 10000,
+  "Paleto/Norte": 20000
+};
+
+function gerarRelatorio(){
+  const nome = document.getElementById("nome").value.trim();
+  const id = document.getElementById("idMec").value.trim();
+  const cliente = document.getElementById("idCliente").value.trim();
+  const relatorio = document.getElementById("relatorio");
+
+  const itens = [...document.querySelectorAll("input[type=checkbox]:checked")];
+
+  if(!nome || !id || !cliente || itens.length === 0){
+    alert("Preencha todos os campos e selecione ao menos um item");
+    return;
+  }
+
+  let total = 0;
+  let texto = "🛠️ **RELATÓRIO 021 CUSTOMS** 🛠️\n\n";
+
+  itens.forEach(i => {
+    total += valores[i.value];
+    texto += `📌 ${i.value}\n`;
+  });
+
+  texto += `
+👨‍🔧 Mecânico: ${nome} (ID ${id})
+🛒 Cliente: ${cliente}
+💰 Total: ${total}
+  `;
+
+  relatorio.value = texto;
+}
+
+async function enviarDiscord(){
+  const imagem = document.getElementById("imagem").files[0];
+  const texto = document.getElementById("relatorio").value;
+
+  if(!texto){
+    alert("Gere o relatório antes de enviar");
+    return;
+  }
+
+  if(!imagem){
+    alert("Envio bloqueado: selecione uma imagem do serviço");
+    return;
+  }
+
+  const fd = new FormData();
+  fd.append("content", texto);
+  fd.append("file", imagem);
+
+  try{
+    await fetch(WEBHOOK_URL, { method: "POST", body: fd });
+    alert("Relatório enviado com sucesso!");
+  }catch{
+    alert("Erro ao enviar para o Discord");
+  }
+}
+
+function limpar(){
+  document.querySelectorAll("input").forEach(i => i.value = "");
+  document.querySelectorAll("input[type=checkbox]").forEach(i => i.checked = false);
+  document.getElementById("relatorio").value = "";
+}
+</script>
+
+</body>
+</html>
