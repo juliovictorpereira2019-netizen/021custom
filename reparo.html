@@ -11,7 +11,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{user-select:none}
+*{
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
 body{font-family:Inter,system-ui;background:#f7f7f7;color:#222}
 .topbar{background:#2b2f33;color:#fff;padding:12px 0}
 .logo{font-weight:700;letter-spacing:.6px}
@@ -54,14 +59,17 @@ border:none;border-radius:8px;font-weight:700
 .clear-btn{background:#f44336;color:#fff}
 #relatorio{
 height:260px;margin-top:10px;
-font-family:monospace;background:#f8f9fa
+font-family:monospace;background:#f8f9fa;
+user-select:none;
+-webkit-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MENU / TOPBAR -->
 <header class="topbar">
 <div class="container d-flex justify-content-between align-items-center">
 <div class="d-flex align-items-center gap-3">
@@ -83,7 +91,6 @@ font-family:monospace;background:#f8f9fa
 </div>
 </header>
 
-<!-- RELATÓRIO -->
 <div class="calc-container">
 <h4 class="text-center">RELATÓRIO DO REPARO</h4>
 
@@ -101,6 +108,7 @@ font-family:monospace;background:#f8f9fa
 <label><input type="checkbox" value="Mecânica"> Mecânica</label>
 <label><input type="checkbox" value="Cidade"> Cidade</label>
 <label><input type="checkbox" value="Paleto/Norte"> Paleto / Norte</label>
+<label><input type="checkbox" id="parceria"> Parceria (Reparo Grátis)</label>
 </div>
 
 <label>Imagem do Serviço</label>
@@ -128,6 +136,16 @@ const valores = {
   "Paleto/Norte": 20000
 };
 
+// Anti-colar e bloqueios
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && ['c','v','x','a'].includes(e.key.toLowerCase())) {
+        e.preventDefault();
+        alert("Ação proibida!");
+    }
+});
+document.addEventListener('dragstart', e => e.preventDefault());
+
 function gerarRelatorio(){
   const nome = document.getElementById("nome").value.trim();
   const id = document.getElementById("idMec").value.trim();
@@ -135,25 +153,27 @@ function gerarRelatorio(){
   const relatorio = document.getElementById("relatorio");
 
   const itens = [...document.querySelectorAll("input[type=checkbox]:checked")];
+  const isParceria = document.getElementById("parceria").checked;
 
-  if(!nome || !id || !cliente || itens.length === 0){
+  if(!nome || !id || !cliente || (itens.length === 0 && !isParceria)){
     alert("Preencha todos os campos e selecione ao menos um item");
     return;
   }
 
   let total = 0;
-  let texto = "🛠️ **RELATÓRIO 021 CUSTOMS** 🛠️\n\n";
+  let texto = "🛠️ RELATÓRIO 021 CUSTOMS 🛠️\n\n";
 
   itens.forEach(i => {
-    total += valores[i.value];
+    if(i.id !== "parceria") total += valores[i.value];
     texto += `📌 ${i.value}\n`;
   });
 
-  texto += `
-👨‍🔧 Mecânico: ${nome} (ID ${id})
-🛒 Cliente: ${cliente}
-💰 Total: ${total}
-  `;
+  if(isParceria){
+    texto += "🤝 Parceria: Reparo Grátis\n";
+    total = 0; // Total zerado para parceria
+  }
+
+  texto += `👨‍🔧 Mecânico: ${nome} (ID ${id})\n🛒 Cliente: ${cliente}\n💰 Total: ${total}`;
 
   relatorio.value = texto;
 }
@@ -161,6 +181,7 @@ function gerarRelatorio(){
 async function enviarDiscord(){
   const imagem = document.getElementById("imagem").files[0];
   const texto = document.getElementById("relatorio").value;
+  const isParceria = document.getElementById("parceria").checked;
 
   if(!texto){
     alert("Gere o relatório antes de enviar");
@@ -172,8 +193,13 @@ async function enviarDiscord(){
     return;
   }
 
+  let mensagem = texto;
+  if(isParceria){
+    mensagem += "\n⚠️ Este relatório é referente a uma PARCERIA. O serviço foi realizado gratuitamente.";
+  }
+
   const fd = new FormData();
-  fd.append("content", texto);
+  fd.append("content", mensagem);
   fd.append("file", imagem);
 
   try{
