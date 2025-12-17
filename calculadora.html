@@ -98,7 +98,6 @@ button:hover {transform: scale(1.03);}
           <div class="form-check"><input class="form-check-input item" data-nome="Painel" data-valor="40000" type="checkbox"><label> Painel</label></div>
           <div class="form-check"><input class="form-check-input item" data-nome="Buzina" data-valor="40000" type="checkbox"><label> Buzina</label></div>
           <div class="form-check"><input class="form-check-input item" data-nome="Grelha" data-valor="40000" type="checkbox"><label> Grelha</label></div>
-
         </div>
       </div>
     </div>
@@ -118,11 +117,10 @@ button:hover {transform: scale(1.03);}
           <div class="form-check"><input class="form-check-input item" data-nome="Neon" data-valor="30000" type="checkbox"><label> Neon</label></div>
           <div class="form-check"><input class="form-check-input item" data-nome="Fumaça" data-valor="40000" type="checkbox"><label> Fumaça</label></div>
           <div class="form-check"><input class="form-check-input item" data-nome="Vidro" data-valor="80000" type="checkbox"><label> Vidro</label></div>
-           <div class="form-check"><input class="form-check-input item" data-nome="Vidro" data-valor="40000" type="checkbox"><label> Insufilm</label></div>
-           <div class="form-check"><input class="form-check-input item" data-nome="Rodas nacionais" data-valor="40000" type="checkbox"><label> Rodas nacionais</label></div>
-           <div class="form-check"><input class="form-check-input item" data-nome="Rodas importadas" data-valor="40000" type="checkbox"><label> Rodas importadas</label></div>
-            <div class="form-check"><input class="form-check-input item" data-nome="Cor das rodas" data-valor="40000" type="checkbox"><label> Cor das rodas</label></div>
-          
+          <div class="form-check"><input class="form-check-input item" data-nome="Insufilm" data-valor="40000" type="checkbox"><label> Insufilm</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Rodas nacionais" data-valor="40000" type="checkbox"><label> Rodas nacionais</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Rodas importadas" data-valor="40000" type="checkbox"><label> Rodas importadas</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Cor das rodas" data-valor="40000" type="checkbox"><label> Cor das rodas</label></div>
         </div>
       </div>
     </div>
@@ -135,6 +133,11 @@ button:hover {transform: scale(1.03);}
 
         <label>ID do Cliente</label>
         <input id="id" class="form-control mb-3">
+
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="parceria">
+          <label class="form-check-label" for="parceria">Parceria (10% de desconto)</label>
+        </div>
 
         <label>Total</label>
         <input id="total" class="form-control mb-3" readonly>
@@ -166,6 +169,12 @@ function calcular(){
   document.querySelectorAll(".item:checked").forEach(i=>{
     total += Number(i.dataset.valor);
   });
+
+  const parceria = document.getElementById("parceria").checked;
+  if(parceria){
+    total = total * 0.90; // aplica 10% de desconto
+  }
+
   totalInput.value = total ? `R$ ${total.toLocaleString("pt-BR")}` : "";
 }
 
@@ -173,19 +182,27 @@ function calcular(){
 function gerar(){
   if(!id.value) return alert("ID obrigatório");
 
+  let total = 0;
   let txt = `🛠️ RELATÓRIO 021 CUSTOMS
 👨‍🔧 Mecânico: ${nome.value || "Não informado"}
 🆔 Cliente: ${id.value}\n\n`;
 
-  let total = 0;
   document.querySelectorAll(".item:checked").forEach(i=>{
     let v = Number(i.dataset.valor);
     total += v;
     txt += `📌 ${i.dataset.nome} - R$ ${v.toLocaleString("pt-BR")}\n`;
   });
 
+  const parceria = document.getElementById("parceria").checked;
+  if(parceria){
+    const desconto = total * 0.10;
+    total = total - desconto;
+    txt += `\n🤝 Parceria: 10% de desconto aplicado (-R$ ${desconto.toLocaleString("pt-BR")})`;
+  }
+
   txt += `\n💰 TOTAL: R$ ${total.toLocaleString("pt-BR")}`;
   texto.value = txt;
+  totalInput.value = `R$ ${total.toLocaleString("pt-BR")}`;
 }
 
 // ===================== ENVIAR PARA DISCORD =====================
@@ -203,6 +220,7 @@ async function enviarDiscord(){
 function limpar(){
   document.querySelectorAll("input").forEach(i=>i.value="");
   document.querySelectorAll(".item").forEach(i=>i.checked=false);
+  document.getElementById("parceria").checked = false;
   texto.value="";
 }
 
@@ -243,5 +261,3 @@ document.addEventListener('keydown', e => {
 
 </body>
 </html>
-
-
