@@ -134,10 +134,9 @@ button:hover {transform: scale(1.03);}
         <label>ID do Cliente</label>
         <input id="id" class="form-control mb-3">
 
-        <!-- CHECKBOX PARCERIA -->
         <div class="form-check mb-3">
           <input class="form-check-input" type="checkbox" id="parceria">
-          <label class="form-check-label" for="parceria">Parceria Polícia Militar (10% de desconto + reparo grátis nas viaturas)</label>
+          <label class="form-check-label" for="parceria">Parceria (10% de desconto)</label>
         </div>
 
         <label>Total</label>
@@ -150,6 +149,21 @@ button:hover {transform: scale(1.03);}
         </div>
 
         <textarea id="texto" class="form-control mt-auto" readonly></textarea>
+      </div>
+    </div>
+
+    <!-- ================= PARCERIAS ================= -->
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">PARCERIAS</div>
+        <div class="card-body">
+          <p>Temos parcerias especiais com a <strong>Polícia Militar</strong>, oferecendo os seguintes benefícios:</p>
+          <ul>
+            <li>🤝 <strong>10% de desconto</strong> em todos os serviços</li>
+            <li>🛠️ <strong>Reparo gratuito</strong> nas viaturas da PM</li>
+          </ul>
+          <p>Para aproveitar os benefícios, marque a opção <strong>Parceria</strong> no relatório.</p>
+        </div>
       </div>
     </div>
 
@@ -198,9 +212,7 @@ function gerar(){
   if(parceria){
     const desconto = total * 0.10;
     total = total - desconto;
-    txt += `\n🤝 Parceria Polícia Militar aplicada!`;
-    txt += `\n- 10% de desconto (-R$ ${desconto.toLocaleString("pt-BR")})`;
-    txt += `\n- Reparo grátis nas viaturas`;
+    txt += `\n🤝 Parceria: 10% de desconto aplicado (-R$ ${desconto.toLocaleString("pt-BR")})`;
   }
 
   txt += `\n💰 TOTAL: R$ ${total.toLocaleString("pt-BR")}`;
