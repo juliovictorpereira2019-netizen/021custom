@@ -11,7 +11,14 @@
 
 <style>
 :root{--bg:#f7f9fb;--top:#2b2f33;}
-body{font-family:Inter,sans-serif;background:var(--bg);user-select:none}
+body{
+  font-family:Inter,sans-serif;
+  background:var(--bg);
+  user-select:none; /* anti-seleção */
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+}
 .topbar{background:var(--top);color:#fff;padding:12px 0}
 .logo{font-weight:700}
 .nav-links a{color:#fff;margin-left:18px;text-decoration:none;font-weight:600}
@@ -167,13 +174,26 @@ th{background:#f1f1f1}
 </footer>
 
 <script>
+// Dropdowns
 document.querySelectorAll('.dropdown').forEach(d=>{
-const m=d.querySelector('.dropdown-menu'),t=d.querySelector('.dropdown-toggle');
-d.addEventListener('mouseenter',()=>m.style.display='block');
-d.addEventListener('mouseleave',()=>m.style.display='none');
-t.addEventListener('click',e=>{e.preventDefault();m.style.display=m.style.display==='block'?'none':'block';});
+  const m=d.querySelector('.dropdown-menu'),t=d.querySelector('.dropdown-toggle');
+  d.addEventListener('mouseenter',()=>m.style.display='block');
+  d.addEventListener('mouseleave',()=>m.style.display='none');
+  t.addEventListener('click',e=>{e.preventDefault();m.style.display=m.style.display==='block'?'none':'block';});
 });
+
+// Ano atual
 document.getElementById("year").textContent=new Date().getFullYear();
+
+// Anti-colar e proteção
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && ['c','v','x','a'].includes(e.key.toLowerCase())) {
+        e.preventDefault();
+        alert("Ação proibida!");
+    }
+});
+document.addEventListener('dragstart', e => e.preventDefault());
 </script>
 
 </body>
