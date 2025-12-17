@@ -3,172 +3,42 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tabela de Preços - Painel</title>
+<title>021 CUSTOMS - Tabela de Serviços</title>
 
-<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
-
-<!-- Fonte -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-    --bg:#f7f9fb;
-    --top:#2b2f33;
-}
+:root{--bg:#f7f9fb;--top:#2b2f33;}
+body{font-family:Inter,sans-serif;background:var(--bg);user-select:none}
+.topbar{background:var(--top);color:#fff;padding:12px 0}
+.logo{font-weight:700}
+.nav-links a{color:#fff;margin-left:18px;text-decoration:none;font-weight:600}
+.nav-links a:hover{color:#cfcfcf}
+.discord-btn{background:linear-gradient(135deg,#7289da,#99a9f0);padding:8px 16px;border-radius:12px;color:#fff;text-decoration:none;font-weight:700}
+.dropdown{position:relative;margin-left:18px;font-weight:600;cursor:pointer}
+.dropdown-toggle::after{content:" ▼";font-size:.7em}
+.dropdown-menu{display:none;position:absolute;background:#2b2f33;min-width:230px;border-radius:6px;z-index:1000}
+.dropdown-menu a{color:#fff;padding:10px 15px;display:block;text-decoration:none}
+.dropdown-menu a:hover{background:#3a3f45}
 
-/* 🔒 BLOQUEIO DE SELEÇÃO */
-body {
-    font-family:Inter, system-ui, sans-serif;
-    background:var(--bg);
-    color:#222;
-    user-select:none;
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
-}
+.container-max{max-width:1200px}
+.card-gradient{background:#fff;border-radius:16px;margin-top:20px}
+.card-header-gradient{padding:26px;color:#fff;text-align:center;border-radius:16px 16px 0 0}
 
-/* HEADER */
-.topbar {
-    background:var(--top);
-    color:#fff;
-    padding:12px 0;
-}
-.logo {
-    font-weight:700;
-    letter-spacing:.6px;
-}
-.nav-links a {
-    color:#fff;
-    margin-left:18px;
-    text-decoration:none;
-    font-weight:600;
-}
-.nav-links a:hover { color:#cfcfcf; }
-.discord-btn {
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 16px;
-    border-radius:12px;
-    background:linear-gradient(135deg,#7289da,#99a9f0);
-    color:#fff;
-    text-decoration:none;
-    font-weight:700;
-}
+.service-columns{display:flex;flex-wrap:wrap;gap:20px;padding:20px}
+.service-column{flex:1;min-width:320px}
+.subtitulo{background:#e0e0e0;padding:8px;font-weight:700;text-align:center;border-radius:6px}
 
-/* DROPDOWN */
-.dropdown {
-    position: relative;
-    display: inline-block;
-    margin-left: 18px;
-    font-weight:600;
-    cursor:pointer;
-}
-.dropdown-toggle::after {
-    content: " ▼";
-    font-size: 0.7em;
-}
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background-color: #2b2f33;
-    min-width: 150px;
-    border-radius: 6px;
-    z-index: 1000;
-}
-.dropdown-menu a {
-    color: #fff;
-    padding: 10px 15px;
-    text-decoration: none;
-    display: block;
-}
-.dropdown-menu a:hover {
-    background-color: #3a3f45;
-}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #ddd;padding:10px}
+th{background:#f1f1f1}
+.price-sem{color:#d13b3b;font-weight:700}
 
-/* LAYOUT */
-.container-max { max-width:1100px; }
-.card-gradient {
-    background:#fff;
-    border-radius:16px;
-    margin-top:18px;
-}
-.card-header-gradient {
-    padding:26px;
-    text-align:center;
-    color:#fff;
-}
+.conserto-img{width:100%;max-width:420px;border-radius:14px;margin:10px auto;display:block}
 
-/* COLUNAS */
-.service-columns {
-    display:flex;
-    flex-wrap:wrap;
-    gap:20px;
-}
-.service-column {
-    flex:1;
-    min-width:300px;
-}
-
-/* TÍTULOS */
-.subtitulo {
-    background:#e0e0e0;
-    padding:8px;
-    text-align:center;
-    font-weight:700;
-    border-radius:6px;
-}
-
-/* TABELA */
-table {
-    border-collapse:collapse;
-    width:100%;
-    margin-top:10px;
-}
-th, td {
-    border:1px solid #ddd;
-    padding:12px;
-}
-th {
-    background:#f1f1f1;
-    font-weight:600;
-}
-.price-parceria {
-    color:#1f8a3d;
-    font-weight:700;
-    background:rgba(31,138,61,.1);
-    border-radius:6px;
-}
-.price-sem {
-    color:#d13b3b;
-    font-weight:700;
-    background:rgba(209,59,59,.1);
-    border-radius:6px;
-}
-
-/* MOBILE */
-.table-responsive-mobile {
-    width:100%;
-    overflow-x:auto;
-}
-@media (max-width:768px) {
-    table { min-width:520px; }
-}
-
-/* IMAGEM CONSERTO */
-.conserto-img {
-    display:block;
-    margin:16px auto;
-    width:100%;
-    max-width:420px;
-    height:auto;
-    object-fit:contain;
-    border-radius:14px;
-}
+@media(max-width:768px){table{min-width:520px}}
 </style>
 </head>
 
@@ -176,123 +46,115 @@ th {
 
 <header class="topbar">
 <div class="container container-max d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center gap-3">
-        <img src="https://i.imgur.com/SP9nsky.png" style="height:90px;border-radius:8px;">
-        <div class="logo">021 CUSTOMS</div>
-    </div>
-    <nav class="d-none d-md-flex nav-links align-items-center">
-        <a href="#">Início</a>
+<div class="d-flex align-items-center gap-3">
+<img src="https://i.imgur.com/SP9nsky.png" style="height:80px;border-radius:8px">
+<div class="logo">021 CUSTOMS</div>
+</div>
 
-        <!-- Preços com submenu Calculadora -->
-        <div class="dropdown">
-            <span class="dropdown-toggle">Preços</span>
-            <div class="dropdown-menu">
-                <a href="calculadora.html">Calculadora</a>
-            </div>
-        </div>
+<nav class="d-none d-md-flex nav-links align-items-center">
+<a href="#">Início</a>
 
-        <a href="shop.html">Loja</a>
-        <a href="relatorio.html">Relatório</a>
-        <a href="funcionarios.html">Funcionários</a>
-        <a href="https://discord.com/invite/wunSmxVt" class="discord-btn">
-            <i class="fa-brands fa-discord"></i> Discord
-        </a>
-    </nav>
+<div class="dropdown">
+<span class="dropdown-toggle">Preços</span>
+<div class="dropdown-menu">
+<a href="calculadora.html"><i class="fa-solid fa-calculator me-2"></i>Calculadora</a>
+</div>
+</div>
+
+<a href="shop.html">Loja</a>
+
+<div class="dropdown">
+<span class="dropdown-toggle">Relatórios</span>
+<div class="dropdown-menu">
+<a href="relatorio.html"><i class="fa-solid fa-car me-2"></i>Relatório de Veículos</a>
+<a href="reparo.html"><i class="fa-solid fa-screwdriver-wrench me-2"></i>Relatório de Reparo</a>
+</div>
+</div>
+
+<a href="funcionarios.html">Funcionários</a>
+
+<a href="https://discord.com/invite/wunSmxVt" class="discord-btn">
+<i class="fa-brands fa-discord"></i> Discord
+</a>
+</nav>
 </div>
 </header>
 
 <main class="container container-max">
 
 <section class="text-center py-4">
-    <h1 class="h2">Tabela de Preços</h1>
-    <p class="text-muted">Confira nossos serviços disponíveis</p>
+<h1 class="h2">Tabela Completa de Serviços</h1>
+<p class="text-muted">Todos os serviços disponíveis</p>
 </section>
 
 <div class="card-gradient">
-<div class="card-header-gradient" style="background:linear-gradient(135deg,#f779a1,#ff9a9e);">
-    <h3>Serviços Mecânicos</h3>
+<div class="card-header-gradient" style="background:linear-gradient(135deg,#f779a1,#ff9a9e)">
+<h3>Serviços Mecânicos</h3>
 </div>
 
-<div class="p-3 service-columns">
+<div class="service-columns">
 
 <!-- OFICINA -->
 <div class="service-column">
-<div class="subtitulo">Serviços de Oficina</div>
-<div class="table-responsive-mobile">
+<div class="subtitulo">Oficina</div>
 <table>
-<tr><th>Serviço</th><th class="text-end">Com Parceria</th><th class="text-end">Sem Parceria</th></tr>
-<tr><td>Motor</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 150.000</td></tr>
-<tr><td>Bloco de Motor</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Som do Motor</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Freio</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 150.000</td></tr>
-<tr><td>Transmissão</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 280.000</td></tr>
-<tr><td>Turbo</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 250.000</td></tr>
-<tr><td>Hidráulica</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 95.000</td></tr>
-<tr><td>Blindagem</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 400.000</td></tr>
-<tr><td>Doors </td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Saia  </td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Parachoque Dianteiro</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Capô</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Escapamento</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Arch Cover</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Gaiola de Proteção</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Parachoque Traseiro</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Buzina</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Painel</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Para Lama</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Bancos</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Grelha</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000</td></tr>
-<tr><td>Vidro</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 80.000</td></tr>
+<tr><th>Serviço</th><th>Valor</th></tr>
+<tr><td>Motor</td><td class="price-sem">R$ 150.000</td></tr>
+<tr><td>Bloco de Motor</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Som do Motor</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Freio</td><td class="price-sem">R$ 150.000</td></tr>
+<tr><td>Transmissão</td><td class="price-sem">R$ 280.000</td></tr>
+<tr><td>Turbo</td><td class="price-sem">R$ 250.000</td></tr>
+<tr><td>Hidráulica</td><td class="price-sem">R$ 95.000</td></tr>
+<tr><td>Blindagem</td><td class="price-sem">R$ 400.000</td></tr>
+<tr><td>Portas</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Saia</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Para-choque Dianteiro</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Capô</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Escapamento</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Gaiola de Proteção</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Para-choque Traseiro</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Buzina</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Painel</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Bancos</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Vidro</td><td class="price-sem">R$ 80.000</td></tr>
 </table>
-</div>
 </div>
 
 <!-- PNEUS -->
 <div class="service-column">
-<div class="subtitulo">Serviços de Pneus</div>
-<div class="table-responsive-mobile">
+<div class="subtitulo">Pneus</div>
 <table>
-<tr><th>Serviço</th><th class="text-end">Com Parceria</th><th class="text-end">Sem Parceria</th></tr>
-<tr><td>Rodas Nacionais</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000,00</td></tr>
-<tr><td>Rodas Importadas</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000,00</td></tr>
-<tr><td>Cor das Rodas</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
-<tr><td>Fumaça</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
+<tr><th>Serviço</th><th>Valor</th></tr>
+<tr><td>Rodas Nacionais</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Rodas Importadas</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Cor das Rodas</td><td class="price-sem">R$ 30.000</td></tr>
+<tr><td>Fumaça</td><td class="price-sem">R$ 30.000</td></tr>
 </table>
-</div>
 
-<!-- 🔽 NOVA ABA ADICIONADA -->
-<div class="subtitulo mt-3">Serviços de Pintura e Luz</div>
-<div class="table-responsive-mobile">
+<div class="subtitulo mt-3">Pintura e Luz</div>
 <table>
-<tr><th>Serviço</th><th class="text-end">Valor</th></tr>
-<tr><td>Pintura Primária</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
-<tr><td>Pintura Secundária</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
-<tr><td>Pintura Cromado</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
-<tr><td>Pintura Perolado</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
-<tr><td>Pintura Decal</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 30.000,00</td></tr>
-<tr><td>Xenon</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000,00</td></tr>
-<tr><td>Neon</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 40.000,00</td></tr>
+<tr><th>Serviço</th><th>Valor</th></tr>
+<tr><td>Pintura Primária</td><td class="price-sem">R$ 30.000</td></tr>
+<tr><td>Pintura Secundária</td><td class="price-sem">R$ 30.000</td></tr>
+<tr><td>Pintura Cromada</td><td class="price-sem">R$ 30.000</td></tr>
+<tr><td>Pintura Perolado</td><td class="price-sem">R$ 30.000</td></tr>
+<tr><td>Pintura Decal</td><td class="price-sem">R$ 30.000</td></tr>
+<tr><td>Xenon</td><td class="price-sem">R$ 40.000</td></tr>
+<tr><td>Neon</td><td class="price-sem">R$ 40.000</td></tr>
 </table>
-</div>
 </div>
 
 <!-- CONSERTO -->
 <div class="service-column">
-<div class="subtitulo">Serviço Conserto</div>
-
-<img src="https://i.imgur.com/7l15PNN.jpg"
-     alt="Serviço de Conserto"
-     class="conserto-img"
-     loading="lazy">
-
-<div class="table-responsive-mobile">
+<div class="subtitulo">Conserto</div>
+<img src="https://i.imgur.com/7l15PNN.jpg" class="conserto-img">
 <table>
-<tr><th>Tipo</th><th class="text-end">Com Parceria</th><th class="text-end">Sem Parceria</th></tr>
-<tr><td>Oficina</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 5.000,00</td></tr>
-<tr><td>Cidade</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 10.000,00</td></tr>
-<tr><td>Paleto</td><td class="text-end price-parceria">indefinido</td><td class="text-end price-sem">R$ 20.000,00</td></tr>
+<tr><th>Local</th><th>Valor</th></tr>
+<tr><td>Oficina</td><td class="price-sem">R$ 5.000</td></tr>
+<tr><td>Cidade</td><td class="price-sem">R$ 10.000</td></tr>
+<tr><td>Paleto</td><td class="price-sem">R$ 20.000</td></tr>
 </table>
-</div>
 </div>
 
 </div>
@@ -301,39 +163,18 @@ th {
 </main>
 
 <footer class="text-center text-muted mt-4 mb-3">
-© <span id="year"></span> João Britto - Todos os direitos reservados
+© <span id="year"></span> 021 Customs
 </footer>
 
-<!-- 🔐 PROTEÇÃO -->
 <script>
-document.addEventListener("contextmenu", e => e.preventDefault());
-document.addEventListener("selectstart", e => e.preventDefault());
-document.addEventListener("dragstart", e => e.preventDefault());
-document.addEventListener("keydown", function(e) {
-    if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey && ["i","j","c"].includes(e.key.toLowerCase())) ||
-        (e.ctrlKey && ["u","c","s","a","x","v"].includes(e.key.toLowerCase()))
-    ) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
+document.querySelectorAll('.dropdown').forEach(d=>{
+const m=d.querySelector('.dropdown-menu'),t=d.querySelector('.dropdown-toggle');
+d.addEventListener('mouseenter',()=>m.style.display='block');
+d.addEventListener('mouseleave',()=>m.style.display='none');
+t.addEventListener('click',e=>{e.preventDefault();m.style.display=m.style.display==='block'?'none':'block';});
 });
-
-// Dropdown submenu Calculadora
-const dropdown = document.querySelector('.dropdown');
-const menu = dropdown.querySelector('.dropdown-menu');
-
-dropdown.addEventListener('mouseenter', () => { menu.style.display = 'block'; });
-dropdown.addEventListener('mouseleave', () => { menu.style.display = 'none'; });
-dropdown.querySelector('.dropdown-toggle').addEventListener('click', e => {
-    e.preventDefault();
-    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-});
-
-document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year").textContent=new Date().getFullYear();
 </script>
 
 </body>
 </html>
-
