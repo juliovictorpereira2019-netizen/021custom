@@ -3,205 +3,236 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>021 CUSTOMS - Calculadora</title>
-<link rel="icon" type="image/x-icon" href="https://i.imgur.com/SP9nsky.png">
+<title>021 CUSTOMS - Relatório</title>
+<link rel="icon" href="https://i.imgur.com/SP9nsky.png">
 
-<!-- Bootstrap 5 -->
+<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-* { 
-  user-select: none !important; /* Bloqueia seleção de texto */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+body {
+  background:#f7f7f7;
+  font-family:Inter,system-ui;
+  user-select:none;
+  padding-top: 80px;
 }
-body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: #222; }
-.topbar { background: #2b2f33; color: #fff; padding: 12px 0; }
-.logo { font-weight:700; letter-spacing:0.6px; color:#fff; }
-.nav-links a { color:#fff; text-decoration:none; margin-left:18px; font-weight:600; }
-.nav-links a:hover { color:#cfcfcf; }
-.discord-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:8px 16px; border-radius:12px; background:linear-gradient(135deg,#7289da,#99a9f0); color:#fff; font-weight:700; text-decoration:none; transition:0.25s; font-size:0.9rem; }
-.discord-btn:hover { background:linear-gradient(135deg,#5b6ea1,#7f88d0); transform:translateY(-2px); }
+input,textarea,button,label {
+  user-select:auto !important;
+}
+.topbar {background:#2b2f33;color:#fff;padding:12px 0; position: fixed; top:0; width:100%; z-index:1000;}
+.logo {font-weight:700; font-size:1.4rem;}
+.nav-links a {color:#fff; text-decoration:none; margin-left:18px; font-weight:600;}
+.nav-links a:hover {color:#cfcfcf;}
+.discord-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:8px 16px; border-radius:12px; background:linear-gradient(135deg,#7289da,#99a9f0); color:#fff; font-weight:700; text-decoration:none; }
 
-.card { margin: 10px; }
-.card-header h3 { color:#222; font-weight:600; }
-.list-group-item { display:flex; align-items:center; justify-content:space-between; }
-.form-check-label { cursor:pointer; }
-
-.calc-container { background-color: #fff; padding: 20px 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; }
-.calc-container h1 { text-align: center; color: #333; margin-bottom: 20px; font-size: 24px; }
-button.calc-btn { margin-top: 10px; width: 100%; padding: 10px; font-size: 15px; border: none; border-radius: 8px; background-color: #4caf50; color: white; cursor: pointer; transition: 0.2s; }
-button.calc-btn:hover { background-color: #45a049; }
-button.clear-btn { margin-top: 10px; width: 100%; padding: 10px; font-size: 15px; border: none; border-radius: 8px; background-color: #f44336; color: white; cursor: pointer; transition: 0.2s; }
-button.clear-btn:hover { background-color: #d73833; }
-#relatorio { margin-top: 15px; width: 100%; height: 300px; font-family: monospace; background-color: #f8f9fa; padding: 10px; border: 1px solid #ccc; border-radius: 8px; white-space: pre; overflow-y: auto; font-size: 14px; }
-
-input#nomeMecanico { margin-bottom: 10px; }
-
-/* Proteção de imagem */
-img { -webkit-user-drag: none; user-drag: none; pointer-events: none; }
+.card {margin-bottom:20px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,.1);}
+.card-header {font-weight:700; background:#f0f0f0; border-bottom:none; text-align:center;}
+.calc-container {
+  background:#fff; 
+  padding:30px; 
+  border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,.15);
+  max-height: 650px; 
+  overflow-y:auto;
+}
+textarea {height:250px; font-family:monospace; resize: vertical;}
+button {width:100%; border-radius:8px; padding:10px; font-weight:700; transition: transform 0.1s ease;}
+button:hover {transform: scale(1.03);}
 </style>
 </head>
+
 <body>
 
-<!-- Bloqueio de clique direito e atalhos -->
-<script>
-document.addEventListener('contextmenu', event => event.preventDefault()); // Bloqueia clique direito
-document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
-        e.preventDefault(); // Bloqueia Ctrl+C, Ctrl+U e Ctrl+S
-        alert("Ação não permitida!");
-    }
-});
-</script>
-
-<!-- Topbar / Navbar -->
+<!-- ================== TOPBAR ================== -->
 <header class="topbar">
 <div class="container d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center gap-3">
-        <img src="https://i.imgur.com/SP9nsky.png" alt="Logo" style="height:90px; width:auto; border-radius:8px;">
-        <div class="logo">021 CUSTOMS</div>
-    </div>
-    <nav class="d-none d-md-flex align-items-center nav-links">
-        <a href="index.html">Início</a>
-        <a href="tabela.html">Preços</a>
-        <a href="shop.html">Loja</a>
-        <a href="relatorio.html">Relatório</a>
-        <a href="#">Termos de Uso</a>
-        <a href="funcionarios.html">Funcionários</a>
-        <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
-            <i class="fa-brands fa-discord"></i> Discord
-        </a>
-    </nav>
+  <div class="d-flex align-items-center gap-3">
+    <img src="https://i.imgur.com/SP9nsky.png" style="height:65px;border-radius:8px">
+    <div class="logo">021 CUSTOMS</div>
+  </div>
+  <nav class="d-none d-md-flex align-items-center nav-links">
+    <a href="index.html">Início</a>
+    <a href="tabela.html">Preços</a>
+    <a href="shop.html">Loja</a>
+    <a href="relatorio.html">Relatório</a>
+    <a href="#">Termos de Uso</a>
+    <a href="funcionarios.html">Funcionários</a>
+    <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+      <i class="fa-brands fa-discord"></i> Discord
+    </a>
+  </nav>
 </div>
 </header>
 
-<!-- Conteúdo -->
+<!-- ================== CONTEÚDO ================== -->
 <div class="container mt-4">
-  <div class="row">
-    <!-- Cards de Itens -->
-    <div class="col-lg-8 col-md-12">
-      <div class="row">
+  <div class="row g-4">
 
-        <!-- TUNAGEM -->
-        <div class="card col-12">
-          <div class="card-header"><h3>TUNAGEM</h3></div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="150000"><label class="form-check-label">Motor</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Bloco de Motor</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Som do Motor</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="150000"><label class="form-check-label">Freio</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="280000"><label class="form-check-label">Transmissão</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="250000"><label class="form-check-label">Turbo</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="95000"><label class="form-check-label">Hidráulica</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="400000"><label class="form-check-label">Blindagem</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Doors</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Saia</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Parachoque Dianteiro</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Capô</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Escapamento</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Arch Cover</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Gaiola de Proteção</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Parachoque Traseiro</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Buzina</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Painel</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Para Lama</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Bancos</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Grelha</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="80000"><label class="form-check-label">Vidro</label></div></li>
-          </ul>
+    <!-- ================= TUNAGEM ================= -->
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-header">TUNAGEM</div>
+        <div class="card-body overflow-auto" style="max-height:600px;">
+          <!-- Lista completa de itens de TUNAGEM -->
+          <div class="form-check"><input class="form-check-input item" data-nome="Motor" data-valor="150000" type="checkbox"><label> Motor</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Bloco de Motor" data-valor="40000" type="checkbox"><label> Bloco de Motor</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Som do Motor" data-valor="40000" type="checkbox"><label> Som do Motor</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Freio" data-valor="150000" type="checkbox"><label> Freio</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Transmissão" data-valor="280000" type="checkbox"><label> Transmissão</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Turbo" data-valor="250000" type="checkbox"><label> Turbo</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Hidráulica" data-valor="95000" type="checkbox"><label> Hidráulica</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Blindagem" data-valor="400000" type="checkbox"><label> Blindagem</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Parachoque Dianteiro" data-valor="40000" type="checkbox"><label> Parachoque Dianteiro</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Parachoque Traseiro" data-valor="40000" type="checkbox"><label> Parachoque Traseiro</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Capô" data-valor="40000" type="checkbox"><label> Capô</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Escapamento" data-valor="40000" type="checkbox"><label> Escapamento</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Saia" data-valor="40000" type="checkbox"><label> Saia</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Doors" data-valor="40000" type="checkbox"><label> Doors</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Para-lama" data-valor="40000" type="checkbox"><label> Para-lama</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Arch Cover" data-valor="40000" type="checkbox"><label> Arch Cover</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Gaiola de Proteção" data-valor="40000" type="checkbox"><label> Gaiola de Proteção</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Bancos" data-valor="40000" type="checkbox"><label> Bancos</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Painel" data-valor="40000" type="checkbox"><label> Painel</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Buzina" data-valor="40000" type="checkbox"><label> Buzina</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Grelha" data-valor="40000" type="checkbox"><label> Grelha</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Vidro" data-valor="80000" type="checkbox"><label> Vidro</label></div>
         </div>
-
-        <!-- ESTÉTICA -->
-        <div class="card col-12 mt-3">
-          <div class="card-header"><h3>ESTÉTICA</h3></div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="30000"><label class="form-check-label">Pintura Primária</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="30000"><label class="form-check-label">Pintura Secundária</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="30000"><label class="form-check-label">Pintura Cromado</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="30000"><label class="form-check-label">Pintura Perolado</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="30000"><label class="form-check-label">Pintura Decal</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Xenon</label></div></li>
-	    <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="30000"><label class="form-check-label">Neon</label></div></li>
-            <li class="list-group-item"><div class="form-check"><input class="dias form-check-input" type="checkbox" value="40000"><label class="form-check-label">Fumaça</label></div></li>
-          </ul>
-        </div>
-
       </div>
     </div>
 
-    <!-- Relatório e Total -->
-    <div class="col-lg-4 col-md-12">
-      <div class="calc-container">
-        <h1>Total a Pagar</h1>
-        <label for="nomeMecanico"><b>Nome do Mecânico:</b></label>
-        <input type="text" id="nomeMecanico" class="form-control" placeholder="Digite o nome do mecânico">
-        <input type="text" id="resultadomecanico" class="form-control mb-2" value="0" readonly>
-        <button class="calc-btn" id="btnCopy">Copiar Relatório</button>
-        <button class="clear-btn" id="btnUncheckAll">Limpar Tudo</button>
-        <textarea id="relatorio" readonly placeholder="Relatório aparecerá aqui..."></textarea>
+    <!-- ================= ESTÉTICA ================= -->
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-header">ESTÉTICA</div>
+        <div class="card-body overflow-auto" style="max-height:600px;">
+          <!-- Lista completa de itens de ESTÉTICA -->
+          <div class="form-check"><input class="form-check-input item" data-nome="Pintura Primária" data-valor="30000" type="checkbox"><label> Pintura Primária</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Pintura Secundária" data-valor="30000" type="checkbox"><label> Pintura Secundária</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Pintura Cromado" data-valor="30000" type="checkbox"><label> Pintura Cromado</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Pintura Perolado" data-valor="30000" type="checkbox"><label> Pintura Perolado</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Pintura Decal" data-valor="30000" type="checkbox"><label> Pintura Decal</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Xenon" data-valor="40000" type="checkbox"><label> Xenon</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Neon" data-valor="30000" type="checkbox"><label> Neon</label></div>
+          <div class="form-check"><input class="form-check-input item" data-nome="Fumaça" data-valor="40000" type="checkbox"><label> Fumaça</label></div>
+        </div>
       </div>
     </div>
+
+    <!-- ================= RELATÓRIO ================= -->
+    <div class="col-md-4">
+      <div class="calc-container h-100 d-flex flex-column">
+        <label>Mecânico</label>
+        <input id="nome" class="form-control mb-3">
+
+        <label>ID do Cliente</label>
+        <input id="id" class="form-control mb-3">
+
+        <label>Total</label>
+        <input id="total" class="form-control mb-3" readonly>
+
+        <div class="d-flex flex-column gap-2 mb-3">
+          <button class="calc-btn btn btn-success" onclick="gerar()">Gerar Relatório</button>
+          <button class="discord-send btn btn-primary" onclick="enviarDiscord()">Enviar para o Discord</button>
+          <button class="clear-btn btn btn-danger" onclick="limpar()">Limpar</button>
+        </div>
+
+        <textarea id="texto" class="form-control mt-auto" readonly></textarea>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<!-- Footer -->
-<footer class="text-center py-4 text-muted">
-© <span id="year"></span> Joao Britto - Todos os direitos reservados
-</footer>
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
+const WEBHOOK = "https://discord.com/api/webhooks/1450692500720193568/SF8E7nH0Ak81Bmr8kxYROnF_EOpCM10cCGyXtMvKlHpc2qWlPS2Hhl95J6htscQ7A8MZ";
 
-// Atualiza relatório
-function atualizarRelatorio() {
-    let total = 0;
-    let nome = $('#nomeMecanico').val().trim();
-    if(!nome) nome = "Não informado";
-    let texto = `🛠️ Relatório de Turnagem - 021 CUSTOMS 🛠️\nMecânico: ${nome}\n\n`;
-    $('.dias:checked').each(function(){
-        let valor = Number($(this).val());
-        total += valor;
-        texto += `📌 Item: ${$(this).next('label').text()}\n💰 Valor: ${valor.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}\n-----------------\n`;
-    });
-    $('#resultadomecanico').val(total.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}));
-    $('#relatorio').val(texto);
+// ===================== CALCULAR ITENS =====================
+const itens = document.querySelectorAll(".item");
+const totalInput = document.getElementById("total");
+
+itens.forEach(i => i.addEventListener("change", calcular));
+
+function calcular(){
+  let total = 0;
+  document.querySelectorAll(".item:checked").forEach(i=>{
+    total += Number(i.dataset.valor);
+  });
+  totalInput.value = total ? `R$ ${total.toLocaleString("pt-BR")}` : "";
 }
 
-// Permitir apenas letras e espaços no nome do mecânico
-$('#nomeMecanico').on('input', function() {
-    this.value = this.value.replace(/[^A-Za-zÀ-ú\s]/g, '');
-    atualizarRelatorio();
+// ===================== GERAR RELATÓRIO =====================
+function gerar(){
+  if(!id.value) return alert("ID obrigatório");
+
+  let txt = `🛠️ RELATÓRIO 021 CUSTOMS
+👨‍🔧 Mecânico: ${nome.value || "Não informado"}
+🆔 Cliente: ${id.value}\n\n`;
+
+  let total = 0;
+  document.querySelectorAll(".item:checked").forEach(i=>{
+    let v = Number(i.dataset.valor);
+    total += v;
+    txt += `📌 ${i.dataset.nome} - R$ ${v.toLocaleString("pt-BR")}\n`;
+  });
+
+  txt += `\n💰 TOTAL: R$ ${total.toLocaleString("pt-BR")}`;
+  texto.value = txt;
+}
+
+// ===================== ENVIAR PARA DISCORD =====================
+async function enviarDiscord(){
+  if(!texto.value) return alert("Gere o relatório");
+  await fetch(WEBHOOK,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ content: texto.value })
+  });
+  alert("Relatório enviado!");
+}
+
+// ===================== LIMPAR FORMULÁRIO =====================
+function limpar(){
+  document.querySelectorAll("input").forEach(i=>i.value="");
+  document.querySelectorAll(".item").forEach(i=>i.checked=false);
+  texto.value="";
+}
+
+// ===================== ANTI-COLAR =====================
+const campos = document.querySelectorAll("#nome, #id, #total, #texto");
+
+campos.forEach(campo => {
+  campo.addEventListener("keydown", function(e){
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v") {
+      e.preventDefault();
+      alert("Colar não permitido!");
+    }
+  });
+
+  campo.addEventListener("paste", function(e){
+    e.preventDefault();
+    alert("Colar não permitido!");
+  });
+
+  campo.addEventListener("contextmenu", function(e){
+    e.preventDefault();
+  });
 });
 
-// Eventos
-$('.dias').on('change', atualizarRelatorio);
-
-// Limpar tudo
-$('#btnUncheckAll').click(function(){
-    $('.dias').prop('checked', false);
-    $('#nomeMecanico').val('');
-    atualizarRelatorio();
-});
-
-// Copiar relatório
-$('#btnCopy').click(function(){
-    let relatorio = $('#relatorio').val();
-    if(relatorio.trim() === "") { alert("Nada para copiar!"); return; }
-    navigator.clipboard.writeText(relatorio);
-    alert("Relatório copiado!");
+// ===================== ANTI-COPY =====================
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if (
+    (e.ctrlKey && ['s','u','c'].includes(e.key.toLowerCase())) ||
+    (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') ||
+    e.key === "F12"
+  ) {
+    e.preventDefault();
+    alert("Ação bloqueada!");
+  }
 });
 </script>
 
 </body>
 </html>
-
