@@ -43,26 +43,31 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
 .discord-btn:hover { background:linear-gradient(135deg,#5b6ea1,#7f88d0); transform:translateY(-2px); }
 
 .card-item {
-    position: relative; /* necessário para overlay */
     border-radius: 12px; overflow: hidden; margin-bottom: 20px;
     transition:0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     width: 250px;
 }
 .card-item:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
 
-.card-item img { 
+.img-wrapper {
+    position: relative;
     width: 100%;
     height: 180px;
-    object-fit: cover;
-    border-bottom: 1px solid #ddd; 
-    pointer-events: none; /* impede clique direto */
-    user-select: none; /* impede seleção */
+    overflow: hidden;
 }
 
-.card-item::after {
-    content: "";
+.img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+}
+
+.img-wrapper .overlay {
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     z-index: 2;
 }
 
@@ -99,180 +104,116 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
   <h2 class="mb-4 text-center">Loja Exclusiva da Mecânica</h2>
   <div class="row justify-content-center g-4">
 
-    <!-- Lista completa de produtos com todas as imagens -->
+    <!-- Lista completa de 16 produtos -->
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/je5gY9B.png" alt="Mercedes 63">
-        <div class="card-body">
-          <h5>Mercedes 63</h5>
-          <p>Valor: R$ 100,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/je5gY9B.png" alt="Mercedes 63"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Mercedes 63</h5><p>Valor: R$ 100,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/IGpQnUj.png" alt="Skyline R34">
-        <div class="card-body">
-          <h5>Skyline R34</h5>
-          <p>Valor: R$ 200,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/IGpQnUj.png" alt="Skyline R34"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Skyline R34</h5><p>Valor: R$ 200,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/L8V0il3.png" alt="Moto Yamaha R1">
-        <div class="card-body">
-          <h5>Moto Yamaha R1</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/L8V0il3.png" alt="Moto Yamaha R1"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Moto Yamaha R1</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/aPBw9Bl.png" alt="Stryder">
-        <div class="card-body">
-          <h5>Stryder</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/aPBw9Bl.png" alt="Stryder"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Stryder</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/ovekEwm.png" alt="Chimera">
-        <div class="card-body">
-          <h5>Chimera</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/ovekEwm.png" alt="Chimera"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Chimera</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/AuM201l.png" alt="Comet">
-        <div class="card-body">
-          <h5>Comet</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/AuM201l.png" alt="Comet"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Comet</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/qonEpJm.png" alt="Gburrito">
-        <div class="card-body">
-          <h5>Gburrito</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/qonEpJm.png" alt="Gburrito"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Gburrito</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/w8KEmMt.png" alt="Mule">
-        <div class="card-body">
-          <h5>Mule</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/w8KEmMt.png" alt="Mule"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Mule</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/mfRRRAp.png" alt="Sanchez">
-        <div class="card-body">
-          <h5>Sanchez</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/mfRRRAp.png" alt="Sanchez"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Sanchez</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/A3gJZtd.png" alt="Sanctus">
-        <div class="card-body">
-          <h5>Sanctus</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/A3gJZtd.png" alt="Sanctus"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Sanctus</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/S4BBsD5.png" alt="Weevil">
-        <div class="card-body">
-          <h5>Weevil</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/S4BBsD5.png" alt="Weevil"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Weevil</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/DHzEFbh.png" alt="GT">
-        <div class="card-body">
-          <h5>GT</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/DHzEFbh.png" alt="GT"><div class="overlay"></div></div>
+        <div class="card-body"><h5>GT</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/uztvTRq.png" alt="Chimera">
-        <div class="card-body">
-          <h5>Chimera</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/uztvTRq.png" alt="Chimera"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Chimera</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/vFjmLbw.png" alt="Dominator">
-        <div class="card-body">
-          <h5>Dominator</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/vFjmLbw.png" alt="Dominator"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Dominator</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/woeZHEk.png" alt="Faggio">
-        <div class="card-body">
-          <h5>Faggio</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/woeZHEk.png" alt="Faggio"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Faggio</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
     <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/HjNYBdL.png" alt="Sabre GT">
-        <div class="card-body">
-          <h5>Sabre GT</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
+        <div class="img-wrapper"><img src="https://imgur.com/HjNYBdL.png" alt="Sabre GT"><div class="overlay"></div></div>
+        <div class="card-body"><h5>Sabre GT</h5><p>Valor: R$ 300,00</p><a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a></div>
       </div>
     </div>
 
