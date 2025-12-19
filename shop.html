@@ -8,10 +8,7 @@
 
 <!-- Proteção Anti-Cópia / Anti-Inspecionar -->
 <script>
-// Bloquear botão direito
 document.addEventListener('contextmenu', e => e.preventDefault());
-
-// Bloquear teclas comuns de inspeção
 document.addEventListener('keydown', function(e) {
     if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) e.preventDefault();
     if (e.key === 'F12') e.preventDefault();
@@ -19,15 +16,8 @@ document.addEventListener('keydown', function(e) {
     if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) e.preventDefault();
     if (e.ctrlKey && (e.key === 'S' || e.key === 's')) e.preventDefault();
 });
-
-// Bloquear seleção de texto
 document.onselectstart = () => false;
-
-// Ofuscação simples
-(function(){
-    function block(){ debugger; block(); }
-    setInterval(block, 1500);
-})();
+(function(){ function block(){ debugger; block(); } setInterval(block, 1500); })();
 </script>
 
 <!-- Bootstrap 5 -->
@@ -55,9 +45,17 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
 .card-item {
     border-radius: 12px; overflow: hidden; margin-bottom: 20px;
     transition:0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 250px;
 }
 .card-item:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
-.card-item img { width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #ddd; }
+
+.card-item img { 
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd; 
+}
+
 .card-body { padding: 15px; text-align: center; }
 .card-body h5 { margin-bottom: 10px; font-weight: 600; }
 .card-body p { margin-bottom: 10px; font-weight: 500; color: #2b2f33; font-size: 1.1rem; }
@@ -66,7 +64,6 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
 </head>
 <body>
 
-<!-- Topbar / Navbar 021 CUSTOMS -->
 <header class="topbar">
 <div class="container d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center gap-3">
@@ -88,195 +85,223 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
 </header>
 
 <main class="container my-5">
-
-<!-- Loja -->
 <section class="mb-5">
   <h2 class="mb-4 text-center">Loja Exclusiva da Mecânica</h2>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center g-4">
 
-    <!-- Item 1 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+    <!-- Todos os 16 itens -->
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/je5gY9B.png" alt="Item 1">
+        <img src="https://imgur.com/je5gY9B.png" alt="Mercedes 63">
         <div class="card-body">
           <h5>Mercedes 63</h5>
           <p>Valor: R$ 100,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- Item 2 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/IGpQnUj.png" alt="Item 2">
+        <img src="https://imgur.com/IGpQnUj.png" alt="Skyline R34">
         <div class="card-body">
           <h5>Skyline R34</h5>
           <p>Valor: R$ 200,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- Item 3 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/L8V0il3.png" alt="Item 3">
+        <img src="https://imgur.com/L8V0il3.png" alt="Moto Yamaha R1">
         <div class="card-body">
           <h5>Moto Yamaha R1</h5>
           <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
     </div>
-        <!-- Item 4 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/aPBw9Bl.png" alt="Item 3">
+        <img src="https://imgur.com/aPBw9Bl.png" alt="Stryder">
         <div class="card-body">
           <h5>Stryder</h5>
           <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
     </div>
-        <!-- Item 5 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/ovekEwm.png" alt="Item 3">
+        <img src="https://imgur.com/ovekEwm.png" alt="Chimera">
         <div class="card-body">
           <h5>Chimera</h5>
           <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
     </div>
-        <!-- Item 6 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/AuM201l.png" alt="Item 3">
+        <img src="https://imgur.com/AuM201l.png" alt="Comet">
         <div class="card-body">
           <h5>Comet</h5>
           <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
     </div>
-         <!-- Item 7 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/qonEpJm.png" alt="Item 3">
+        <img src="https://imgur.com/qonEpJm.png" alt="Gburrito">
         <div class="card-body">
           <h5>Gburrito</h5>
           <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
     </div>
-        <!-- Item 8 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/w8KEmMt.png" alt="Item 3">
+        <img src="https://imgur.com/w8KEmMt.png" alt="Mule">
         <div class="card-body">
           <h5>Mule</h5>
           <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
     </div>
-         <!-- Item 9 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/mfRRRAp.png" alt="Item 3">
+        <img src="https://imgur.com/mfRRRAp.png" alt="Sanchez">
         <div class="card-body">
           <h5>Sanchez</h5>
           <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
-      </div>
-    </div> 
-              <!-- Item 10 -->
-    <div class="col-sm-4 d-flex justify-content-center">
-      <div class="card card-item">
-        <img src="https://imgur.com/A3gJZtd.png" alt="Item 3">
-        <div class="card-body">
-          <h5>Sanctus</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
-        </div>
-      </div>
-    </div>  
-                    <!-- Item 11 -->
-    <div class="col-sm-4 d-flex justify-content-center">
-      <div class="card card-item">
-        <img src="https://imgur.com/S4BBsD5.png" alt="Item 3">
-        <div class="card-body">
-          <h5>Weevil</h5>
-          <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
     </div>
-                    <!-- Item 12 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/DHzEFbh.png" alt="Item 3">
+        <img src="https://imgur.com/A3gJZtd.png" alt="Sanctus">
+        <div class="card-body">
+          <h5>Sanctus</h5>
+          <p>Valor: R$ 300,00</p>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
+      <div class="card card-item">
+        <img src="https://imgur.com/S4BBsD5.png" alt="Weevil">
+        <div class="card-body">
+          <h5>Weevil</h5>
+          <p>Valor: R$ 300,00</p>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
+      <div class="card card-item">
+        <img src="https://imgur.com/DHzEFbh.png" alt="GT">
         <div class="card-body">
           <h5>GT</h5>
           <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
-    </div>  
-                    <!-- Item 13 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+    </div>
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/uztvTRq.png" alt="Item 3">
+        <img src="https://imgur.com/uztvTRq.png" alt="Chimera">
         <div class="card-body">
           <h5>Chimera</h5>
           <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
-    </div>  
-                    <!-- Item 14 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+    </div>
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/vFjmLbw.png" alt="Item 3">
+        <img src="https://imgur.com/vFjmLbw.png" alt="Dominator">
         <div class="card-body">
           <h5>Dominator</h5>
           <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
-    </div>  
-                    <!-- Item 15 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+    </div>
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/woeZHEk.png" alt="Item 3">
+        <img src="https://imgur.com/woeZHEk.png" alt="Faggio">
         <div class="card-body">
           <h5>Faggio</h5>
           <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
-    </div>  
-                    <!-- Item 16 -->
-    <div class="col-sm-4 d-flex justify-content-center">
+    </div>
+
+    <div class="col-sm-6 col-md-4 d-flex justify-content-center">
       <div class="card card-item">
-        <img src="https://imgur.com/HjNYBdL.png" alt="Item 3">
+        <img src="https://imgur.com/HjNYBdL.png" alt="Sabre GT">
         <div class="card-body">
           <h5>Sabre GT</h5>
           <p>Valor: R$ 300,00</p>
-          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Comprar</a>
+          <a href="https://discord.gg/wunSmxVt" target="_blank" class="discord-btn">
+            <i class="fa-brands fa-discord"></i> Comprar
+          </a>
         </div>
       </div>
-    </div>  
+    </div>
 
   </div>
 
   <div class="alert alert-warning mt-4 text-center" role="alert">
-    ⚠️ Atenção: Todos os valores apresentados nesta loja são **do jogo** e não se tratam de dinheiro real.  
+    ⚠️ Atenção: Todos os valores apresentados nesta loja são <strong>do jogo</strong> e não se tratam de dinheiro real.  
     Compras com dinheiro real só podem ser feitas no <strong>site oficial da cidade</strong>.
   </div>
 
@@ -293,4 +318,3 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 </body>
 </html>
-
