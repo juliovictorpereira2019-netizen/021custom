@@ -31,10 +31,13 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
 .checkbox-group label { font-weight: normal; background-color: #f1f3f5; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 14px; }
 .checkbox-group input[type="checkbox"] { margin-right: 5px; }
 #relatorio { margin-top: 15px; width: 100%; height: 300px; font-family: monospace; background-color: #f8f9fa; padding: 10px; border: 1px solid #ccc; border-radius: 8px; white-space: pre; overflow-y: auto; font-size: 14px; }
-button.calc-btn { margin-top: 15px; width: 100%; padding: 10px; font-size: 15px; border: none; border-radius: 8px; background-color: #4caf50; color: white; cursor: pointer; transition: 0.2s; }
+button.calc-btn, button.send-btn { margin-top: 15px; width: 100%; padding: 10px; font-size: 15px; border: none; border-radius: 8px; color: white; cursor: pointer; transition: 0.2s; }
+button.calc-btn { background-color: #4caf50; }
 button.calc-btn:hover { background-color: #45a049; }
 button.clear-btn { margin-top: 10px; width: 100%; padding: 10px; font-size: 15px; border: none; border-radius: 8px; background-color: #f44336; color: white; cursor: pointer; transition: 0.2s; }
 button.clear-btn:hover { background-color: #d73833; }
+button.send-btn { background-color: #5865f2; }
+button.send-btn:hover { background-color: #4752c4; }
 </style>
 </head>
 <body oncontextmenu="return false">
@@ -75,13 +78,26 @@ button.clear-btn:hover { background-color: #d73833; }
 
     <label>Selecione os itens:</label>
     <div class="checkbox-group">
-        <label><input type="checkbox" name="item" value="Nitro"> Nitro (1000)</label>
-        <label><input type="checkbox" name="item" value="Carro 1"> Carro 1 (2000)</label>
-        <label><input type="checkbox" name="item" value="Carro 2"> Carro 2 (3000)</label>
-        <label><input type="checkbox" name="item" value="Carro 3"> Carro 3 (4000)</label>
+        <label><input type="checkbox" name="item" value="Mercedes 63"> Mercedes 63 (14.000.000)</label>
+        <label><input type="checkbox" name="item" value="Skyline R34"> Skyline R34 (14.000.000)</label>
+        <label><input type="checkbox" name="item" value="Moto Yamaha R1"> Moto Yamaha R1 (5.000.500)</label>
+        <label><input type="checkbox" name="item" value="Stryder"> Stryder (5.000.000)</label>
+        <label><input type="checkbox" name="item" value="Chimera"> Chimera (4.000.000)</label>
+        <label><input type="checkbox" name="item" value="Comet"> Comet (11.000.000)</label>
+        <label><input type="checkbox" name="item" value="Gburrito"> Gburrito (4.000.000)</label>
+        <label><input type="checkbox" name="item" value="Mule"> Mule (3.000.500)</label>
+        <label><input type="checkbox" name="item" value="Sanchez"> Sanchez (4.000.500)</label>
+        <label><input type="checkbox" name="item" value="Sanctus"> Sanctus (4.000.500)</label>
+        <label><input type="checkbox" name="item" value="Weevil"> Weevil (4.000.000)</label>
+        <label><input type="checkbox" name="item" value="GT"> GT (7.000.000)</label>
+        <label><input type="checkbox" name="item" value="Chimera 2"> Chimera 2 (4.000.000)</label>
+        <label><input type="checkbox" name="item" value="Dominator"> Dominator (6.000.000)</label>
+        <label><input type="checkbox" name="item" value="Faggio"> Faggio (1.000.000)</label>
+        <label><input type="checkbox" name="item" value="Sabre GT"> Sabre GT (8.000.000)</label>
     </div>
 
     <button class="calc-btn" onclick="copiarRelatorio()">Copiar Relatório</button>
+    <button class="send-btn" onclick="enviarDiscord()">Enviar no Discord</button>
     <button class="clear-btn" onclick="limparTudo()">Limpar Tudo</button>
 
     <h2 style="font-size:16px;margin-top:15px;">Relatório Gerado:</h2>
@@ -93,99 +109,87 @@ button.clear-btn:hover { background-color: #d73833; }
 © <span id="year"></span> 021 CUSTOMS - Todos os direitos reservados
 </footer>
 
-<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
 
 // Bloqueio F12, Ctrl+U, Ctrl+Shift+I
-(function(){
-    document.addEventListener("keydown", function(e){
-        if(e.key === "F12" || 
-           (e.ctrlKey && e.shiftKey && e.key === "I") ||
-           (e.ctrlKey && e.key === "u") ||
-           (e.ctrlKey && e.shiftKey && e.key === "C") ||
-           (e.ctrlKey && e.shiftKey && e.key === "J")){ 
-            e.preventDefault();
-        }
-    });
-})();
+document.addEventListener("keydown", function(e){
+    if(e.key==="F12"||(e.ctrlKey && e.shiftKey && ["I","C","J"].includes(e.key))||(e.ctrlKey && e.key==="u")) e.preventDefault();
+});
 
 // Bloqueio de caracteres inválidos
-const nomeInput = document.getElementById("nomeVendedor");
-const idInput = document.getElementById("idVendedor");
-const idCompradorInput = document.getElementById("idComprador");
+const nomeInput=document.getElementById("nomeVendedor");
+const idInput=document.getElementById("idVendedor");
+const idCompradorInput=document.getElementById("idComprador");
 
-// Nome: apenas letras e espaços
-nomeInput.addEventListener("input", () => {
-    nomeInput.value = nomeInput.value.replace(/[^A-Za-z\s]/g, '');
-});
+nomeInput.addEventListener("input",()=>{nomeInput.value=nomeInput.value.replace(/[^A-Za-z\s]/g,'');});
+idInput.addEventListener("input",()=>{idInput.value=idInput.value.replace(/[^0-9]/g,'');});
+idCompradorInput.addEventListener("input",()=>{idCompradorInput.value=idCompradorInput.value.replace(/[^0-9]/g,'');});
 
-// ID: apenas números
-idInput.addEventListener("input", () => {
-    idInput.value = idInput.value.replace(/[^0-9]/g, '');
-});
-idCompradorInput.addEventListener("input", () => {
-    idCompradorInput.value = idCompradorInput.value.replace(/[^0-9]/g, '');
-});
+const valores={
+    "Mercedes 63":14000000,
+    "Skyline R34":14000000,
+    "Moto Yamaha R1":5000500,
+    "Stryder":5000000,
+    "Chimera":4000000,
+    "Comet":11000000,
+    "Gburrito":4000000,
+    "Mule":3000500,
+    "Sanchez":4000500,
+    "Sanctus":4000500,
+    "Weevil":4000000,
+    "GT":7000000,
+    "Chimera 2":4000000,
+    "Dominator":6000000,
+    "Faggio":1000000,
+    "Sabre GT":8000000
+};
 
-// Valores dos itens
-const valores = {"Nitro":1000,"Carro 1":2000,"Carro 2":3000,"Carro 3":4000};
+// Função para formatar R$
+function formatarValor(valor){
+    return valor.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+}
 
-// Gera relatório
 function gerarRelatorio(){
-    const n = nomeInput.value.trim();
-    const i = idInput.value.trim();
-    const c = idCompradorInput.value.trim();
-    const itens = Array.from(document.querySelectorAll('input[name="item"]:checked')).map(x=>x.value);
-    const relatorio = document.getElementById("relatorio");
-
-    if(!n || !i || !c || itens.length === 0){
-        relatorio.value = "";
-        return;
-    }
-
-    let total = 0;
-    let texto = "🛠️ **Relatório de Vendas - 021 CUSTOMS** 🛠️\n\n";
-
-    itens.forEach(item => {
-        let valor = valores[item];
-        total += valor;
-        texto += `📌 Item: ${item}\n👨‍🔧 Mecânico: ${n} (ID: ${i})\n🛒 Comprador ID: ${c}\n💰 Valor: ${valor}\n--------------------------\n`;
+    const n=nomeInput.value.trim();
+    const i=idInput.value.trim();
+    const c=idCompradorInput.value.trim();
+    const itens=Array.from(document.querySelectorAll('input[name="item"]:checked')).map(x=>x.value);
+    const relatorio=document.getElementById("relatorio");
+    if(!n||!i||!c||itens.length===0){relatorio.value=""; return;}
+    let total=0;
+    let texto="🛠️ **Relatório de Vendas - 021 CUSTOMS** 🛠️\n\n";
+    itens.forEach(item=>{
+        let valor=valores[item];
+        total+=valor;
+        texto+=`📌 Item: ${item}\n👨‍🔧 Mecânico: ${n} (ID: ${i})\n🛒 Comprador ID: ${c}\n💰 Valor: ${formatarValor(valor)}\n--------------------------\n`;
     });
-
-    texto += `💵 **Valor Total: ${total}**\n`;
-    relatorio.value = texto;
+    texto+=`💵 **Valor Total: ${formatarValor(total)}**\n`;
+    relatorio.value=texto;
 }
 
-// Copiar relatório
-function copiarRelatorio(){
-    gerarRelatorio();
-    const relatorio = document.getElementById("relatorio");
-    relatorio.select();
-    relatorio.setSelectionRange(0,99999);
-    navigator.clipboard.writeText(relatorio.value);
-    alert("Relatório copiado!");
-}
-
-// Limpar campos
-function limparTudo(){
-    nomeInput.value="";
-    idInput.value="";
-    idCompradorInput.value="";
-    document.querySelectorAll('input[name="item"]').forEach(x=>x.checked=false);
-    document.getElementById("relatorio").value="";
-}
+function copiarRelatorio(){gerarRelatorio(); const relatorio=document.getElementById("relatorio"); relatorio.select(); relatorio.setSelectionRange(0,99999); navigator.clipboard.writeText(relatorio.value); alert("Relatório copiado!");}
+function limparTudo(){nomeInput.value=""; idInput.value=""; idCompradorInput.value=""; document.querySelectorAll('input[name="item"]').forEach(x=>x.checked=false); document.getElementById("relatorio").value="";}
 
 // Atualiza relatório em tempo real
-document.querySelectorAll("input,textarea").forEach(el=>{
-    el.addEventListener("input", gerarRelatorio);
-});
-document.querySelectorAll('input[name="item"]').forEach(cb=>{
-    cb.addEventListener("change", gerarRelatorio);
-});
+document.querySelectorAll("input,textarea").forEach(el=>{el.addEventListener("input", gerarRelatorio);});
+document.querySelectorAll('input[name="item"]').forEach(cb=>{cb.addEventListener("change", gerarRelatorio);});
+
+// Enviar Discord via Webhook
+function enviarDiscord(){
+    gerarRelatorio();
+    const relatorio=document.getElementById("relatorio").value;
+    const webhookURL="https://discord.com/api/webhooks/1451728718295732284/pyT0TZGHX-eDAKLaOIQh7iDwLa4mJz5hnKJmwZnKVJp9E2qaESGBcj2ib1JVISfPMKaE"; // <- Cole o webhook do Discord aqui
+    fetch(webhookURL,{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({content:relatorio})
+    }).then(res=>{
+        if(res.ok) alert("Relatório enviado com sucesso!");
+        else alert("Erro ao enviar relatório.");
+    }).catch(err=>{alert("Erro ao enviar relatório."); console.error(err);});
+}
 </script>
 
 </body>
