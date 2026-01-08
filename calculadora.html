@@ -154,8 +154,6 @@ textarea{
 </div>
 </div>
 
-
-</div>
 <!-- ================= RELATÓRIO ================= -->
 <div class="col-md-4">
 <div class="calc-container h-100">
@@ -200,27 +198,27 @@ function calc(){
   let t = 0;
   document.querySelectorAll(".item:checked").forEach(i => t += Number(i.dataset.valor));
   if(parceria.checked) t *= 0.9;
-  totalInput.value = t ? `R$ ${t.toLocaleString("pt-BR")}` : "";
+  totalInput.value = t ? R$ ${t.toLocaleString("pt-BR")} : "";
 }
 
 function gerar(){
   if(!id.value) return alert("ID obrigatório");
   let t = 0;
-  let txt = `🛠️ RELATÓRIO FUSION CUSTOMS\n👨‍🔧 Mecânico: ${nome.value || "N/I"}\n🆔 Cliente: ${id.value}\n\n`;
+  let txt = 🛠️ RELATÓRIO FUSION CUSTOMS\n👨‍🔧 Mecânico: ${nome.value || "N/I"}\n🆔 Cliente: ${id.value}\n\n;
 
   document.querySelectorAll(".item:checked").forEach(i=>{
     t += Number(i.dataset.valor);
-    txt += `• ${i.dataset.nome} - R$ ${Number(i.dataset.valor).toLocaleString("pt-BR")}\n`;
+    txt += • ${i.dataset.nome} - R$ ${Number(i.dataset.valor).toLocaleString("pt-BR")}\n;
   });
 
   if(parceria.checked){
     t *= 0.9;
-    txt += `\n🤝 Parceria PM aplicada (10%)`;
+    txt += \n🤝 Parceria PM aplicada (10%);
   }
 
-  txt += `\n\n💰 TOTAL: R$ ${t.toLocaleString("pt-BR")}`;
+  txt += \n\n💰 TOTAL: R$ ${t.toLocaleString("pt-BR")};
   texto.value = txt;
-  totalInput.value = `R$ ${t.toLocaleString("pt-BR")}`;
+  totalInput.value = R$ ${t.toLocaleString("pt-BR")};
 }
 
 function enviarDiscord(){
@@ -228,7 +226,9 @@ function enviarDiscord(){
   fetch(WEBHOOK_URL,{
     method:"POST",
     headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({ content: "```" + texto.value + "```" })
+    body:JSON.stringify({ content: "
+" + texto.value + "
+" })
   }).then(()=>alert("Relatório enviado para o Discord ✅"));
 }
 
@@ -268,9 +268,3 @@ document.addEventListener("keydown",e=>{
 
 </body>
 </html>
-
-
-
-
-
-
