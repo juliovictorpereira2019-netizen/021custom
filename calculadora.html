@@ -24,13 +24,6 @@ body{
   z-index:1000;
 }
 .logo{font-weight:700}
-.nav-links a{
-  color:#fff;
-  margin-left:18px;
-  text-decoration:none;
-  font-weight:600;
-}
-.nav-links a:hover{color:#cfcfcf}
 .card{
   border-radius:14px;
   box-shadow:0 6px 20px rgba(0,0,0,.15);
@@ -57,15 +50,7 @@ textarea{
 
 <header class="topbar">
 <div class="container d-flex justify-content-between align-items-center">
-  <div class="d-flex align-items-center gap-3">
-    <img src="https://imgur.com/UX64xoQ.png" style="height:60px;border-radius:8px">
-    <div class="logo">Fusion Customs</div>
-  </div>
-  <nav class="nav-links d-none d-md-flex">
-    <a href="index.html">Início</a>
-    <a href="tabela.html">Preços</a>
-    <a href="funcionarios.html">Funcionários</a>
-  </nav>
+  <div class="logo">Fusion Customs</div>
 </div>
 </header>
 
@@ -184,7 +169,7 @@ textarea{
 </div>
 
 <script>
-const WEBHOOK_URL = "https://discord.com/api/webhooks/1458680732950990971/nyCia8NKiZ7Z_BhLpRgkp3JukS5Tlkb9R7G3T1_L0pZ5suGC7_JPmWlMAFc_97BfsopC";
+const WEBHOOK_URL = "COLE_SEU_WEBHOOK_AQUI";
 
 const itens = document.querySelectorAll(".item");
 const totalInput = document.getElementById("total");
@@ -194,47 +179,58 @@ itens.forEach(i => i.addEventListener("change", calc));
 parceria.addEventListener("change", calc);
 
 function calc(){
-  let t = 0;
-  document.querySelectorAll(".item:checked").forEach(i => t += Number(i.dataset.valor));
-  if(parceria.checked) t *= 0.9;
-  totalInput.value = t ? R$ ${t.toLocaleString("pt-BR")} : "";
+  let total = 0;
+  document.querySelectorAll(".item:checked").forEach(i=>{
+    total += Number(i.dataset.valor);
+  });
+  if(parceria.checked) total *= 0.9;
+  totalInput.value = total ? `R$ ${total.toLocaleString("pt-BR")}` : "";
 }
 
 function gerar(){
   if(!id.value) return alert("ID obrigatório");
-  let t = 0;
-  let txt = 🛠️ RELATÓRIO FUSION CUSTOMS\n👨‍🔧 Mecânico: ${nome.value || "N/I"}\n🆔 Cliente: ${id.value}\n\n;
+
+  let total = 0;
+  let txt = `🛠️ RELATÓRIO FUSION CUSTOMS
+👨‍🔧 Mecânico: ${nome.value || "N/I"}
+🆔 Cliente: ${id.value}
+
+`;
 
   document.querySelectorAll(".item:checked").forEach(i=>{
-    t += Number(i.dataset.valor);
-    txt += • ${i.dataset.nome} - R$ ${Number(i.dataset.valor).toLocaleString("pt-BR")}\n;
+    total += Number(i.dataset.valor);
+    txt += `• ${i.dataset.nome} - R$ ${Number(i.dataset.valor).toLocaleString("pt-BR")}\n`;
   });
 
   if(parceria.checked){
-    t *= 0.9;
-    txt += \n🤝 Parceria PM aplicada (10%);
+    total *= 0.9;
+    txt += `\n🤝 Parceria aplicada (10%)`;
   }
 
-  txt += \n\n💰 TOTAL: R$ ${t.toLocaleString("pt-BR")};
+  txt += `\n\n💰 TOTAL: R$ ${total.toLocaleString("pt-BR")}`;
+
   texto.value = txt;
-  totalInput.value = R$ ${t.toLocaleString("pt-BR")};
+  totalInput.value = `R$ ${total.toLocaleString("pt-BR")}`;
 }
 
 function enviarDiscord(){
   if(!texto.value) return alert("Gere o relatório primeiro");
+
   fetch(WEBHOOK_URL,{
     method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({ content: "
-" + texto.value + "
-" })
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({
+      content: `\n${texto.value}\n`
+    })
   }).then(()=>alert("Relatório enviado para o Discord ✅"));
 }
 
 function limpar(){
-  document.querySelectorAll(".item").forEach(i => i.checked = false);
-  document.querySelectorAll("input").forEach(i => i.value = "");
-  texto.value = "";
+  document.querySelectorAll(".item").forEach(i=>i.checked=false);
+  nome.value="";
+  id.value="";
+  totalInput.value="";
+  texto.value="";
 }
 </script>
 
@@ -244,7 +240,7 @@ nome.addEventListener("input",()=> nome.value = nome.value.replace(/[^a-zA-ZÀ-�
 id.addEventListener("input",()=> id.value = id.value.replace(/\D/g,""));
 </script>
 
-<!-- SEGURANÇA F12 -->
+<!-- SEGURANÇA -->
 <script>
 document.addEventListener("contextmenu",e=>e.preventDefault());
 document.addEventListener("selectstart",e=>e.preventDefault());
@@ -267,4 +263,3 @@ document.addEventListener("keydown",e=>{
 
 </body>
 </html>
-
