@@ -30,7 +30,6 @@ body{
   text-decoration:none;
   font-weight:600;
 }
-.nav-links a:hover{color:#cfcfcf}
 .card{
   border-radius:14px;
   box-shadow:0 6px 20px rgba(0,0,0,.15);
@@ -179,12 +178,6 @@ textarea{
 
 <textarea id="texto" class="form-control mt-2" readonly></textarea>
 
-<div class="mt-4 text-center" style="font-size:14px;color:#555;">
-🤝 <b>Parceria Fusion Customs & Polícia Militar</b><br>
-🚓 Reparo grátis<br>
-🔧 10% de desconto em toda a tunagem
-</div>
-
 </div>
 </div>
 
@@ -219,8 +212,8 @@ function gerar(){
   });
 
   if(parceria.checked){
-    txt += `\n🤝 Parceria PM aplicada (10%)`;
     t *= 0.9;
+    txt += `\n🤝 Parceria PM aplicada (10%)`;
   }
 
   txt += `\n\n💰 TOTAL: R$ ${t.toLocaleString("pt-BR")}`;
@@ -230,7 +223,6 @@ function gerar(){
 
 function enviarDiscord(){
   if(!texto.value) return alert("Gere o relatório primeiro");
-
   fetch(WEBHOOK_URL,{
     method:"POST",
     headers:{"Content-Type":"application/json"},
@@ -245,25 +237,9 @@ function limpar(){
 }
 </script>
 
-<!-- ============ SEGURANÇA (APENAS ADIÇÃO) ============ -->
 <script>
-document.addEventListener("contextmenu",e=>e.preventDefault());
-document.addEventListener("selectstart",e=>e.preventDefault());
-
-document.addEventListener("keydown",e=>{
-  if(e.key==="F12") e.preventDefault();
-  if(e.ctrlKey && e.shiftKey && ["I","J","C","K"].includes(e.key.toUpperCase())) e.preventDefault();
-  if(e.ctrlKey && ["u","c","v","x","a"].includes(e.key.toLowerCase())) e.preventDefault();
-});
-
-(function(){
-  const d=new Image();
-  Object.defineProperty(d,"id",{get:function(){
-    document.body.innerHTML='<div style="background:black;color:white;height:100vh;display:flex;align-items:center;justify-content:center"><h1>⛔ ACESSO BLOQUEADO</h1></div>';
-    throw new Error();
-  }});
-  setInterval(()=>console.log(d),1000);
-})();
+nome.addEventListener("input",()=> nome.value = nome.value.replace(/[^a-zA-ZÀ-ÿ\s]/g,""));
+id.addEventListener("input",()=> id.value = id.value.replace(/\D/g,""));
 </script>
 
 </body>
