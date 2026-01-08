@@ -64,6 +64,7 @@ textarea{
   <nav class="nav-links d-none d-md-flex">
     <a href="index.html">Início</a>
     <a href="tabela.html">Preços</a>
+    <a href="shop.html">Loja</a>
     <a href="relatorio.html">Relatório</a>
     <a href="funcionarios.html">Funcionários</a>
   </nav>
@@ -166,7 +167,7 @@ textarea{
 
 <div class="form-check mb-2">
 <input type="checkbox" id="parceria" class="form-check-input">
-<label class="form-check-label">Parceria(10%)</label>
+<label class="form-check-label">Parceria (10%)</label>
 </div>
 
 <label>Total</label>
@@ -244,6 +245,26 @@ function limpar(){
 }
 </script>
 
+<!-- ============ SEGURANÇA (APENAS ADIÇÃO) ============ -->
+<script>
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("selectstart",e=>e.preventDefault());
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="F12") e.preventDefault();
+  if(e.ctrlKey && e.shiftKey && ["I","J","C","K"].includes(e.key.toUpperCase())) e.preventDefault();
+  if(e.ctrlKey && ["u","c","v","x","a"].includes(e.key.toLowerCase())) e.preventDefault();
+});
+
+(function(){
+  const d=new Image();
+  Object.defineProperty(d,"id",{get:function(){
+    document.body.innerHTML='<div style="background:black;color:white;height:100vh;display:flex;align-items:center;justify-content:center"><h1>⛔ ACESSO BLOQUEADO</h1></div>';
+    throw new Error();
+  }});
+  setInterval(()=>console.log(d),1000);
+})();
+</script>
+
 </body>
 </html>
-
