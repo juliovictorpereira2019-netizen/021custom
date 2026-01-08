@@ -24,6 +24,13 @@ body{
   z-index:1000;
 }
 .logo{font-weight:700}
+.nav-links a{
+  color:#fff;
+  margin-left:18px;
+  text-decoration:none;
+  font-weight:600;
+}
+.nav-links a:hover{color:#cfcfcf}
 .card{
   border-radius:14px;
   box-shadow:0 6px 20px rgba(0,0,0,.15);
@@ -48,10 +55,19 @@ textarea{
 
 <body>
 
+<!-- ================= MENU / NAVBAR ================= -->
 <header class="topbar">
-<div class="container d-flex align-items-center gap-3">
-<img src="https://imgur.com/UX64xoQ.png" style="height:60px;border-radius:8px">
-<div class="logo">Fusion Customs</div>
+<div class="container d-flex justify-content-between align-items-center">
+  <div class="d-flex align-items-center gap-3">
+    <img src="https://imgur.com/UX64xoQ.png" style="height:60px;border-radius:8px">
+    <div class="logo">Fusion Customs</div>
+  </div>
+  <nav class="nav-links d-none d-md-flex align-items-center">
+    <a href="index.html">Início</a>
+    <a href="tabela.html">Preços</a>
+    <a href="relatorio.html">Relatório</a>
+    <a href="funcionarios.html">Funcionários</a>
+  </nav>
 </div>
 </header>
 
@@ -142,7 +158,7 @@ textarea{
 
 <div class="form-check mb-2">
 <input type="checkbox" id="parceria" class="form-check-input">
-<label class="form-check-label">Parceria (10%)</label>
+<label class="form-check-label">Parceria PM (10%)</label>
 </div>
 
 <label>Total</label>
@@ -222,4 +238,3 @@ function limpar(){
 
 </body>
 </html>
-
