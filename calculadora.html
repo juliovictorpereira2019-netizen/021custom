@@ -4,286 +4,185 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fusion Customs - Relatório</title>
-<link rel="icon" href="https://imgur.com/WWZV5uc.png">
 
-<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
 
 <style>
-body {
+body{
   background:#f7f7f7;
-  font-family:Inter,system-ui;
-  user-select:none;
-  padding-top: 80px;
+  font-family:Inter,sans-serif;
+  padding-top:90px;
 }
-input,textarea,button,label {
-  user-select:auto !important;
-}
-.topbar {background:#2b2f33;color:#fff;padding:12px 0; position: fixed; top:0; width:100%; z-index:1000;}
-.logo {font-weight:700; font-size:1.4rem;}
-.nav-links a {color:#fff; text-decoration:none; margin-left:18px; font-weight:600;}
-.nav-links a:hover {color:#cfcfcf;}
-.discord-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:8px 16px; border-radius:12px; background:linear-gradient(135deg,#7289da,#99a9f0); color:#fff; font-weight:700; text-decoration:none; }
+.topbar{background:#2b2f33;color:#fff;padding:12px 0;position:fixed;top:0;width:100%;z-index:1000}
+.logo{font-weight:700}
+.nav-links a{color:#fff;margin-left:18px;text-decoration:none;font-weight:600}
+.nav-links a:hover{color:#cfcfcf}
+.discord-btn{background:linear-gradient(135deg,#7289da,#99a9f0);padding:8px 16px;border-radius:12px;color:#fff;text-decoration:none;font-weight:700}
 
-.card {margin-bottom:20px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,.1);}
-.card-header {font-weight:700; background:#f0f0f0; border-bottom:none; text-align:center;}
-.calc-container {
-  background:#fff; 
-  padding:30px; 
-  border-radius:12px;
-  box-shadow:0 6px 20px rgba(0,0,0,.15);
-  max-height: 650px; 
-  overflow-y:auto;
-}
-textarea {height:250px; font-family:monospace; resize: vertical;}
-button {width:100%; border-radius:8px; padding:10px; font-weight:700; transition: transform 0.1s ease;}
-button:hover {transform: scale(1.03);}
+.card{border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.15)}
+.card-header{text-align:center;font-weight:700;background:#f0f0f0}
+
+.calc-container{background:#fff;padding:25px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+textarea{height:260px;font-family:monospace}
 </style>
 </head>
 
 <body>
 
-<!-- ================== TOPBAR ================== -->
+<!-- TOPBAR -->
 <header class="topbar">
 <div class="container d-flex justify-content-between align-items-center">
   <div class="d-flex align-items-center gap-3">
-    <img src="https://imgur.com/UX64xoQ.png" style="height:65px;border-radius:8px">
+    <img src="https://imgur.com/UX64xoQ.png" style="height:60px;border-radius:8px">
     <div class="logo">Fusion Customs</div>
   </div>
-  <nav class="d-none d-md-flex align-items-center nav-links">
+  <nav class="d-none d-md-flex nav-links align-items-center">
     <a href="index.html">Início</a>
     <a href="tabela.html">Preços</a>
     <a href="shop.html">Loja</a>
     <a href="relatorio.html">Relatório</a>
     <a href="funcionarios.html">Funcionários</a>
-    <a href="https://discord.gg/YuUsJGfH" target="_blank" class="discord-btn">
-      <i class="fa-brands fa-discord"></i> Discord
-    </a>
+    <a href="#" class="discord-btn"><i class="fa-brands fa-discord"></i> Discord</a>
   </nav>
 </div>
 </header>
 
-<!-- ================== CONTEÚDO ================== -->
-<div class="container mt-4">
-  <div class="row g-4">
+<div class="container">
+<div class="row g-4">
 
-    <!-- ================= TUNAGEM ================= -->
-    <div class="col-md-4">
-      <div class="card h-100">
-        <div class="card-header">TUNAGEM/ESTÉTICA</div>
-        <div class="card-body overflow-auto" style="max-height:600px;">
-          <!-- Lista completa de itens de TUNAGEM -->
-          <div class="form-check"><input class="form-check-input item" data-nome="Motor" data-valor="150000" type="checkbox"><label> Motor</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Bloco de Motor" data-valor="40000" type="checkbox"><label> Bloco de Motor</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Som do Motor" data-valor="40000" type="checkbox"><label> Som do Motor</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Freio" data-valor="150000" type="checkbox"><label> Freio</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Transmissão" data-valor="280000" type="checkbox"><label> Transmissão</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Suspensão" data-valor="40000" type="checkbox"><label> Suspensão</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Turbo" data-valor="250000" type="checkbox"><label> Turbo</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Hidráulica" data-valor="95000" type="checkbox"><label> Hidráulica</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Blindagem" data-valor="400000" type="checkbox"><label> Blindagem</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Parachoque Dianteiro" data-valor="40000" type="checkbox"><label> Parachoque Dianteiro</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Parachoque Traseiro" data-valor="40000" type="checkbox"><label> Parachoque Traseiro</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Capô" data-valor="40000" type="checkbox"><label> Capô</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Escapamento" data-valor="40000" type="checkbox"><label> Escapamento</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Saia" data-valor="40000" type="checkbox"><label> Saia</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Doors" data-valor="40000" type="checkbox"><label> Doors</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Para-lama" data-valor="40000" type="checkbox"><label> Para-lama</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Arch Cover" data-valor="40000" type="checkbox"><label> Arch Cover</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Gaiola de Proteção" data-valor="40000" type="checkbox"><label> Gaiola de Proteção</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Bancos" data-valor="40000" type="checkbox"><label> Bancos</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Painel" data-valor="40000" type="checkbox"><label> Painel</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Buzina" data-valor="40000" type="checkbox"><label> Buzina</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Grelha" data-valor="40000" type="checkbox"><label> Grelha</label></div>
+<!-- TUNAGEM -->
+<div class="col-md-4">
+<div class="card h-100">
+<div class="card-header">TUNAGEM</div>
+<div class="card-body overflow-auto" style="max-height:620px">
 
-        </div>
-      </div>
-    </div>
+<!-- MOTOR -->
+<b>Motor</b>
+<div class="form-check"><input class="form-check-input item" data-nome="Motor Nível 1" data-valor="120000" type="checkbox"> Motor Nível 1</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Motor Nível 2" data-valor="150000" type="checkbox"> Motor Nível 2</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Motor Nível 3" data-valor="190000" type="checkbox"> Motor Nível 3</div>
 
-    <!-- ================= ESTÉTICA ================= -->
-    <div class="col-md-4">
-      <div class="card h-100">
-        <div class="card-header">ESTÉTICA</div>
-        <div class="card-body overflow-auto" style="max-height:600px;">
-          <!-- Lista completa de itens de ESTÉTICA -->
-          <div class="form-check"><input class="form-check-input item" data-nome="Pintura Primária" data-valor="30000" type="checkbox"><label> Pintura Primária</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Pintura Secundária" data-valor="30000" type="checkbox"><label> Pintura Secundária</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Pintura Cromado" data-valor="30000" type="checkbox"><label> Pintura Cromado</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Pintura Perolado" data-valor="30000" type="checkbox"><label> Pintura Perolado</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Pintura Decal" data-valor="30000" type="checkbox"><label> Pintura Decal</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Xenon" data-valor="40000" type="checkbox"><label> Xenon</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Neon" data-valor="30000" type="checkbox"><label> Neon</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Fumaça" data-valor="40000" type="checkbox"><label> Fumaça</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Vidro" data-valor="80000" type="checkbox"><label> Vidro</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Insufilm" data-valor="60000" type="checkbox"><label> Insufilm</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Teto" data-valor="60000" type="checkbox"><label> Teto</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Aerofolio" data-valor="40000" type="checkbox"><label> Aerofolio</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Rodas nacionais" data-valor="40000" type="checkbox"><label> Rodas nacionais</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Rodas importadas" data-valor="40000" type="checkbox"><label> Rodas importadas</label></div>
-          <div class="form-check"><input class="form-check-input item" data-nome="Cor das rodas" data-valor="40000" type="checkbox"><label> Cor das rodas</label></div>
-        </div>
-      </div>
-    </div>
+<div class="form-check"><input class="form-check-input item" data-nome="Bloco de Motor" data-valor="40000" type="checkbox"> Bloco de Motor</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Som do Motor" data-valor="40000" type="checkbox"> Som do Motor</div>
 
-    <!-- ================= RELATÓRIO ================= -->
-    <div class="col-md-4">
-      <div class="calc-container h-100 d-flex flex-column">
-        <label>Mecânico</label>
-        <input id="nome" class="form-control mb-3">
+<!-- FREIO -->
+<hr><b>Freio</b>
+<div class="form-check"><input class="form-check-input item" data-nome="Freio Nível 1" data-valor="90000" type="checkbox"> Freio Nível 1</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Freio Nível 2" data-valor="120000" type="checkbox"> Freio Nível 2</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Freio Nível 3" data-valor="150000" type="checkbox"> Freio Nível 3</div>
 
-        <label>ID do Cliente</label>
-        <input id="id" class="form-control mb-3">
+<!-- TRANSMISSÃO -->
+<hr><b>Transmissão</b>
+<div class="form-check"><input class="form-check-input item" data-nome="Transmissão Nível 1" data-valor="180000" type="checkbox"> Transmissão Nível 1</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Transmissão Nível 2" data-valor="230000" type="checkbox"> Transmissão Nível 2</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Transmissão Nível 3" data-valor="280000" type="checkbox"> Transmissão Nível 3</div>
 
-        <div class="form-check mb-3">
-          <input class="form-check-input" type="checkbox" id="parceria">
-          <label class="form-check-label" for="parceria">Parceria (10% de desconto)</label>
-        </div>
+<!-- SUSPENSÃO -->
+<hr><b>Suspensão</b>
+<div class="form-check"><input class="form-check-input item" data-nome="Suspensão Nível 1" data-valor="65000" type="checkbox"> Suspensão Nível 1</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Suspensão Nível 2" data-valor="95000" type="checkbox"> Suspensão Nível 2</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Suspensão Nível 3" data-valor="130000" type="checkbox"> Suspensão Nível 3</div>
 
-        <label>Total</label>
-        <input id="total" class="form-control mb-3" readonly>
+<hr>
+<div class="form-check"><input class="form-check-input item" data-nome="Turbo" data-valor="250000" type="checkbox"> Turbo</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Blindagem" data-valor="400000" type="checkbox"> Blindagem</div>
 
-        <div class="d-flex flex-column gap-2 mb-3">
-          <button class="calc-btn btn btn-success" onclick="gerar()">Gerar Relatório</button>
-          <button class="discord-send btn btn-primary" onclick="enviarDiscord()">Enviar para o Discord</button>
-          <button class="clear-btn btn btn-danger" onclick="limpar()">Limpar</button>
-        </div>
+</div>
+</div>
+</div>
 
-        <textarea id="texto" class="form-control mt-auto" readonly></textarea>
-      </div>
-    </div>
+<!-- ESTÉTICA -->
+<div class="col-md-4">
+<div class="card h-100">
+<div class="card-header">ESTÉTICA</div>
+<div class="card-body overflow-auto" style="max-height:620px">
 
-    <!-- ================= PARCERIAS ================= -->
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">PARCERIAS</div>
-        <div class="card-body">
-          <p>Temos parcerias especiais com a <strong>Polícia Militar</strong>, oferecendo os seguintes benefícios:</p>
-          <ul>
-            <li>🤝 <strong>10% de desconto</strong> em todos os serviços</li>
-            <li>🛠️ <strong>Reparo gratuito</strong> nas viaturas da PM</li>
-          </ul>
-          <p>Para aproveitar os benefícios, marque a opção <strong>Parceria</strong> no relatório.</p>
-        </div>
-      </div>
-    </div>
+<div class="form-check"><input class="form-check-input item" data-nome="Rodas Nacionais" data-valor="32000" type="checkbox"> Rodas Nacionais</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Rodas Importadas" data-valor="32000" type="checkbox"> Rodas Importadas</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Cor das Rodas" data-valor="32000" type="checkbox"> Cor das Rodas</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Fumaça" data-valor="32000" type="checkbox"> Fumaça</div>
 
-  </div>
+<hr>
+<div class="form-check"><input class="form-check-input item" data-nome="Pintura Primária" data-valor="32000" type="checkbox"> Pintura Primária</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Pintura Secundária" data-valor="32000" type="checkbox"> Pintura Secundária</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Pintura Cromada" data-valor="32000" type="checkbox"> Pintura Cromada</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Pintura Perolado" data-valor="32000" type="checkbox"> Pintura Perolado</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Pintura Decal" data-valor="32000" type="checkbox"> Pintura Decal</div>
+
+<hr>
+<div class="form-check"><input class="form-check-input item" data-nome="Xenon" data-valor="32000" type="checkbox"> Xenon</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Neon" data-valor="32000" type="checkbox"> Neon</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Vidro" data-valor="32000" type="checkbox"> Vidro</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Bancos" data-valor="32000" type="checkbox"> Bancos</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Painel" data-valor="32000" type="checkbox"> Painel</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Buzina" data-valor="32000" type="checkbox"> Buzina</div>
+
+</div>
+</div>
+</div>
+
+<!-- RELATÓRIO -->
+<div class="col-md-4">
+<div class="calc-container h-100">
+<label>Mecânico</label>
+<input id="nome" class="form-control mb-2">
+
+<label>ID Cliente</label>
+<input id="id" class="form-control mb-2">
+
+<div class="form-check mb-2">
+<input type="checkbox" id="parceria" class="form-check-input">
+<label class="form-check-label">Parceria (10%)</label>
+</div>
+
+<label>Total</label>
+<input id="total" class="form-control mb-2" readonly>
+
+<button class="btn btn-success mb-2" onclick="gerar()">Gerar Relatório</button>
+<button class="btn btn-danger mb-2" onclick="limpar()">Limpar</button>
+
+<textarea id="texto" class="form-control mt-2" readonly></textarea>
+</div>
+</div>
+
+</div>
 </div>
 
 <script>
-const WEBHOOK = "https://discord.com/api/webhooks/1450692500720193568/SF8E7nH0Ak81Bmr8kxYROnF_EOpCM10cCGyXtMvKlHpc2qWlPS2Hhl95J6htscQ7A8MZ";
+const itens=document.querySelectorAll(".item");
+const totalInput=document.getElementById("total");
 
-// ===================== CALCULAR ITENS =====================
-const itens = document.querySelectorAll(".item");
-const totalInput = document.getElementById("total");
+itens.forEach(i=>i.addEventListener("change",calc));
 
-itens.forEach(i => i.addEventListener("change", calcular));
-
-function calcular(){
-  let total = 0;
-  document.querySelectorAll(".item:checked").forEach(i=>{
-    total += Number(i.dataset.valor);
-  });
-
-  const parceria = document.getElementById("parceria").checked;
-  if(parceria){
-    total = total * 0.90; // aplica 10% de desconto
-  }
-
-  totalInput.value = total ? `R$ ${total.toLocaleString("pt-BR")}` : "";
+function calc(){
+let t=0;
+document.querySelectorAll(".item:checked").forEach(i=>t+=Number(i.dataset.valor));
+if(parceria.checked)t*=0.9;
+totalInput.value=t?`R$ ${t.toLocaleString("pt-BR")}`:"";
 }
 
-// ===================== GERAR RELATÓRIO =====================
 function gerar(){
-  if(!id.value) return alert("ID obrigatório");
-
-  let total = 0;
-  let txt = `🛠️ RELATÓRIO 021 CUSTOMS
-👨‍🔧 Mecânico: ${nome.value || "Não informado"}
-🆔 Cliente: ${id.value}\n\n`;
-
-  document.querySelectorAll(".item:checked").forEach(i=>{
-    let v = Number(i.dataset.valor);
-    total += v;
-    txt += `📌 ${i.dataset.nome} - R$ ${v.toLocaleString("pt-BR")}\n`;
-  });
-
-  const parceria = document.getElementById("parceria").checked;
-  if(parceria){
-    const desconto = total * 0.10;
-    total = total - desconto;
-    txt += `\n🤝 Parceria: 10% de desconto aplicado (-R$ ${desconto.toLocaleString("pt-BR")})`;
-  }
-
-  txt += `\n💰 TOTAL: R$ ${total.toLocaleString("pt-BR")}`;
-  texto.value = txt;
-  totalInput.value = `R$ ${total.toLocaleString("pt-BR")}`;
+if(!id.value)return alert("ID obrigatório");
+let t=0;
+let txt=`🛠️ RELATÓRIO FUSION CUSTOMS\n👨‍🔧 Mecânico: ${nome.value||"N/I"}\n🆔 Cliente: ${id.value}\n\n`;
+document.querySelectorAll(".item:checked").forEach(i=>{
+t+=Number(i.dataset.valor);
+txt+=`• ${i.dataset.nome} - R$ ${Number(i.dataset.valor).toLocaleString("pt-BR")}\n`;
+});
+if(parceria.checked){txt+=`\n🤝 Parceria aplicada (10%)`;t*=0.9;}
+txt+=`\n\n💰 TOTAL: R$ ${t.toLocaleString("pt-BR")}`;
+texto.value=txt;
+totalInput.value=`R$ ${t.toLocaleString("pt-BR")}`;
 }
 
-// ===================== ENVIAR PARA DISCORD =====================
-async function enviarDiscord(){
-  if(!texto.value) return alert("Gere o relatório");
-  await fetch(WEBHOOK,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({ content: texto.value })
-  });
-  alert("Relatório enviado!");
-}
-
-// ===================== LIMPAR FORMULÁRIO =====================
 function limpar(){
-  document.querySelectorAll("input").forEach(i=>i.value="");
-  document.querySelectorAll(".item").forEach(i=>i.checked=false);
-  document.getElementById("parceria").checked = false;
-  texto.value="";
+document.querySelectorAll("input").forEach(i=>i.value="");
+document.querySelectorAll(".item").forEach(i=>i.checked=false);
+texto.value="";
 }
-
-// ===================== ANTI-COLAR =====================
-const campos = document.querySelectorAll("#nome, #id, #total, #texto");
-
-campos.forEach(campo => {
-  campo.addEventListener("keydown", function(e){
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v") {
-      e.preventDefault();
-      alert("Colar não permitido!");
-    }
-  });
-
-  campo.addEventListener("paste", function(e){
-    e.preventDefault();
-    alert("Colar não permitido!");
-  });
-
-  campo.addEventListener("contextmenu", function(e){
-    e.preventDefault();
-  });
-});
-
-// ===================== ANTI-COPY =====================
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('keydown', e => {
-  if (
-    (e.ctrlKey && ['s','u','c'].includes(e.key.toLowerCase())) ||
-    (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') ||
-    e.key === "F12"
-  ) {
-    e.preventDefault();
-    alert("Ação bloqueada!");
-  }
-});
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
