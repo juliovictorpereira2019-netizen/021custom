@@ -14,13 +14,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: #222; margin:0; }
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: #f7f7f7;
+  color: #222;
+  margin: 0;
+}
 
 /* Topbar */
 .topbar { background: #2b2f33; color: #fff; padding: 12px 0; }
 .logo { font-weight:700; letter-spacing:0.6px; color:#fff; }
 
-/* Menu desktop com efeito verde no hover */
+/* Menu desktop (hover azul) */
 .nav-links { display: flex; gap: 18px; }
 .nav-links a:not(.discord-btn) {
   font-weight: 600;
@@ -38,9 +43,22 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
   animation: shineText 1s linear infinite;
 }
 
-/* Botão Discord sem efeito de brilho */
-.discord-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:8px 16px; border-radius:12px; background:linear-gradient(135deg,#7289da,#99a9f0); color:#fff; font-weight:700; text-decoration:none; transition:0.25s; font-size:0.9rem; }
-.discord-btn:hover { 
+/* Botão Discord */
+.discord-btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:8px 16px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#7289da,#99a9f0);
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  transition:0.25s;
+  font-size:0.9rem;
+}
+.discord-btn:hover {
   background: linear-gradient(135deg,#5b6ea1,#7f88d0);
   transform: translateY(-2px);
   animation: none;
@@ -49,7 +67,7 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
 /* Hamburger menu mobile */
 .navbar-toggler { border: none; background: transparent; outline: none; }
 
-/* Menu mobile com brilho verde */
+/* Menu mobile (hover azul) */
 .mobile-link {
   color: #fff;
   font-weight: 600;
@@ -67,54 +85,47 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
   padding-left: 4px;
 }
 
-@keyframes shineText {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
+@keyframes shineText { from {background-position:200% 0;} to {background-position:-200% 0;} }
 
 /* Cursos */
-.card-service { border-radius: 16px; overflow: hidden; margin-bottom: 20px; cursor: pointer; transition: 0.3s; }
+.card-service { border-radius:16px; overflow:hidden; margin-bottom:20px; cursor:pointer; transition:0.3s; }
 .card-service:hover { transform: translateY(-3px); }
-.card-service img { height: 180px; object-fit: cover; }
+.card-service img { height:180px; object-fit:cover; }
 
 /* Sobre nós */
 .about-section { background:#222; color:#fff; padding:40px 20px; border-radius:12px; margin-top:40px; }
 .about-section img { width:100%; max-width:250px; margin-bottom:15px; border-radius:8px; }
 
-/* Modal video */
-.modal-video iframe { width: 100%; height: 400px; border: none; border-radius:8px; }
-@media (max-width: 576px) { .modal-video iframe { height: 250px; } }
+/* Modal vídeo */
+.modal-video iframe { width:100%; height:400px; border:none; border-radius:8px; }
+@media (max-width:576px) { .modal-video iframe { height:250px; } }
 
-/* ===== CARDS COM ÍCONES GLOW + LINHA VERDE ===== */
+/* CARDS ANIMADOS AZUIS */
 .cards-animated { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:25px; margin-top:50px; }
 .card-animated { position:relative; background:rgba(15,15,15,.95); border-radius:18px; padding:30px 25px; text-align:center; overflow:hidden; transition:.3s ease; color:#eaeaea; }
-.card-animated:hover { transform:translateY(-5px); box-shadow:0 0 50px rgba(0,255,100,.25); }
+.card-animated:hover { transform:translateY(-5px); box-shadow:0 0 50px rgba(0,200,255,.35); }
 
-/* Ícones grandes com glow */
-.glow-red { color: #ff3232; font-size:48px; margin-bottom:15px; text-shadow: 0 0 5px #ff3232, 0 0 10px #ff3232, 0 0 20px #ff3232, 0 0 30px #ff3232; animation: pulseGlowRed 2s infinite alternate; }
-.glow-yellow { color: #ffd700; font-size:48px; margin-bottom:15px; text-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ffd700; animation: pulseGlowYellow 2s infinite alternate; }
-.glow-blue { color: #00c8ff; font-size:48px; margin-bottom:15px; text-shadow: 0 0 5px #00c8ff, 0 0 10px #00c8ff, 0 0 20px #00c8ff, 0 0 30px #00c8ff; animation: pulseGlowBlue 2s infinite alternate; }
+/* Ícones glow */
+.glow-red { color:#ff3232; font-size:48px; margin-bottom:15px; text-shadow:0 0 5px #ff3232,0 0 10px #ff3232,0 0 20px #ff3232,0 0 30px #ff3232; }
+.glow-yellow { color:#ffd700; font-size:48px; margin-bottom:15px; text-shadow:0 0 5px #ffd700,0 0 10px #ffd700,0 0 20px #ffd700,0 0 30px #ffd700; }
+.glow-blue { color:#00c8ff; font-size:48px; margin-bottom:15px; text-shadow:0 0 5px #00c8ff,0 0 10px #00c8ff,0 0 20px #00c8ff,0 0 30px #00c8ff; animation:pulseGlowBlue 2s infinite alternate; }
 
-/* Linha verde correndo nos cards */
+/* Linha animada azul nos cards */
 .card-animated::after{
-  background: linear-gradient(
-    90deg,
-    transparent 40%,
-    rgba(0,200,255,0.35),
-    transparent 60%
-  );
+  content:""; position:absolute; top:0; left:-100%; width:100%; height:100%; border-radius:18px;
+  background: linear-gradient(90deg, transparent 40%, rgba(0,200,255,0.35), transparent 60%);
+  opacity:0; transition:0.3s;
 }
 .card-animated:hover::after{ opacity:1; animation:runLine 1.2s linear infinite; }
 
 .card-animated h3{ margin:10px 0; }
 .card-animated p{ font-size:14px; color:#aaa; }
 
-@keyframes pulseGlowRed { from { text-shadow:0 0 5px #ff3232,0 0 10px #ff3232,0 0 20px #ff3232,0 0 30px #ff3232; } to { text-shadow:0 0 10px #ff3232,0 0 20px #ff3232,0 0 40px #ff3232,0 0 60px #ff3232; } }
-@keyframes pulseGlowYellow { from { text-shadow:0 0 5px #ffd700,0 0 10px #ffd700,0 0 20px #ffd700,0 0 30px #ffd700; } to { text-shadow:0 0 10px #ffd700,0 0 20px #ffd700,0 0 40px #ffd700,0 0 60px #ffd700; } }
 @keyframes pulseGlowBlue { from { text-shadow:0 0 5px #00c8ff,0 0 10px #00c8ff,0 0 20px #00c8ff,0 0 30px #00c8ff; } to { text-shadow:0 0 10px #00c8ff,0 0 20px #00c8ff,0 0 40px #00c8ff,0 0 60px #00c8ff; } }
-@keyframes runLine{ from{left:-100%} to{left:100%} }
+@keyframes runLine{ from{left:-100%} to{left:100%;} }
 </style>
 </head>
+
 <body oncontextmenu="return false">
 
 <header class="topbar">
@@ -124,11 +135,11 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
         <div class="logo">FUSION CUSTOMS</div>
     </div>
 
-    <!-- Botão hamburger para celular -->
+    <!-- Hamburger mobile -->
     <button class="navbar-toggler d-md-none" type="button" aria-label="Abrir menu">
-      <span class="navbar-toggler-icon" style="width:30px; height:3px; background:#fff; display:block; margin:6px 0;"></span>
-      <span class="navbar-toggler-icon" style="width:30px; height:3px; background:#fff; display:block; margin:6px 0;"></span>
-      <span class="navbar-toggler-icon" style="width:30px; height:3px; background:#fff; display:block; margin:6px 0;"></span>
+      <span style="width:30px; height:3px; background:#fff; display:block; margin:6px 0;"></span>
+      <span style="width:30px; height:3px; background:#fff; display:block; margin:6px 0;"></span>
+      <span style="width:30px; height:3px; background:#fff; display:block; margin:6px 0;"></span>
     </button>
 
     <!-- Menu desktop -->
@@ -147,7 +158,7 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
         <a href="#" class="mobile-link d-block py-2">Início</a>
         <a href="tabela.html" class="mobile-link d-block py-2">Preços</a>
         <a href="funcionarios.html" class="mobile-link d-block py-2">Funcionários</a>
-        <a href="https://discord.gg/34kgePh5" target="_blank" class="d-block discord-btn mt-2 text-center">
+        <a href="https://discord.gg/YuUsJGfH" target="_blank" class="d-block discord-btn mt-2 text-center">
           <i class="fa-brands fa-discord"></i> Discord
         </a>
       </div>
@@ -156,7 +167,8 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
 </header>
 
 <main class="container my-5">
-<!-- SEÇÃO DE CURSOS -->
+
+<!-- Cursos -->
 <section class="mb-5">
   <h2 class="mb-4 text-center">Nossos Cursos</h2>
   <div class="row justify-content-center">
@@ -179,7 +191,7 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
   </div>
 </section>
 
-<!-- CARDS COM ÍCONES GLOW + LINHA VERDE -->
+<!-- Cards animados -->
 <section class="cards-animated">
   <div class="card-animated">
     <i class="fa-solid fa-car glow-red"></i>
@@ -190,7 +202,7 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
   <div class="card-animated">
     <i class="fa-solid fa-coins glow-yellow"></i>
     <h3>Valores da Tabela</h3>
-    <p>É proibido cobrar valores acima ou abaixo da tabela. Infrações podem resultar em removimendo da mecanica ou banimento da cidade.</p>
+    <p>É proibido cobrar valores acima ou abaixo da tabela. Infrações podem resultar em removimento da mecanica ou banimento da cidade.</p>
   </div>
 
   <div class="card-animated">
@@ -229,11 +241,12 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
   </div>
 </div>
 
+<!-- Sobre nós -->
 <section class="about-section">
   <h2 class="mb-4 text-center">Sobre Nós</h2>
   <div class="row align-items-center">
     <div class="col-md-6 text-center">
-      <img src="https://imgur.com/UX64xoQ.png" alt="FUSION CUSTOMS Logo" style="max-width:250px; border-radius:8px;" draggable="false">
+      <img src="https://imgur.com/UX64xoQ.png" alt="FUSION CUSTOMS Logo" draggable="false">
     </div>
     <div class="col-md-6">
       <p>
@@ -243,6 +256,7 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
   </div>
 </section>
 
+<!-- Footer -->
 <footer class="text-center py-4 text-muted">
 © <span id="year"></span> João Britto - Todos os direitos reservados
 </footer>
@@ -260,27 +274,13 @@ document.onkeydown = function(e) {
         e.preventDefault(); return false;
     }
 };
-document.querySelectorAll("img").forEach(img => { img.setAttribute("draggable", "false"); });
+document.querySelectorAll("img").forEach(img => img.setAttribute("draggable","false"));
 
 // Hamburger toggle mobile
 const toggler = document.querySelector('.navbar-toggler');
 const mobileMenu = document.getElementById('mobileMenu');
-toggler.addEventListener('click', () => {
-    mobileMenu.classList.toggle('show');
-});
+toggler.addEventListener('click', () => mobileMenu.classList.toggle('show'));
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
