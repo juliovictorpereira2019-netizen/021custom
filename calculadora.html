@@ -202,14 +202,7 @@ document.querySelectorAll(".freio").forEach(i=>i.addEventListener("change",()=>u
 document.querySelectorAll(".trans").forEach(i=>i.addEventListener("change",()=>unicaCategoria("trans",i)));
 document.querySelectorAll(".susp").forEach(i=>i.addEventListener("change",()=>unicaCategoria("susp",i)));
 
-// Full Tunagem inteligente
-fullTunagem.addEventListener("change", ()=>{
-  const selecionar = fullTunagem.checked;
-  document.querySelectorAll(".item").forEach(i=>{
-    if(i.id!=="fulltunagem") i.checked=selecionar;
-  });
-  calc();
-});
+
 
 itens.forEach(i=>i.addEventListener("change",calc));
 parceria.addEventListener("change",calc);
@@ -287,6 +280,7 @@ document.addEventListener("keydown",e=>{
 
 </body>
 </html>
+
 
 
 
