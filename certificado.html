@@ -45,12 +45,9 @@ body {
       <div class="logo">Fusion Customs</div>
     </div>
     <nav class="d-none d-md-flex align-items-center nav-links">
-      <a href="#">Início</a>
+      <a href="index.html">Início</a>
       <a href="tabela.html">Preços</a>
-      <a href="relatorio.html">Relatório</a>
       <a href="funcionarios.html">Funcionários</a>
-      <a href="https://discord.gg/YuUsJGfH" target="_blank" class="discord-btn">
-        <i class="fa-brands fa-discord"></i> Discord
       </a>
     </nav>
   </div>
@@ -131,7 +128,7 @@ document.getElementById('certForm').addEventListener('submit', async function(e)
     doc.setFont('times','normal');
     doc.setFontSize(18);
     doc.text(`concluiu o curso de ${curso},`,148.5,135,{align:'center'});
-    doc.text('ministrado pela empresa 021 CUSTOMS Mecânica.',148.5,148,{align:'center'});
+    doc.text('ministrado pela empresa Fusion Customs.',148.5,148,{align:'center'});
 
     doc.line(90,165,207,165);
     doc.setFont('times','italic');
@@ -146,7 +143,7 @@ document.getElementById('certForm').addEventListener('submit', async function(e)
 
 function enviarParaDiscord(pdfDoc, nome, instrutor, curso){
   const blob = pdfDoc.output('blob');
-  const webhookURL = "https://discord.com/api/webhooks/1451616009231400980/OtzSGk9osWeyjA3nVFTEbpMYalf7URkk3ntcNDwiSwBpq1VbgHqzwpB5DIJa7TdvBtyB"; // Coloque seu webhook real
+  const webhookURL = "https://discord.com/api/webhooks/1458828067362439241/nrWY2gJn15JJuveGP-FBpAFYvwzNeftZxNsqXdEh8ewTNynnMfNAUsD8dzWGld6waYhb"; // Coloque seu webhook real
 
   const file = new File([blob], `${nome}-certificado.pdf`, { type: 'application/pdf' });
   const formData = new FormData();
@@ -175,6 +172,7 @@ function enviarParaDiscord(pdfDoc, nome, instrutor, curso){
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 
 
