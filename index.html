@@ -31,7 +31,7 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
   transition: 0.5s;
 }
 .nav-links a:not(.discord-btn):hover {
-  background: linear-gradient(90deg, #00ff64 30%, #fff 50%, #00ff64 70%);
+  background: linear-gradient(90deg, #00c8ff 30%, #fff 50%, #00c8ff 70%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -58,7 +58,7 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
   transition: 0.5s;
 }
 .mobile-link:hover {
-  background: linear-gradient(90deg, #00ff64 30%, #fff 50%, #00ff64 70%);
+  background: linear-gradient(90deg, #00c8ff 30%, #fff 50%, #00c8ff 70%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -96,7 +96,14 @@ body { font-family: "Inter", system-ui, sans-serif; background: #f7f7f7; color: 
 .glow-blue { color: #00c8ff; font-size:48px; margin-bottom:15px; text-shadow: 0 0 5px #00c8ff, 0 0 10px #00c8ff, 0 0 20px #00c8ff, 0 0 30px #00c8ff; animation: pulseGlowBlue 2s infinite alternate; }
 
 /* Linha verde correndo nos cards */
-.card-animated::after{ content:""; position:absolute; top:0; left:-100%; width:100%; height:100%; border-radius:18px; background: linear-gradient(90deg, transparent 40%, rgba(0,255,64,0.25), transparent 60%); opacity:0; transition:0.3s; }
+.card-animated::after{
+  background: linear-gradient(
+    90deg,
+    transparent 40%,
+    rgba(0,200,255,0.35),
+    transparent 60%
+  );
+}
 .card-animated:hover::after{ opacity:1; animation:runLine 1.2s linear infinite; }
 
 .card-animated h3{ margin:10px 0; }
@@ -265,6 +272,7 @@ toggler.addEventListener('click', () => {
 
 </body>
 </html>
+
 
 
 
