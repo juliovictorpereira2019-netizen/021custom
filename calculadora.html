@@ -15,22 +15,47 @@ body{
   font-family:Inter,sans-serif;
   padding-top:90px;
 }
-.topbar{background:#2b2f33;color:#fff;padding:12px 0;position:fixed;top:0;width:100%;z-index:1000}
+.topbar{
+  background:#2b2f33;
+  color:#fff;
+  padding:12px 0;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1000
+}
 .logo{font-weight:700}
-.nav-links a{color:#fff;margin-left:18px;text-decoration:none;font-weight:600}
+.nav-links a{
+  color:#fff;
+  margin-left:18px;
+  text-decoration:none;
+  font-weight:600
+}
 .nav-links a:hover{color:#cfcfcf}
-.discord-btn{background:linear-gradient(135deg,#7289da,#99a9f0);padding:8px 16px;border-radius:12px;color:#fff;text-decoration:none;font-weight:700}
-
-.card{border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.15)}
-.card-header{text-align:center;font-weight:700;background:#f0f0f0}
-.calc-container{background:#fff;padding:25px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.2)}
-textarea{height:260px;font-family:monospace}
+.card{
+  border-radius:14px;
+  box-shadow:0 6px 20px rgba(0,0,0,.15)
+}
+.card-header{
+  text-align:center;
+  font-weight:700;
+  background:#f0f0f0
+}
+.calc-container{
+  background:#fff;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 6px 20px rgba(0,0,0,.2)
+}
+textarea{
+  height:260px;
+  font-family:monospace
+}
 </style>
 </head>
 
 <body>
 
-<!-- TOPBAR -->
 <header class="topbar">
 <div class="container d-flex justify-content-between align-items-center">
   <div class="d-flex align-items-center gap-3">
@@ -92,28 +117,43 @@ textarea{height:260px;font-family:monospace}
 </div>
 </div>
 
-<!-- ================= ESTÉTICA ================= -->
+<!-- ================= ESTÉTICA (SEM SCROLL) ================= -->
 <div class="col-md-4">
 <div class="card h-100">
 <div class="card-header">ESTÉTICA</div>
-<div class="card-body overflow-auto" style="max-height:620px">
+<div class="card-body">
 
+<b>Carroceria</b>
+<div class="form-check"><input class="form-check-input item" data-nome="Portas" data-valor="32000" type="checkbox"> Portas</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Saia" data-valor="32000" type="checkbox"> Saia</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Para-choque Dianteiro" data-valor="32000" type="checkbox"> Para-choque Dianteiro</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Para-choque Traseiro" data-valor="32000" type="checkbox"> Para-choque Traseiro</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Capô" data-valor="32000" type="checkbox"> Capô</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Escapamento" data-valor="32000" type="checkbox"> Escapamento</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Gaiola de Proteção" data-valor="32000" type="checkbox"> Gaiola de Proteção</div>
+
+<hr><b>Interior</b>
+<div class="form-check"><input class="form-check-input item" data-nome="Bancos" data-valor="32000" type="checkbox"> Bancos</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Painel" data-valor="32000" type="checkbox"> Painel</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Buzina" data-valor="32000" type="checkbox"> Buzina</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Vidro" data-valor="32000" type="checkbox"> Vidro</div>
+
+<hr><b>Rodas</b>
 <div class="form-check"><input class="form-check-input item" data-nome="Rodas Nacionais" data-valor="32000" type="checkbox"> Rodas Nacionais</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Rodas Importadas" data-valor="32000" type="checkbox"> Rodas Importadas</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Cor das Rodas" data-valor="32000" type="checkbox"> Cor das Rodas</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Fumaça" data-valor="32000" type="checkbox"> Fumaça</div>
+<div class="form-check"><input class="form-check-input item" data-nome="Fumaça do Pneu" data-valor="32000" type="checkbox"> Fumaça</div>
 
-<hr>
+<hr><b>Pintura</b>
 <div class="form-check"><input class="form-check-input item" data-nome="Pintura Primária" data-valor="32000" type="checkbox"> Pintura Primária</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Pintura Secundária" data-valor="32000" type="checkbox"> Pintura Secundária</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Pintura Cromada" data-valor="32000" type="checkbox"> Pintura Cromada</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Pintura Perolado" data-valor="32000" type="checkbox"> Pintura Perolado</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Pintura Decal" data-valor="32000" type="checkbox"> Pintura Decal</div>
 
-<hr>
+<hr><b>Luzes</b>
 <div class="form-check"><input class="form-check-input item" data-nome="Xenon" data-valor="32000" type="checkbox"> Xenon</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Neon" data-valor="32000" type="checkbox"> Neon</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Vidro" data-valor="32000" type="checkbox"> Vidro</div>
 
 </div>
 </div>
@@ -149,36 +189,38 @@ textarea{height:260px;font-family:monospace}
 </div>
 
 <script>
-const itens=document.querySelectorAll(".item");
-const totalInput=document.getElementById("total");
+const itens = document.querySelectorAll(".item");
+const totalInput = document.getElementById("total");
+const parceria = document.getElementById("parceria");
 
-itens.forEach(i=>i.addEventListener("change",calc));
+itens.forEach(i => i.addEventListener("change", calc));
+parceria.addEventListener("change", calc);
 
 function calc(){
-let t=0;
-document.querySelectorAll(".item:checked").forEach(i=>t+=Number(i.dataset.valor));
-if(parceria.checked)t*=0.9;
-totalInput.value=t?`R$ ${t.toLocaleString("pt-BR")}`:"";
+  let t = 0;
+  document.querySelectorAll(".item:checked").forEach(i => t += Number(i.dataset.valor));
+  if(parceria.checked) t *= 0.9;
+  totalInput.value = t ? `R$ ${t.toLocaleString("pt-BR")}` : "";
 }
 
 function gerar(){
-if(!id.value)return alert("ID obrigatório");
-let t=0;
-let txt=`🛠️ RELATÓRIO FUSION CUSTOMS\n👨‍🔧 Mecânico: ${nome.value||"N/I"}\n🆔 Cliente: ${id.value}\n\n`;
-document.querySelectorAll(".item:checked").forEach(i=>{
-t+=Number(i.dataset.valor);
-txt+=`• ${i.dataset.nome} - R$ ${Number(i.dataset.valor).toLocaleString("pt-BR")}\n`;
-});
-if(parceria.checked){txt+=`\n🤝 Parceria aplicada (10%)`;t*=0.9;}
-txt+=`\n\n💰 TOTAL: R$ ${t.toLocaleString("pt-BR")}`;
-texto.value=txt;
-totalInput.value=`R$ ${t.toLocaleString("pt-BR")}`;
+  if(!id.value) return alert("ID obrigatório");
+  let t = 0;
+  let txt = `🛠️ RELATÓRIO FUSION CUSTOMS\n👨‍🔧 Mecânico: ${nome.value || "N/I"}\n🆔 Cliente: ${id.value}\n\n`;
+  document.querySelectorAll(".item:checked").forEach(i=>{
+    t += Number(i.dataset.valor);
+    txt += `• ${i.dataset.nome} - R$ ${Number(i.dataset.valor).toLocaleString("pt-BR")}\n`;
+  });
+  if(parceria.checked){ txt += `\n🤝 Parceria aplicada (10%)`; t *= 0.9; }
+  txt += `\n\n💰 TOTAL: R$ ${t.toLocaleString("pt-BR")}`;
+  texto.value = txt;
+  totalInput.value = `R$ ${t.toLocaleString("pt-BR")}`;
 }
 
 function limpar(){
-document.querySelectorAll("input").forEach(i=>i.value="");
-document.querySelectorAll(".item").forEach(i=>i.checked=false);
-texto.value="";
+  document.querySelectorAll(".item").forEach(i => i.checked = false);
+  document.querySelectorAll("input").forEach(i => i.value = "");
+  texto.value = "";
 }
 </script>
 
