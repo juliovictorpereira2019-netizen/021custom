@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fusion Customs - Relatório</title>
+<title>Fusion Customs - Relatório Profissional</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -24,6 +24,13 @@ body{
   z-index:1000;
 }
 .logo{font-weight:700}
+.nav-links a{
+  color:#fff;
+  margin-left:18px;
+  text-decoration:none;
+  font-weight:600;
+}
+.nav-links a:hover{color:#cfcfcf}
 .card{
   border-radius:14px;
   box-shadow:0 6px 20px rgba(0,0,0,.15);
@@ -45,51 +52,59 @@ textarea{
 }
 </style>
 </head>
-
 <body>
 
+<!-- MENU -->
 <header class="topbar">
 <div class="container d-flex justify-content-between align-items-center">
-  <div class="logo">Fusion Customs</div>
+  <div class="d-flex align-items-center gap-3">
+    <img src="https://imgur.com/UX64xoQ.png" style="height:60px;border-radius:8px">
+    <div class="logo">Fusion Customs</div>
+  </div>
+  <nav class="nav-links d-none d-md-flex">
+    <a href="index.html">Início</a>
+    <a href="tabela.html">Preços</a>
+    <a href="funcionarios.html">Funcionários</a>
+  </nav>
 </div>
 </header>
 
 <div class="container">
 <div class="row g-4">
 
-<!-- ================= TUNAGEM ================= -->
+<!-- TUNAGEM -->
 <div class="col-md-4">
 <div class="card h-100">
 <div class="card-header">TUNAGEM</div>
 <div class="card-body">
 
 <b>Motor</b>
-<div class="form-check"><input class="form-check-input item" data-nome="Motor Nível 1" data-valor="52000" type="checkbox"> Motor Nível 1</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Motor Nível 2" data-valor="72000" type="checkbox"> Motor Nível 2</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Motor Nível 3" data-valor="82000" type="checkbox"> Motor Nível 3</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Motor Nível 4" data-valor="92000" type="checkbox"> Motor Nível 4</div>
+<div class="form-check"><input class="form-check-input item motor" data-nome="Motor Nível 1" data-valor="52000" type="checkbox"> Motor Nível 1</div>
+<div class="form-check"><input class="form-check-input item motor" data-nome="Motor Nível 2" data-valor="72000" type="checkbox"> Motor Nível 2</div>
+<div class="form-check"><input class="form-check-input item motor" data-nome="Motor Nível 3" data-valor="82000" type="checkbox"> Motor Nível 3</div>
+<div class="form-check"><input class="form-check-input item motor" data-nome="Motor Nível 4" data-valor="92000" type="checkbox"> Motor Nível 4</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Bloco de Motor" data-valor="32000" type="checkbox"> Bloco de Motor</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Som do Motor" data-valor="32000" type="checkbox"> Som do Motor</div>
 
 <hr><b>Freios</b>
-<div class="form-check"><input class="form-check-input item" data-nome="Freio Nível 1" data-valor="32000" type="checkbox"> Freio Nível 1</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Freio Nível 2" data-valor="52000" type="checkbox"> Freio Nível 2</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Freio Nível 3" data-valor="112000" type="checkbox"> Freio Nível 3</div>
+<div class="form-check"><input class="form-check-input item freio" data-nome="Freio Nível 1" data-valor="32000" type="checkbox"> Freio Nível 1</div>
+<div class="form-check"><input class="form-check-input item freio" data-nome="Freio Nível 2" data-valor="52000" type="checkbox"> Freio Nível 2</div>
+<div class="form-check"><input class="form-check-input item freio" data-nome="Freio Nível 3" data-valor="112000" type="checkbox"> Freio Nível 3</div>
 
 <hr><b>Transmissão</b>
-<div class="form-check"><input class="form-check-input item" data-nome="Transmissão Nível 1" data-valor="72000" type="checkbox"> Transmissão Nível 1</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Transmissão Nível 2" data-valor="92000" type="checkbox"> Transmissão Nível 2</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Transmissão Nível 3" data-valor="112000" type="checkbox"> Transmissão Nível 3</div>
+<div class="form-check"><input class="form-check-input item trans" data-nome="Transmissão Nível 1" data-valor="72000" type="checkbox"> Transmissão Nível 1</div>
+<div class="form-check"><input class="form-check-input item trans" data-nome="Transmissão Nível 2" data-valor="92000" type="checkbox"> Transmissão Nível 2</div>
+<div class="form-check"><input class="form-check-input item trans" data-nome="Transmissão Nível 3" data-valor="112000" type="checkbox"> Transmissão Nível 3</div>
 
 <hr><b>Suspensão</b>
-<div class="form-check"><input class="form-check-input item" data-nome="Suspensão Nível 1" data-valor="52000" type="checkbox"> Suspensão Nível 1</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Suspensão Nível 2" data-valor="72000" type="checkbox"> Suspensão Nível 2</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Suspensão Nível 3" data-valor="82000" type="checkbox"> Suspensão Nível 3</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Suspensão Nível 4" data-valor="92000" type="checkbox"> Suspensão Nível 4</div>
+<div class="form-check"><input class="form-check-input item susp" data-nome="Suspensão Nível 1" data-valor="52000" type="checkbox"> Suspensão Nível 1</div>
+<div class="form-check"><input class="form-check-input item susp" data-nome="Suspensão Nível 2" data-valor="72000" type="checkbox"> Suspensão Nível 2</div>
+<div class="form-check"><input class="form-check-input item susp" data-nome="Suspensão Nível 3" data-valor="82000" type="checkbox"> Suspensão Nível 3</div>
+<div class="form-check"><input class="form-check-input item susp" data-nome="Suspensão Nível 4" data-valor="92000" type="checkbox"> Suspensão Nível 4</div>
 
 <hr>
-<div class="form-check"><input class="form-check-input item" data-nome="Turbo" data-valor="50000" type="checkbox"> Turbo</div>
-<div class="form-check"><input class="form-check-input item" data-nome="Full Tunagem" data-valor="350000" type="checkbox"> Full Tunagem</div>
+<div class="form-check"><input class="form-check-input item" id="turbo" data-nome="Turbo" data-valor="50000" type="checkbox"> Turbo</div>
+<div class="form-check"><input class="form-check-input item" id="fulltunagem" data-nome="Full Tunagem" data-valor="350000" type="checkbox"> Full Tunagem</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Blindagem" data-valor="500000" type="checkbox"> Blindagem</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Blindagem Pneus" data-valor="1000000" type="checkbox"> Blindagem Pneus</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Blindagem Full" data-valor="1500000" type="checkbox"> Blindagem Full</div>
@@ -98,7 +113,7 @@ textarea{
 </div>
 </div>
 
-<!-- ================= ESTÉTICA ================= -->
+<!-- ESTÉTICA -->
 <div class="col-md-4">
 <div class="card h-100">
 <div class="card-header">ESTÉTICA</div>
@@ -138,10 +153,9 @@ textarea{
 </div>
 </div>
 
-<!-- ================= RELATÓRIO ================= -->
+<!-- RELATÓRIO -->
 <div class="col-md-4">
 <div class="calc-container h-100">
-
 <label>Mecânico</label>
 <input id="nome" class="form-control mb-2">
 
@@ -161,7 +175,6 @@ textarea{
 <button class="btn btn-danger w-100 mb-2" onclick="limpar()">Limpar</button>
 
 <textarea id="texto" class="form-control mt-2" readonly></textarea>
-
 </div>
 </div>
 
@@ -174,54 +187,71 @@ const WEBHOOK_URL = "COLE_SEU_WEBHOOK_AQUI";
 const itens = document.querySelectorAll(".item");
 const totalInput = document.getElementById("total");
 const parceria = document.getElementById("parceria");
+const fullTunagem = document.getElementById("fulltunagem");
 
-itens.forEach(i => i.addEventListener("change", calc));
-parceria.addEventListener("change", calc);
+// Função para garantir níveis únicos
+function unicaCategoria(classe, checkbox){
+  document.querySelectorAll(`.${classe}`).forEach(i=>{
+    if(i!==checkbox) i.checked=false;
+  });
+}
+
+// Eventos para cada categoria
+document.querySelectorAll(".motor").forEach(i=>i.addEventListener("change",()=>unicaCategoria("motor",i)));
+document.querySelectorAll(".freio").forEach(i=>i.addEventListener("change",()=>unicaCategoria("freio",i)));
+document.querySelectorAll(".trans").forEach(i=>i.addEventListener("change",()=>unicaCategoria("trans",i)));
+document.querySelectorAll(".susp").forEach(i=>i.addEventListener("change",()=>unicaCategoria("susp",i)));
+
+// Full Tunagem inteligente
+fullTunagem.addEventListener("change", ()=>{
+  const selecionar = fullTunagem.checked;
+  document.querySelectorAll(".item").forEach(i=>{
+    if(i.id!=="fulltunagem") i.checked=selecionar;
+  });
+  calc();
+});
+
+itens.forEach(i=>i.addEventListener("change",calc));
+parceria.addEventListener("change",calc);
 
 function calc(){
   let total = 0;
   document.querySelectorAll(".item:checked").forEach(i=>{
     total += Number(i.dataset.valor);
   });
-  if(parceria.checked) total *= 0.9;
-  totalInput.value = total ? `R$ ${total.toLocaleString("pt-BR")}` : "";
+  if(parceria.checked) total*=0.9;
+  totalInput.value = total? `R$ ${total.toLocaleString("pt-BR")}` : "";
 }
 
 function gerar(){
   if(!id.value) return alert("ID obrigatório");
-
-  let total = 0;
+  let total=0;
   let txt = `🛠️ RELATÓRIO FUSION CUSTOMS
 👨‍🔧 Mecânico: ${nome.value || "N/I"}
 🆔 Cliente: ${id.value}
 
 `;
-
   document.querySelectorAll(".item:checked").forEach(i=>{
-    total += Number(i.dataset.valor);
-    txt += `• ${i.dataset.nome} - R$ ${Number(i.dataset.valor).toLocaleString("pt-BR")}\n`;
+    if(i.id!=="fulltunagem") {
+      total+=Number(i.dataset.valor);
+      txt += `• ${i.dataset.nome} - R$ ${Number(i.dataset.valor).toLocaleString("pt-BR")}\n`;
+    }
   });
-
   if(parceria.checked){
-    total *= 0.9;
-    txt += `\n🤝 Parceria aplicada (10%)`;
+    total*=0.9;
+    txt+=`\n🤝 Parceria aplicada (10%)`;
   }
-
-  txt += `\n\n💰 TOTAL: R$ ${total.toLocaleString("pt-BR")}`;
-
-  texto.value = txt;
-  totalInput.value = `R$ ${total.toLocaleString("pt-BR")}`;
+  txt+=`\n\n💰 TOTAL: R$ ${total.toLocaleString("pt-BR")}`;
+  texto.value += txt + "\n\n"; // Mantém histórico
+  totalInput.value=`R$ ${total.toLocaleString("pt-BR")}`;
 }
 
 function enviarDiscord(){
   if(!texto.value) return alert("Gere o relatório primeiro");
-
   fetch(WEBHOOK_URL,{
     method:"POST",
     headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({
-      content: `\n${texto.value}\n`
-    })
+    body: JSON.stringify({ content: texto.value })
   }).then(()=>alert("Relatório enviado para o Discord ✅"));
 }
 
@@ -232,25 +262,19 @@ function limpar(){
   totalInput.value="";
   texto.value="";
 }
-</script>
 
-<!-- BLOQUEIO NOME / ID -->
-<script>
-nome.addEventListener("input",()=> nome.value = nome.value.replace(/[^a-zA-ZÀ-ÿ\s]/g,""));
-id.addEventListener("input",()=> id.value = id.value.replace(/\D/g,""));
-</script>
+// Validação nome/ID
+nome.addEventListener("input",()=>nome.value=nome.value.replace(/[^a-zA-ZÀ-ÿ\s]/g,""));
+id.addEventListener("input",()=>id.value=id.value.replace(/\D/g,""));
 
-<!-- SEGURANÇA -->
-<script>
+// Segurança
 document.addEventListener("contextmenu",e=>e.preventDefault());
 document.addEventListener("selectstart",e=>e.preventDefault());
-
 document.addEventListener("keydown",e=>{
   if(e.key==="F12") e.preventDefault();
   if(e.ctrlKey && e.shiftKey && ["I","J","C","K"].includes(e.key.toUpperCase())) e.preventDefault();
   if(e.ctrlKey && ["u","c","v","x","a"].includes(e.key.toLowerCase())) e.preventDefault();
 });
-
 (function(){
   const d=new Image();
   Object.defineProperty(d,"id",{get:function(){
