@@ -153,6 +153,38 @@ textarea{
 </div>
 </div>
 </div>
+
+
+</div>
+<!-- ================= RELATÓRIO ================= -->
+<div class="col-md-4">
+<div class="calc-container h-100">
+
+<label>Mecânico</label>
+<input id="nome" class="form-control mb-2">
+
+<label>ID do Cliente</label>
+<input id="id" class="form-control mb-2">
+
+<div class="form-check mb-2">
+<input type="checkbox" id="parceria" class="form-check-input">
+<label class="form-check-label">Parceria (10%)</label>
+</div>
+
+<label>Total</label>
+<input id="total" class="form-control mb-2" readonly>
+
+<button class="btn btn-success w-100 mb-2" onclick="gerar()">Gerar Relatório</button>
+<button class="btn btn-primary w-100 mb-2" onclick="enviarDiscord()">Enviar Discord</button>
+<button class="btn btn-danger w-100 mb-2" onclick="limpar()">Limpar</button>
+
+<textarea id="texto" class="form-control mt-2" readonly></textarea>
+
+</div>
+</div>
+
+</div>
+</div>
 <!-- ================= PARCERIAS ================= -->
 <div class="row mt-5">
   <div class="col-12">
@@ -190,38 +222,6 @@ textarea{
     </div>
   </div>
 </div>
-
-</div>
-<!-- ================= RELATÓRIO ================= -->
-<div class="col-md-4">
-<div class="calc-container h-100">
-
-<label>Mecânico</label>
-<input id="nome" class="form-control mb-2">
-
-<label>ID do Cliente</label>
-<input id="id" class="form-control mb-2">
-
-<div class="form-check mb-2">
-<input type="checkbox" id="parceria" class="form-check-input">
-<label class="form-check-label">Parceria (10%)</label>
-</div>
-
-<label>Total</label>
-<input id="total" class="form-control mb-2" readonly>
-
-<button class="btn btn-success w-100 mb-2" onclick="gerar()">Gerar Relatório</button>
-<button class="btn btn-primary w-100 mb-2" onclick="enviarDiscord()">Enviar Discord</button>
-<button class="btn btn-danger w-100 mb-2" onclick="limpar()">Limpar</button>
-
-<textarea id="texto" class="form-control mt-2" readonly></textarea>
-
-</div>
-</div>
-
-</div>
-</div>
-
 <script>
 const WEBHOOK_URL = "https://discord.com/api/webhooks/1458680732950990971/nyCia8NKiZ7Z_BhLpRgkp3JukS5Tlkb9R7G3T1_L0pZ5suGC7_JPmWlMAFc_97BfsopC";
 
@@ -304,5 +304,6 @@ document.addEventListener("keydown",e=>{
 
 </body>
 </html>
+
 
 
