@@ -51,11 +51,23 @@ body {
   overflow:hidden;
   position:relative;
 }
+
+/* IMAGEM PROTEGIDA */
 .card-employee img {
   height:180px;
+  width:100%;
   object-fit:cover;
   pointer-events:none;
   user-select:none;
+  -webkit-user-drag:none;
+}
+
+/* OVERLAY INVISÍVEL */
+.card-employee::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:5;
 }
 
 /* ===== BOTAO REMOVER ===== */
@@ -71,9 +83,9 @@ body {
   border:none;
   display:none;
   font-weight:700;
+  z-index:10;
 }
 
-/* SOMENTE GERÊNCIA */
 .gerencia-mode .btn-remover {
   display:block;
 }
@@ -124,11 +136,9 @@ body {
   <div id="listaCargos"></div>
 </main>
 
-<!-- BOTÕES -->
 <button class="btn btn-dark admin-btn" onclick="abrirAdmin()">Admin</button>
 <button class="btn btn-danger admin-btn" style="bottom:70px" onclick="acessoGerencia()">Acesso Gerência</button>
 
-<!-- MENU ADMIN -->
 <div class="admin-menu" id="adminMenu">
   <h5>Painel Admin</h5>
   <hr>
@@ -147,10 +157,7 @@ body {
 
 <script type="module">
 /* ===== CARGOS ===== */
-const CARGOS = [
-  "Responsável Mecânico","Líder","Sub-Líder",
-  "Gerente","Supervisor de Turnagem","Turnagem","Reparo"
-];
+const CARGOS = ["Responsável Mecânico","Líder","Sub-Líder","Gerente","Supervisor de Turnagem","Turnagem","Reparo"];
 
 /* ===== FIREBASE ===== */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -164,72 +171,64 @@ const app = initializeApp({
 const db = getFirestore(app);
 
 /* ===== CLOUDINARY ===== */
-const CLOUD_NAME = "dfyiwxdhn";
-const UPLOAD_PRESET = "funcionarios";
+const CLOUD_NAME="dfyiwxdhn";
+const UPLOAD_PRESET="funcionarios";
 
 async function uploadImagem(file){
-  const fd = new FormData();
-  fd.append("file", file);
-  fd.append("upload_preset", UPLOAD_PRESET);
-  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-    method:"POST", body:fd
-  });
+  const fd=new FormData();
+  fd.append("file",file);
+  fd.append("upload_preset",UPLOAD_PRESET);
+  const res=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,{method:"POST",body:fd});
   return (await res.json()).secure_url;
 }
 
 /* ===== SENHAS ===== */
-const SENHA_ADMIN = "admin123";
-const SENHA_GERENCIA = "gerencia456";
-
-let gerenciaAtiva = false;
+const SENHA_ADMIN="admin123";
+const SENHA_GERENCIA="gerencia456";
+let gerenciaAtiva=false;
 
 /* ===== ADMIN ===== */
-window.abrirAdmin = () => {
-  if (prompt("Senha do Admin:") === SENHA_ADMIN) {
+window.abrirAdmin=()=>{
+  if(prompt("Senha Admin:")===SENHA_ADMIN){
     adminMenu.classList.toggle("open");
   }
 };
 
 /* ===== GERÊNCIA ===== */
-window.acessoGerencia = () => {
-  if (prompt("Senha da Gerência:") === SENHA_GERENCIA) {
-    gerenciaAtiva = true;
+window.acessoGerencia=()=>{
+  if(prompt("Senha Gerência:")===SENHA_GERENCIA){
+    gerenciaAtiva=true;
     document.body.classList.add("gerencia-mode");
     alert("Modo Gerência ativado");
-  } else {
-    alert("Senha incorreta");
-  }
+  } else alert("Senha incorreta");
 };
 
 /* ===== ADICIONAR ===== */
-window.adicionarVaga = async () => {
-  if (!nome.value || !foto.files[0]) return alert("Preencha tudo");
+window.adicionarVaga=async()=>{
+  if(!nome.value||!foto.files[0])return alert("Preencha tudo");
+  const img=await uploadImagem(foto.files[0]);
+  const ref=doc(db,"vagas",cargo.value);
 
-  const img = await uploadImagem(foto.files[0]);
-  const ref = doc(db, "vagas", cargo.value);
-
-  let lista = [];
-  const snap = await getDocs(collection(db,"vagas"));
-  snap.forEach(d=>{ if(d.id===cargo.value) lista=d.data().lista||[] });
+  let lista=[];
+  const snap=await getDocs(collection(db,"vagas"));
+  snap.forEach(d=>{if(d.id===cargo.value)lista=d.data().lista||[]});
 
   lista.push({nome:nome.value,foto:img});
   await setDoc(ref,{lista});
 
-  nome.value=""; foto.value="";
+  nome.value="";foto.value="";
   renderizar();
 };
 
 /* ===== REMOVER ===== */
-window.removerVaga = async (cargoNome,index) => {
-  if (!gerenciaAtiva) return alert("Acesso negado");
+window.removerVaga=async(cargoNome,index)=>{
+  if(!gerenciaAtiva)return alert("Acesso negado");
+  if(!confirm("Remover?"))return;
 
-  if (!confirm("Remover esta vaga?")) return;
-
-  const ref = doc(db,"vagas",cargoNome);
+  const ref=doc(db,"vagas",cargoNome);
   let lista=[];
-
-  const snap = await getDocs(collection(db,"vagas"));
-  snap.forEach(d=>{ if(d.id===cargoNome) lista=d.data().lista||[] });
+  const snap=await getDocs(collection(db,"vagas"));
+  snap.forEach(d=>{if(d.id===cargoNome)lista=d.data().lista||[]});
 
   lista.splice(index,1);
   await setDoc(ref,{lista});
@@ -240,8 +239,8 @@ window.removerVaga = async (cargoNome,index) => {
 async function renderizar(){
   listaCargos.innerHTML="";
   cargo.innerHTML="";
-
   const dados={};
+
   const snap=await getDocs(collection(db,"vagas"));
   snap.forEach(d=>dados[d.id]=d.data().lista||[]);
 
@@ -252,11 +251,11 @@ async function renderizar(){
     listaCargos.innerHTML+=`
     <div class="subtitulo">${c}</div>
     <div class="row justify-content-center mb-4">
-    ${vagas.map((v,i)=>`
+      ${vagas.map((v,i)=>`
       <div class="col-md-3 mb-3">
         <div class="card card-employee">
           <button class="btn-remover" onclick="removerVaga('${c}',${i})">×</button>
-          <img src="${v.foto}">
+          <img src="${v.foto}" draggable="false">
           <div class="card-body text-center">
             <h5>${v.nome}</h5>
             <p class="small text-muted">${c}</p>
@@ -269,10 +268,11 @@ async function renderizar(){
 
 renderizar();
 
-/* ===== PROTEÇÃO BÁSICA ===== */
-document.addEventListener("contextmenu", e=>e.preventDefault());
-document.addEventListener("keydown", e=>{
-  if(e.key==="F12"|| (e.ctrlKey&&["U","I","J","C"].includes(e.key.toUpperCase()))) {
+/* ===== PROTEÇÃO GLOBAL ===== */
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("dragstart",e=>e.preventDefault());
+document.addEventListener("keydown",e=>{
+  if(e.key==="F12"||(e.ctrlKey&&["U","I","J","C","S"].includes(e.key.toUpperCase()))){
     e.preventDefault();
   }
 });
