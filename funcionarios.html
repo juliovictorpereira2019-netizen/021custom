@@ -7,95 +7,35 @@
 <title>Central Race - Funcionários</title>
 <link rel="icon" href="https://imgur.com/0iskhD3.png">
 
+<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
+
 <style>
-body{
-  font-family:Inter,sans-serif;
-  background:#f4f4f4;
-}
-
-/* TOPBAR */
-.topbar{
-  background:#2b2f33;
-  color:#fff;
-  padding:12px 0;
-}
-.logo{
-  font-weight:700;
-  font-size:18px;
-}
-
-/* TITULOS */
-.subtitulo{
-  background:#ddd;
-  text-align:center;
-  font-weight:700;
-  padding:6px;
-  margin:30px 0 15px;
-}
-
-/* CARD */
-.card-employee{
-  border-radius:16px;
-  overflow:hidden;
-  position:relative;
-  width:100%;
-  max-width:260px; /* mantém padrão */
-}
-
-/* ✅ IMAGEM SEMPRE CENTRALIZADA POR DENTRO */
-.card-employee img{
-  width:100%;
-  height:180px;
-
-  object-fit:cover;
-  object-position:50% 30%;
-
-  display:block;
-  margin:auto;
-
-  pointer-events:none;
-  user-select:none;
-  -webkit-user-drag:none;
-}
-
-/* REMOVER */
+body{font-family:Inter,sans-serif;background:#f4f4f4}
+.topbar{background:#2b2f33;color:#fff;padding:14px 0}
+.logo{font-weight:700;font-size:18px}
+.nav-links a{color:#fff;text-decoration:none;margin-left:18px;font-weight:600}
+.nav-links a:hover{color:#cfcfcf}
+.subtitulo{background:#ddd;text-align:center;font-weight:700;padding:6px;margin:30px 0 15px}
+.card-employee{border-radius:16px;overflow:hidden;position:relative;width:100%;max-width:260px}
+.card-employee img{width:100%;height:180px;object-fit:cover;object-position:50% 30%}
 .btn-remover{
-  position:absolute;
-  top:8px;
-  right:8px;
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background:#dc3545;
-  color:#fff;
-  border:none;
-  display:none;
-  font-weight:700;
-  z-index:10;
+  position:absolute;top:8px;right:8px;width:30px;height:30px;
+  border-radius:50%;background:#dc3545;color:#fff;border:none;
+  display:none;font-weight:700;z-index:10
 }
 .gerencia-mode .btn-remover{display:block}
-
-/* ADMIN */
-.admin-btn{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  z-index:1001;
-}
+.admin-btn{position:fixed;right:20px;bottom:20px;z-index:1001}
 .admin-menu{
-  position:fixed;
-  right:-380px;
-  top:0;
-  width:380px;
-  height:100%;
-  background:#fff;
-  box-shadow:-4px 0 20px rgba(0,0,0,.2);
-  padding:20px;
-  transition:.3s;
-  z-index:1000;
+  position:fixed;right:-380px;top:0;width:380px;height:100%;
+  background:#fff;box-shadow:-4px 0 20px rgba(0,0,0,.2);
+  padding:20px;transition:.3s;z-index:1000
 }
 .admin-menu.open{right:0}
 </style>
@@ -103,10 +43,18 @@ body{
 
 <body>
 
+<!-- TOPO -->
 <header class="topbar">
-  <div class="container d-flex align-items-center gap-3">
-    <img src="https://imgur.com/0iskhD3.png" style="height:60px;border-radius:8px">
-    <div class="logo">Central Race</div>
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+      <img src="https://imgur.com/0iskhD3.png" style="height:60px;border-radius:8px" draggable="false">
+      <div class="logo">Central Race</div>
+    </div>
+    <nav class="d-none d-md-flex align-items-center nav-links">
+      <a href="index.html">Início</a>
+      <a href="tabela.html">Preços</a>
+      <a href="funcionarios.html">Funcionários</a>
+    </nav>
   </div>
 </header>
 
@@ -121,32 +69,31 @@ body{
 <div class="admin-menu" id="adminMenu">
   <h5>Painel Mecânico</h5>
   <hr>
-
   <label>Cargo</label>
   <select id="cargo" class="form-select mb-2"></select>
-
   <label>Nome</label>
   <input id="nome" class="form-control mb-2">
-
   <label>Foto</label>
   <input id="foto" type="file" accept="image/*" class="form-control mb-3">
-
   <button class="btn btn-primary w-100" onclick="adicionarVaga()">Adicionar vaga</button>
 </div>
 
 <script type="module">
-/* CARGOS */
+/* ================= CONFIG ================= */
+const DISCORD_WEBHOOK = "COLE_AQUI_A_URL_DO_WEBHOOK";
+
 const CARGOS=[
-  "Responsável Mecânico",
-  "Líder",
-  "Sub-Líder",
-  "Gerente",
-  "Supervisor de Turnagem",
-  "Turnagem",
-  "Reparo"
+  "Responsável Mecânico","Líder","Sub-Líder",
+  "Gerente","Supervisor de Turnagem","Turnagem","Reparo"
 ];
 
-/* FIREBASE */
+const SENHA_ADMIN="admin123";
+const SENHA_GERENCIA="gerencia456";
+
+let nivelAcesso="Visitante";
+let gerenciaAtiva=false;
+
+/* ================= FIREBASE ================= */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, doc, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -157,42 +104,60 @@ const app=initializeApp({
 });
 const db=getFirestore(app);
 
-/* CLOUDINARY */
+/* ================= CLOUDINARY ================= */
 const CLOUD_NAME="dfyiwxdhn";
 const UPLOAD_PRESET="funcionarios";
+
 async function uploadImagem(f){
   const fd=new FormData();
   fd.append("file",f);
   fd.append("upload_preset",UPLOAD_PRESET);
   const r=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,{
-    method:"POST",
-    body:fd
+    method:"POST",body:fd
   });
   return (await r.json()).secure_url;
 }
 
-/* SENHAS */
-const SENHA_ADMIN="admin123";
-const SENHA_GERENCIA="gerencia456";
-let gerenciaAtiva=false;
+/* ================= LOG DISCORD ================= */
+async function enviarLog(acao,nome,cargo){
+  await fetch(DISCORD_WEBHOOK,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      embeds:[{
+        title:acao,
+        color:acao.includes("➕") ? 3066993 : 15158332,
+        description:
+          `👮 **Acesso:** ${nivelAcesso}\n`+
+          `👤 **Nome:** ${nome}\n`+
+          `🛠️ **Cargo:** ${cargo}\n\n`+
+          `🕒 **Horário:** ${new Date().toLocaleString("pt-BR")}\n`+
+          `🌐 **Navegador:** ${navigator.userAgent}`,
+        footer:{ text:"Central Race • Logs" },
+        timestamp:new Date()
+      }]
+    })
+  });
+}
 
-/* ADMIN */
+/* ================= ACESSOS ================= */
 window.abrirAdmin=()=>{
   if(prompt("Senha Admin:")===SENHA_ADMIN){
+    nivelAcesso="Admin";
     adminMenu.classList.toggle("open");
-  }
+  }else alert("Senha incorreta");
 };
 
-/* GERÊNCIA */
 window.acessoGerencia=()=>{
   if(prompt("Senha Gerência:")===SENHA_GERENCIA){
+    nivelAcesso="Gerência";
     gerenciaAtiva=true;
     document.body.classList.add("gerencia-mode");
     alert("Modo Gerência ativado");
-  }
+  }else alert("Senha incorreta");
 };
 
-/* ADICIONAR */
+/* ================= ADICIONAR ================= */
 window.adicionarVaga=async()=>{
   if(!nome.value||!foto.files[0])return alert("Preencha tudo");
 
@@ -201,23 +166,39 @@ window.adicionarVaga=async()=>{
 
   let lista=[];
   const snap=await getDocs(collection(db,"vagas"));
-  snap.forEach(d=>{
-    if(d.id===cargo.value) lista=d.data().lista||[];
-  });
+  snap.forEach(d=>{if(d.id===cargo.value)lista=d.data().lista||[]});
 
   lista.push({nome:nome.value,foto:img});
   await setDoc(ref,{lista});
 
-  nome.value="";
-  foto.value="";
+  await enviarLog("➕ Vaga adicionada",nome.value,cargo.value);
+
+  nome.value="";foto.value="";
   renderizar();
 };
 
-/* RENDER */
-async function renderizar(){
-  listaCargos.innerHTML="";
-  cargo.innerHTML="";
+/* ================= REMOVER ================= */
+window.removerVaga=async(cargoNome,index)=>{
+  if(!gerenciaAtiva)return alert("Apenas Gerência");
 
+  const ref=doc(db,"vagas",cargoNome);
+  const snap=await getDocs(collection(db,"vagas"));
+
+  let lista=[];
+  snap.forEach(d=>{if(d.id===cargoNome)lista=d.data().lista||[]});
+
+  const removido=lista[index];
+  lista.splice(index,1);
+
+  await setDoc(ref,{lista});
+  await enviarLog("❌ Vaga removida",removido.nome,cargoNome);
+
+  renderizar();
+};
+
+/* ================= RENDER ================= */
+async function renderizar(){
+  listaCargos.innerHTML="";cargo.innerHTML="";
   const dados={};
   const snap=await getDocs(collection(db,"vagas"));
   snap.forEach(d=>dados[d.id]=d.data().lista||[]);
@@ -225,7 +206,6 @@ async function renderizar(){
   CARGOS.forEach(c=>{
     cargo.innerHTML+=`<option>${c}</option>`;
     const vagas=dados[c]||[];
-
     listaCargos.innerHTML+=`
       <div class="subtitulo">${c}</div>
       <div class="row justify-content-center mb-4">
@@ -239,27 +219,21 @@ async function renderizar(){
                 <p class="text-muted small">${c}</p>
               </div>
             </div>
-          </div>
-        `).join("")}
-      </div>
-    `;
+          </div>`).join("")}
+      </div>`;
   });
 }
-
 renderizar();
 
-/* 🔒 PROTEÇÕES */
+/* ================= PROTEÇÕES ================= */
 document.addEventListener("contextmenu",e=>e.preventDefault());
 document.addEventListener("dragstart",e=>e.preventDefault());
 document.addEventListener("keydown",e=>{
-  if(
-    e.key==="F12" ||
-    (e.ctrlKey && ["U","I","J","C","S"].includes(e.key.toUpperCase()))
-  ){
+  if(e.key==="F12"||(e.ctrlKey&&["U","I","J","C","S"].includes(e.key.toUpperCase())))
     e.preventDefault();
-  }
 });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
