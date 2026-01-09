@@ -78,16 +78,57 @@ body { font-family: Inter, sans-serif; background:#f4f4f4; }
 </head>
 
 <body>
+  <header class="topbar">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+      <img src="https://imgur.com/0iskhD3.png" style="height:70px;border-radius:8px">
+      <div class="logo">Central Race</div>
+    </div>
 
-<!-- MENU -->
-<nav class="navbar">
-  <div class="container">
-    <span class="navbar-brand">
-      <img src="https://imgur.com/0iskhD3.png">
-      Central Race
-    </span>
+    <nav class="d-none d-md-flex align-items-center nav-links">
+      <a href="index.html">Início</a>
+      <a href="tabela.html">Preços</a>
+      <a href="relatorio.html">Relatório</a>
+      <a href="funcionarios.html">Funcionários</a>
+      </a>
+    </nav>
   </div>
-</nav>
+</header>
+.topbar{
+  background:#2b2f33;
+  color:#fff;
+  padding:12px 0;
+}
+
+.logo{
+  font-weight:700;
+  letter-spacing:.6px;
+  font-size:18px;
+}
+
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:18px;
+  font-weight:600;
+}
+
+.nav-links a:hover{
+  color:#cfcfcf;
+}
+
+.discord-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 16px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#7289da,#99a9f0);
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+}
+
 
 <main class="container my-5">
   <h2 class="text-center mb-4">Nossa Equipe</h2>
@@ -250,3 +291,4 @@ renderizar();
 
 </body>
 </html>
+
