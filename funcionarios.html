@@ -5,67 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Central Race - Funcionários</title>
-
 <link rel="icon" href="https://imgur.com/0iskhD3.png">
 
-<!-- PERFORMANCE -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-  font-family: Inter, sans-serif;
-  background:#f4f4f4;
-}
+body { font-family: Inter, sans-serif; background:#f4f4f4; }
 
-.navbar {
-  background:#2b2f33;
-}
-.navbar-brand {
+/* NAVBAR */
+.navbar { background:#2b2f33; }
+.navbar-brand { color:#fff; font-weight:700; display:flex; align-items:center; gap:10px; }
+.navbar-brand img { height:40px; }
+
+/* TITULOS */
+.subtitulo {
+  background:#ddd;
+  text-align:center;
   font-weight:700;
-  color:#fff;
-}
-.navbar-brand img {
-  height:45px;
-  margin-right:10px;
+  padding:6px;
+  margin:30px 0 15px;
 }
 
+/* CARDS */
 .card-employee {
   border-radius:16px;
   overflow:hidden;
-  transition:.3s;
-}
-.card-employee:hover {
-  transform:translateY(-4px);
+  position:relative;
 }
 .card-employee img {
   height:180px;
   object-fit:cover;
 }
 
-.subtitulo {
-  background:#ddd;
-  text-align:center;
+/* BOTAO REMOVER */
+.btn-remover {
+  position:absolute;
+  top:8px;
+  right:8px;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#dc3545;
+  color:#fff;
+  border:none;
+  display:none;
   font-weight:700;
-  padding:6px;
-  margin:25px 0 15px;
 }
+.admin-mode .btn-remover { display:block; }
 
+/* ADMIN */
 .admin-btn {
   position:fixed;
   right:20px;
   bottom:20px;
   z-index:1001;
 }
-
 .admin-menu {
   position:fixed;
-  right:-340px;
+  right:-380px;
   top:0;
-  width:340px;
+  width:380px;
   height:100%;
   background:#fff;
   box-shadow:-4px 0 20px rgba(0,0,0,.2);
@@ -73,195 +73,179 @@ body {
   transition:.3s;
   z-index:1000;
 }
-.admin-menu.open {
-  right:0;
-}
+.admin-menu.open { right:0; }
 </style>
 </head>
 
 <body>
 
+<!-- MENU -->
 <nav class="navbar">
   <div class="container">
-    <div class="navbar-brand d-flex align-items-center">
-      <img src="https://imgur.com/0iskhD3.png" loading="lazy">
+    <span class="navbar-brand">
+      <img src="https://imgur.com/0iskhD3.png">
       Central Race
-    </div>
+    </span>
   </div>
 </nav>
 
 <main class="container my-5">
-<h2 class="text-center mb-4">Nossa Equipe</h2>
-
-<!-- RESPONSÁVEL MECÂNICO -->
-<div class="subtitulo">RESPONSÁVEL MECÂNICO</div>
-<div class="row justify-content-center">
-  <div class="col-md-3">
-    <div class="card card-employee">
-      <img id="resp-mec-1" src="https://via.placeholder.com/400x250" loading="lazy">
-      <div class="card-body text-center">
-        <h5>Vaga aberta</h5>
-        <p class="text-muted small">Responsável Mecânico</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- LÍDER -->
-<div class="subtitulo">LÍDER</div>
-<div class="row justify-content-center">
-  <div class="col-md-3">
-    <div class="card card-employee">
-      <img id="lider-1" src="https://via.placeholder.com/400x250" loading="lazy">
-      <div class="card-body text-center">
-        <h5>Vaga aberta</h5>
-        <p class="text-muted small">Líder</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SUB-LÍDER -->
-<div class="subtitulo">SUB-LÍDER</div>
-<div class="row justify-content-center">
-  <div class="col-md-3">
-    <div class="card card-employee">
-      <img id="sub-lider-1" src="https://via.placeholder.com/400x250" loading="lazy">
-      <div class="card-body text-center">
-        <h5>Vaga aberta</h5>
-        <p class="text-muted small">Sub-Líder</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- GERENTE -->
-<div class="subtitulo">GERENTE</div>
-<div class="row justify-content-center">
-  <div class="col-md-3">
-    <div class="card card-employee">
-      <img id="gerente-1" src="https://via.placeholder.com/400x250" loading="lazy">
-      <div class="card-body text-center">
-        <h5>Vaga aberta</h5>
-        <p class="text-muted small">Gerente</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SUPERVISOR DE TURNAGEM -->
-<div class="subtitulo">SUPERVISOR DE TURNAGEM</div>
-<div class="row justify-content-center">
-  <div class="col-md-3">
-    <div class="card card-employee">
-      <img id="sup-turnagem-1" src="https://via.placeholder.com/400x250" loading="lazy">
-      <div class="card-body text-center">
-        <h5>Vaga aberta</h5>
-        <p class="text-muted small">Supervisor de Turnagem</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- TURNAGEM -->
-<div class="subtitulo">TURNAGEM</div>
-<div class="row justify-content-center">
-  <div class="col-md-3">
-    <div class="card card-employee">
-      <img id="turnagem-1" src="https://via.placeholder.com/400x250" loading="lazy">
-      <div class="card-body text-center">
-        <h5>Vaga aberta</h5>
-        <p class="text-muted small">Turnagem</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- REPARO -->
-<div class="subtitulo">REPARO</div>
-<div class="row justify-content-center mb-5">
-  <div class="col-md-3">
-    <div class="card card-employee">
-      <img id="reparo-1" src="https://via.placeholder.com/400x250" loading="lazy">
-      <div class="card-body text-center">
-        <h5>Vaga aberta</h5>
-        <p class="text-muted small">Reparo</p>
-      </div>
-    </div>
-  </div>
-</div>
-
+  <h2 class="text-center mb-4">Nossa Equipe</h2>
+  <div id="listaCargos"></div>
 </main>
 
+<!-- BOTAO ADMIN -->
 <button class="btn btn-dark admin-btn" onclick="abrirAdmin()">Admin</button>
 
+<!-- MENU ADMIN -->
 <div class="admin-menu" id="adminMenu">
-  <h5>Menu Admin</h5>
+  <h5>Painel Admin</h5>
   <hr>
 
   <label>Cargo</label>
-  <select id="cargo" class="form-select mb-2">
-    <option value="resp-mec-1">Responsável Mecânico</option>
-    <option value="lider-1">Líder</option>
-    <option value="sub-lider-1">Sub-Líder</option>
-    <option value="gerente-1">Gerente</option>
-    <option value="sup-turnagem-1">Supervisor Turnagem</option>
-    <option value="turnagem-1">Turnagem</option>
-    <option value="reparo-1">Reparo</option>
-  </select>
+  <select id="cargo" class="form-select mb-2"></select>
 
   <label>Nome</label>
   <input id="nome" class="form-control mb-2">
 
-  <label>Foto (URL)</label>
-  <input id="foto" class="form-control mb-3">
+  <label>Foto</label>
+  <input id="foto" type="file" accept="image/*" class="form-control mb-3">
 
-  <button class="btn btn-primary w-100 mb-2" onclick="salvarPerfil()">Salvar</button>
-  <button class="btn btn-danger w-100" onclick="limparPerfil()">Remover Perfil</button>
+  <button class="btn btn-primary w-100" onclick="adicionarVaga()">Adicionar vaga</button>
 </div>
 
-<script>
+<script type="module">
+/* ===== CARGOS FIXOS ===== */
+const CARGOS = [
+  "Responsável Mecânico",
+  "Líder",
+  "Sub-Líder",
+  "Gerente",
+  "Supervisor de Turnagem",
+  "Turnagem",
+  "Reparo"
+];
+
+/* ===== FIREBASE ===== */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, doc, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey: "AIzaSyD2zieCD4d-_olcWE6O0QlepyxWLGhyI",
+  authDomain: "centralrace-c4ad0.firebaseapp.com",
+  projectId: "centralrace-c4ad0"
+});
+const db = getFirestore(app);
+
+/* ===== CLOUDINARY ===== */
+const CLOUD_NAME = "dfyiwxdhn";
+const UPLOAD_PRESET = "funcionarios";
+
+async function uploadImagem(file) {
+  const fd = new FormData();
+  fd.append("file", file);
+  fd.append("upload_preset", UPLOAD_PRESET);
+  const res = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+    { method: "POST", body: fd }
+  );
+  return (await res.json()).secure_url;
+}
+
+/* ===== ADMIN ===== */
 const SENHA_ADMIN = "admin123";
+let adminAtivo = false;
 
-function abrirAdmin() {
-  const senha = prompt("Digite a senha do Admin:");
-  if (senha === SENHA_ADMIN) {
+window.abrirAdmin = () => {
+  if (prompt("Senha do admin:") === SENHA_ADMIN) {
     adminMenu.classList.toggle("open");
-  } else {
-    alert("Senha incorreta!");
+    adminAtivo = true;
+    document.body.classList.add("admin-mode");
   }
+};
+
+/* ===== ADICIONAR ===== */
+window.adicionarVaga = async () => {
+  if (!nome.value || !foto.files[0]) return alert("Preencha tudo!");
+
+  const img = await uploadImagem(foto.files[0]);
+  const ref = doc(db, "vagas", cargo.value);
+
+  let lista = [];
+  const snap = await getDocs(collection(db, "vagas"));
+  snap.forEach(d => {
+    if (d.id === cargo.value) lista = d.data().lista || [];
+  });
+
+  lista.push({ nome: nome.value, foto: img });
+  await setDoc(ref, { lista });
+
+  nome.value = "";
+  foto.value = "";
+  renderizar();
+};
+
+/* ===== REMOVER ===== */
+window.removerVaga = async (cargoNome, index) => {
+  if (!confirm("Remover esta vaga?")) return;
+
+  const ref = doc(db, "vagas", cargoNome);
+  let lista = [];
+
+  const snap = await getDocs(collection(db, "vagas"));
+  snap.forEach(d => {
+    if (d.id === cargoNome) lista = d.data().lista || [];
+  });
+
+  lista.splice(index, 1);
+  await setDoc(ref, { lista });
+  renderizar();
+};
+
+/* ===== RENDER ===== */
+async function renderizar() {
+  listaCargos.innerHTML = "";
+  cargo.innerHTML = "";
+
+  const dados = {};
+  const snap = await getDocs(collection(db, "vagas"));
+  snap.forEach(d => dados[d.id] = d.data().lista || []);
+
+  CARGOS.forEach(c => {
+    cargo.innerHTML += `<option>${c}</option>`;
+    const vagas = dados[c] || [];
+
+    listaCargos.innerHTML += `
+      <div class="subtitulo">${c}</div>
+      <div class="row justify-content-center mb-4">
+        ${vagas.length ? vagas.map((v,i)=>`
+          <div class="col-md-3 mb-3">
+            <div class="card card-employee">
+              <button class="btn-remover" onclick="removerVaga('${c}',${i})">×</button>
+              <img src="${v.foto}">
+              <div class="card-body text-center">
+                <h5>${v.nome}</h5>
+                <p class="small text-muted">${c}</p>
+              </div>
+            </div>
+          </div>
+        `).join("") : `
+          <div class="col-md-3">
+            <div class="card card-employee">
+              <img src="https://via.placeholder.com/400x250">
+              <div class="card-body text-center">
+                <h5>Vaga aberta</h5>
+                <p class="small text-muted">${c}</p>
+              </div>
+            </div>
+          </div>`
+        }
+      </div>
+    `;
+  });
 }
 
-function salvarPerfil() {
-  const dados = JSON.parse(localStorage.getItem("perfis") || "{}");
-  dados[cargo.value] = { nome: nome.value, foto: foto.value };
-  localStorage.setItem("perfis", JSON.stringify(dados));
-  atualizarCard(cargo.value, dados[cargo.value]);
-}
-
-function limparPerfil() {
-  const dados = JSON.parse(localStorage.getItem("perfis") || "{}");
-  delete dados[cargo.value];
-  localStorage.setItem("perfis", JSON.stringify(dados));
-  resetarCard(cargo.value);
-}
-
-function atualizarCard(id, perfil) {
-  const img = document.getElementById(id);
-  if (!img) return;
-  img.src = perfil.foto;
-  img.closest(".card").querySelector("h5").textContent = perfil.nome;
-}
-
-function resetarCard(id) {
-  const img = document.getElementById(id);
-  if (!img) return;
-  img.src = "https://via.placeholder.com/400x250";
-  img.closest(".card").querySelector("h5").textContent = "Vaga aberta";
-}
-
-const perfis = JSON.parse(localStorage.getItem("perfis") || "{}");
-Object.keys(perfis).forEach(id => atualizarCard(id, perfis[id]));
+renderizar();
 </script>
 
 </body>
