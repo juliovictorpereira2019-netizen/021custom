@@ -6,68 +6,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background:#f2f2f2;
-  padding:30px;
+body { background:#f2f2f2; font-family:Arial; padding:30px }
+.admin { background:#fff; max-width:420px; margin:auto; padding:25px; border-radius:14px }
+input, select, button {
+  width:100%; padding:12px; margin-top:12px;
+  border-radius:8px; border:1px solid #ccc;
 }
-.admin {
-  background:#fff;
-  max-width:420px;
-  margin:auto;
-  padding:25px;
-  border-radius:14px;
-}
-input, button, select {
-  width:100%;
-  padding:12px;
-  margin-top:12px;
-  border-radius:8px;
-  border:1px solid #ccc;
-}
-button {
-  background:#2b2f33;
-  color:#fff;
-  font-weight:700;
-  border:none;
-  cursor:pointer;
-}
-textarea {
-  width:100%;
-  height:140px;
-  margin-top:15px;
-}
+button { background:#2b2f33; color:#fff; font-weight:700; border:none }
 </style>
 </head>
 
 <body>
 
 <div class="admin">
-  <h2>Atualizar Foto do Funcionário</h2>
+  <h2>Atualizar Foto</h2>
 
   <select id="cargo">
-    <option value="">Selecione o cargo</option>
+    <option value="">Cargo</option>
     <option value="resp-mec">Responsável Mecânica</option>
     <option value="lider">Líder</option>
     <option value="gerente">Gerente</option>
   </select>
 
-  <input type="number" id="posicao" placeholder="Posição (ex: 1, 2, 3)">
-  <input type="file" id="imagem" accept="image/*">
+  <input type="number" id="posicao" placeholder="Posição (1,2,3)">
+  <input type="file" id="imagem">
 
-  <button onclick="enviar()">Atualizar imagem</button>
-
-  <textarea id="saida" placeholder="Cole isso no funcionarios.html"></textarea>
+  <button onclick="atualizar()">Atualizar imagem</button>
 </div>
 
 <script>
 const CLOUD_NAME = "dfyiwxdhn";
 const UPLOAD_PRESET = "funcionarios";
 
-async function enviar() {
-  const cargo = document.getElementById("cargo").value;
-  const posicao = document.getElementById("posicao").value;
-  const imagem = document.getElementById("imagem").files[0];
+async function atualizar() {
+  const cargo = cargoEl.value;
+  const posicao = posicaoEl.value;
+  const imagem = document.querySelector('#imagem').files[0];
 
   if (!cargo || !posicao || !imagem) {
     alert("Preencha tudo");
@@ -85,13 +59,18 @@ async function enviar() {
 
   const data = await res.json();
 
-  const comando = `
-<script>
-document.getElementById("${cargo}-${posicao}").src = "${data.secure_url}";
-</script>`;
+  const id = `${cargo}-${posicao}`;
 
-  document.getElementById("saida").value = comando;
+  // salva no localStorage
+  const fotos = JSON.parse(localStorage.getItem("fotosFuncionarios") || "{}");
+  fotos[id] = data.secure_url;
+  localStorage.setItem("fotosFuncionarios", JSON.stringify(fotos));
+
+  alert("Imagem atualizada! Recarregue o site.");
 }
+
+const cargoEl = document.getElementById("cargo");
+const posicaoEl = document.getElementById("posicao");
 </script>
 
 </body>
