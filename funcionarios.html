@@ -36,10 +36,6 @@ body {
   font-weight:600;
 }
 
-.nav-links a:hover{
-  color:#cfcfcf;
-}
-
 /* ===== TITULOS ===== */
 .subtitulo {
   background:#ddd;
@@ -58,6 +54,8 @@ body {
 .card-employee img {
   height:180px;
   object-fit:cover;
+  pointer-events:none;
+  user-select:none;
 }
 
 /* ===== BOTAO REMOVER ===== */
@@ -74,8 +72,10 @@ body {
   display:none;
   font-weight:700;
 }
-.admin-mode .btn-remover { 
-  display:block; 
+
+/* SOMENTE GERÊNCIA */
+.gerencia-mode .btn-remover {
+  display:block;
 }
 
 /* ===== ADMIN ===== */
@@ -97,41 +97,36 @@ body {
   transition:.3s;
   z-index:1000;
 }
-.admin-menu.open { 
-  right:0; 
-}
+.admin-menu.open { right:0; }
 </style>
 </head>
 
 <body>
 
-<!-- ===== MENU TOPO ===== -->
 <header class="topbar">
   <div class="container d-flex justify-content-between align-items-center">
-    
     <div class="d-flex align-items-center gap-3">
       <img src="https://imgur.com/0iskhD3.png" style="height:70px;border-radius:8px">
       <div class="logo">Central Race</div>
     </div>
 
-    <nav class="d-none d-md-flex align-items-center nav-links">
+    <nav class="d-none d-md-flex nav-links">
       <a href="index.html">Início</a>
       <a href="tabela.html">Preços</a>
       <a href="relatorio.html">Relatório</a>
       <a href="funcionarios.html">Funcionários</a>
     </nav>
-
   </div>
 </header>
 
-<!-- ===== CONTEUDO ===== -->
 <main class="container my-5">
   <h2 class="text-center mb-4">Nossa Equipe</h2>
   <div id="listaCargos"></div>
 </main>
 
-<!-- BOTAO ADMIN -->
+<!-- BOTÕES -->
 <button class="btn btn-dark admin-btn" onclick="abrirAdmin()">Admin</button>
+<button class="btn btn-danger admin-btn" style="bottom:70px" onclick="acessoGerencia()">Acesso Gerência</button>
 
 <!-- MENU ADMIN -->
 <div class="admin-menu" id="adminMenu">
@@ -151,15 +146,10 @@ body {
 </div>
 
 <script type="module">
-/* ===== CARGOS FIXOS ===== */
+/* ===== CARGOS ===== */
 const CARGOS = [
-  "Responsável Mecânico",
-  "Líder",
-  "Sub-Líder",
-  "Gerente",
-  "Supervisor de Turnagem",
-  "Turnagem",
-  "Reparo"
+  "Responsável Mecânico","Líder","Sub-Líder",
+  "Gerente","Supervisor de Turnagem","Turnagem","Reparo"
 ];
 
 /* ===== FIREBASE ===== */
@@ -177,164 +167,116 @@ const db = getFirestore(app);
 const CLOUD_NAME = "dfyiwxdhn";
 const UPLOAD_PRESET = "funcionarios";
 
-async function uploadImagem(file) {
+async function uploadImagem(file){
   const fd = new FormData();
   fd.append("file", file);
   fd.append("upload_preset", UPLOAD_PRESET);
-  const res = await fetch(
-    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-    { method: "POST", body: fd }
-  );
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+    method:"POST", body:fd
+  });
   return (await res.json()).secure_url;
 }
 
-/* ===== ADMIN ===== */
+/* ===== SENHAS ===== */
 const SENHA_ADMIN = "admin123";
-let adminAtivo = false;
+const SENHA_GERENCIA = "gerencia456";
 
+let gerenciaAtiva = false;
+
+/* ===== ADMIN ===== */
 window.abrirAdmin = () => {
-  if (prompt("Senha do admin:") === SENHA_ADMIN) {
+  if (prompt("Senha do Admin:") === SENHA_ADMIN) {
     adminMenu.classList.toggle("open");
-    adminAtivo = true;
-    document.body.classList.add("admin-mode");
+  }
+};
+
+/* ===== GERÊNCIA ===== */
+window.acessoGerencia = () => {
+  if (prompt("Senha da Gerência:") === SENHA_GERENCIA) {
+    gerenciaAtiva = true;
+    document.body.classList.add("gerencia-mode");
+    alert("Modo Gerência ativado");
+  } else {
+    alert("Senha incorreta");
   }
 };
 
 /* ===== ADICIONAR ===== */
 window.adicionarVaga = async () => {
-  if (!nome.value || !foto.files[0]) return alert("Preencha tudo!");
+  if (!nome.value || !foto.files[0]) return alert("Preencha tudo");
 
   const img = await uploadImagem(foto.files[0]);
   const ref = doc(db, "vagas", cargo.value);
 
   let lista = [];
-  const snap = await getDocs(collection(db, "vagas"));
-  snap.forEach(d => {
-    if (d.id === cargo.value) lista = d.data().lista || [];
-  });
+  const snap = await getDocs(collection(db,"vagas"));
+  snap.forEach(d=>{ if(d.id===cargo.value) lista=d.data().lista||[] });
 
-  lista.push({ nome: nome.value, foto: img });
-  await setDoc(ref, { lista });
+  lista.push({nome:nome.value,foto:img});
+  await setDoc(ref,{lista});
 
-  nome.value = "";
-  foto.value = "";
+  nome.value=""; foto.value="";
   renderizar();
 };
 
 /* ===== REMOVER ===== */
-window.removerVaga = async (cargoNome, index) => {
+window.removerVaga = async (cargoNome,index) => {
+  if (!gerenciaAtiva) return alert("Acesso negado");
+
   if (!confirm("Remover esta vaga?")) return;
 
-  const ref = doc(db, "vagas", cargoNome);
-  let lista = [];
+  const ref = doc(db,"vagas",cargoNome);
+  let lista=[];
 
-  const snap = await getDocs(collection(db, "vagas"));
-  snap.forEach(d => {
-    if (d.id === cargoNome) lista = d.data().lista || [];
-  });
+  const snap = await getDocs(collection(db,"vagas"));
+  snap.forEach(d=>{ if(d.id===cargoNome) lista=d.data().lista||[] });
 
-  lista.splice(index, 1);
-  await setDoc(ref, { lista });
+  lista.splice(index,1);
+  await setDoc(ref,{lista});
   renderizar();
 };
 
 /* ===== RENDER ===== */
-async function renderizar() {
-  listaCargos.innerHTML = "";
-  cargo.innerHTML = "";
+async function renderizar(){
+  listaCargos.innerHTML="";
+  cargo.innerHTML="";
 
-  const dados = {};
-  const snap = await getDocs(collection(db, "vagas"));
-  snap.forEach(d => dados[d.id] = d.data().lista || []);
+  const dados={};
+  const snap=await getDocs(collection(db,"vagas"));
+  snap.forEach(d=>dados[d.id]=d.data().lista||[]);
 
-  CARGOS.forEach(c => {
-    cargo.innerHTML += `<option>${c}</option>`;
-    const vagas = dados[c] || [];
+  CARGOS.forEach(c=>{
+    cargo.innerHTML+=`<option>${c}</option>`;
+    const vagas=dados[c]||[];
 
-    listaCargos.innerHTML += `
-      <div class="subtitulo">${c}</div>
-      <div class="row justify-content-center mb-4">
-        ${vagas.length ? vagas.map((v,i)=>`
-          <div class="col-md-3 mb-3">
-            <div class="card card-employee">
-              <button class="btn-remover" onclick="removerVaga('${c}',${i})">×</button>
-              <img src="${v.foto}">
-              <div class="card-body text-center">
-                <h5>${v.nome}</h5>
-                <p class="small text-muted">${c}</p>
-              </div>
-            </div>
+    listaCargos.innerHTML+=`
+    <div class="subtitulo">${c}</div>
+    <div class="row justify-content-center mb-4">
+    ${vagas.map((v,i)=>`
+      <div class="col-md-3 mb-3">
+        <div class="card card-employee">
+          <button class="btn-remover" onclick="removerVaga('${c}',${i})">×</button>
+          <img src="${v.foto}">
+          <div class="card-body text-center">
+            <h5>${v.nome}</h5>
+            <p class="small text-muted">${c}</p>
           </div>
-        `).join("") : `
-          <div class="col-md-3">
-            <div class="card card-employee">
-              <img src="https://via.placeholder.com/400x250">
-              <div class="card-body text-center">
-                <h5>Vaga aberta</h5>
-                <p class="small text-muted">${c}</p>
-              </div>
-            </div>
-          </div>`
-        }
-      </div>
-    `;
+        </div>
+      </div>`).join("")}
+    </div>`;
   });
 }
 
 renderizar();
-  /* ===== PROTEÇÃO BÁSICA CONTRA INSPEÇÃO ===== */
 
-// Bloquear botão direito
-document.addEventListener("contextmenu", e => e.preventDefault());
-
-// Bloquear atalhos comuns
-document.addEventListener("keydown", function(e) {
-
-  // F12
-  if (e.key === "F12") {
+/* ===== PROTEÇÃO BÁSICA ===== */
+document.addEventListener("contextmenu", e=>e.preventDefault());
+document.addEventListener("keydown", e=>{
+  if(e.key==="F12"|| (e.ctrlKey&&["U","I","J","C"].includes(e.key.toUpperCase()))) {
     e.preventDefault();
-    return false;
-  }
-
-  // Ctrl + Shift + I / J / C
-  if (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) {
-    e.preventDefault();
-    return false;
-  }
-
-  // Ctrl + U
-  if (e.ctrlKey && e.key.toUpperCase() === "U") {
-    e.preventDefault();
-    return false;
   }
 });
-
-// Detectar DevTools aberto
-(function detectDevTools() {
-  let aberto = false;
-  const element = new Image();
-  Object.defineProperty(element, "id", {
-    get() {
-      aberto = true;
-      throw new Error("DevTools detectado");
-    }
-  });
-
-  setInterval(() => {
-    aberto = false;
-    console.log(element);
-    console.clear();
-
-    if (aberto) {
-      document.body.innerHTML = "";
-      alert("Acesso bloqueado.");
-      location.reload();
-    }
-  }, 1000);
-})();
-
 </script>
 
 </body>
 </html>
-
