@@ -2,34 +2,102 @@
 <html lang="pt-br">
 <head>
 <meta charset="utf-8">
-<title>Admin - Funcionários</title>
+<title>Admin - Funcionários | Central Race</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<link rel="icon" type="image/x-icon" href="https://imgur.com/0iskhD3.png">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-body { background:#f2f2f2; font-family:Arial; padding:30px }
-.admin { background:#fff; max-width:420px; margin:auto; padding:25px; border-radius:14px }
-input, select, button {
-  width:100%; padding:12px; margin-top:12px;
-  border-radius:8px; border:1px solid #ccc;
+body {
+  background:#f2f2f2;
+  font-family: "Inter", system-ui, sans-serif;
 }
-button { background:#2b2f33; color:#fff; font-weight:700; border:none }
+
+/* TOPBAR */
+.topbar {
+  background:#2b2f33;
+  color:#fff;
+  padding:12px 0;
+}
+.logo {
+  font-weight:700;
+  letter-spacing:0.6px;
+}
+.nav-links a {
+  color:#fff;
+  text-decoration:none;
+  margin-left:18px;
+  font-weight:600;
+}
+.nav-links a:hover {
+  color:#cfcfcf;
+}
+
+/* ADMIN CARD */
+.admin {
+  background:#fff;
+  max-width:420px;
+  margin:40px auto;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+input, select, button {
+  width:100%;
+  padding:12px;
+  margin-top:12px;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+button {
+  background:#2b2f33;
+  color:#fff;
+  font-weight:700;
+  border:none;
+  transition:.2s;
+}
+
+button:hover {
+  opacity:.9;
+}
 </style>
 </head>
 
 <body>
 
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+      <img src="https://imgur.com/0iskhD3.png" style="height:55px;border-radius:8px;">
+      <div class="logo">Central Race • Admin</div>
+    </div>
+    <nav class="d-none d-md-flex nav-links">
+      <a href="index.html">Início</a>
+      <a href="funcionarios.html">Funcionários</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ADMIN -->
 <div class="admin">
-  <h2>Atualizar Foto</h2>
+  <h4 class="text-center mb-3">Atualizar imagem do funcionário</h4>
 
   <select id="cargo">
-    <option value="">Cargo</option>
+    <option value="">Selecione o cargo</option>
     <option value="resp-mec">Responsável Mecânica</option>
     <option value="lider">Líder</option>
     <option value="gerente">Gerente</option>
   </select>
 
-  <input type="number" id="posicao" placeholder="Posição (1,2,3)">
-  <input type="file" id="imagem">
+  <input type="number" id="posicao" placeholder="Posição (1, 2, 3)">
+  <input type="file" id="imagem" accept="image/*">
 
   <button onclick="atualizar()">Atualizar imagem</button>
 </div>
@@ -38,13 +106,16 @@ button { background:#2b2f33; color:#fff; font-weight:700; border:none }
 const CLOUD_NAME = "dfyiwxdhn";
 const UPLOAD_PRESET = "funcionarios";
 
+const cargoEl = document.getElementById("cargo");
+const posicaoEl = document.getElementById("posicao");
+
 async function atualizar() {
   const cargo = cargoEl.value;
   const posicao = posicaoEl.value;
-  const imagem = document.querySelector('#imagem').files[0];
+  const imagem = document.getElementById("imagem").files[0];
 
   if (!cargo || !posicao || !imagem) {
-    alert("Preencha tudo");
+    alert("Preencha todos os campos");
     return;
   }
 
@@ -58,19 +129,14 @@ async function atualizar() {
   );
 
   const data = await res.json();
-
   const id = `${cargo}-${posicao}`;
 
-  // salva no localStorage
   const fotos = JSON.parse(localStorage.getItem("fotosFuncionarios") || "{}");
   fotos[id] = data.secure_url;
   localStorage.setItem("fotosFuncionarios", JSON.stringify(fotos));
 
-  alert("Imagem atualizada! Recarregue o site.");
+  alert("Imagem atualizada com sucesso!");
 }
-
-const cargoEl = document.getElementById("cargo");
-const posicaoEl = document.getElementById("posicao");
 </script>
 
 </body>
