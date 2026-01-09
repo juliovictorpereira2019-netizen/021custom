@@ -86,7 +86,11 @@ body {
 <div class="row single-card mb-4">
   <div class="col-lg-3 col-md-6">
     <div class="card card-employee">
-      <img src="https://res.cloudinary.com/dfyiwxdhn/image/upload/f_auto,q_auto,w_400,h_250,c_fill/drk.jpg">
+      <img
+        id="resp-mec-1"
+        src="https://res.cloudinary.com/dfyiwxdhn/image/upload/f_auto,q_auto,w_400,h_250,c_fill/drk.jpg"
+        class="card-img-top"
+      >
       <div class="card-body text-center">
         <h5 class="mb-0">DRK</h5>
         <p class="small text-muted">RESP MECÂNICA</p>
@@ -100,7 +104,11 @@ body {
 <div class="row justify-content-center mb-4">
   <div class="col-lg-3 col-md-6 mb-4">
     <div class="card card-employee">
-      <img src="https://res.cloudinary.com/dfyiwxdhn/image/upload/f_auto,q_auto,w_400,h_250,c_fill/placeholder.jpg">
+      <img
+        id="lider-1"
+        src="https://res.cloudinary.com/dfyiwxdhn/image/upload/f_auto,q_auto,w_400,h_250,c_fill/placeholder.jpg"
+        class="card-img-top"
+      >
       <div class="card-body text-center">
         <h5 class="mb-0">Vaga aberta</h5>
         <p class="small text-muted">Central Race</p>
@@ -114,7 +122,11 @@ body {
 <div class="row justify-content-center mb-4">
   <div class="col-lg-3 col-md-6 mb-4">
     <div class="card card-employee">
-      <img src="https://res.cloudinary.com/dfyiwxdhn/image/upload/f_auto,q_auto,w_400,h_250,c_fill/placeholder.jpg">
+      <img
+        id="gerente-1"
+        src="https://res.cloudinary.com/dfyiwxdhn/image/upload/f_auto,q_auto,w_400,h_250,c_fill/placeholder.jpg"
+        class="card-img-top"
+      >
       <div class="card-body text-center">
         <h5 class="mb-0">João Britto</h5>
         <p class="small text-muted">Central Race</p>
@@ -130,8 +142,16 @@ body {
 © <span id="year"></span> João Britto - Todos os direitos reservados
 </footer>
 
+<!-- SCRIPT AUTOMÁTICO DAS IMAGENS -->
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+const fotos = JSON.parse(localStorage.getItem("fotosFuncionarios") || "{}");
+
+Object.keys(fotos).forEach(id => {
+  const img = document.getElementById(id);
+  if (img) img.src = fotos[id];
+});
 </script>
 
 </body>
