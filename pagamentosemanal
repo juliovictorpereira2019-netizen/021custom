@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fusion Customs - RELATÓRIO DE PAGAMENTO RP</title>
+<title>Central Race - RELATÓRIO DE PAGAMENTO RP</title>
 
-<link rel="icon" type="image/x-icon" href="https://imgur.com/WWZV5uc.png">
+<link rel="icon" type="image/x-icon" href="https://imgur.com/0iskhD3.png">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -34,8 +34,8 @@ button{width:100%;padding:10px;margin-top:12px;border:none;border-radius:8px;fon
 <header class="topbar">
 <div class="container d-flex justify-content-between align-items-center">
 <div class="d-flex align-items-center gap-3">
-<img src="https://imgur.com/UX64xoQ.png" style="height:70px;border-radius:8px">
-<div class="logo">Fusion Customs</div>
+<img src="https://imgur.com/0iskhD3.png" style="height:70px;border-radius:8px">
+<div class="logo">Central Race</div>
 </div>
 
 <nav class="d-none d-md-flex align-items-center nav-links">
@@ -99,7 +99,7 @@ function gerarRelatorio(){
 
   // Relatório RP visual
   let texto = `════════════════════════════════\n`;
-  texto += `🛠️ **FUSION CUSTOMS – PAGAMENTO SEMANAL** 🛠️\n`;
+  texto += `🛠️ **Central Race – PAGAMENTO SEMANAL** 🛠️\n`;
   texto += `════════════════════════════════\n\n`;
   texto += `👤 **Funcionário:** ${nome} (ID: ${idMes})\n`;
   texto += `🏷️ **Cargo:** ${cargo}\n`;
@@ -107,10 +107,10 @@ function gerarRelatorio(){
   texto += `💰 **Status do Pagamento:** ✅ Realizado\n`;
   texto += `O pagamento semanal da mecânica (R$ 1.000.000) foi efetuado mantendo sua oficina ativa e regularizada.\n\n`;
   texto += `🙏 **Agradecimento pelo serviço:**\n`;
-  texto += `A FUSION CUSTOMS agradece pelo empenho e dedicação. Graças a você, a oficina continua funcionando de forma eficiente e organizada.\n\n`;
+  texto += `A Central Race agradece pelo empenho e dedicação. Graças a você, a oficina continua funcionando de forma eficiente e organizada.\n\n`;
   texto += `⚡ **Lembrete:**\n`;
   texto += `O pagamento semanal garante upgrades, benefícios e manutenção da mecânica.\n\n`;
-  texto += `🔧 **FUSION CUSTOMS – Mantenha sua mecânica em dia e evolua sempre!**\n`;
+  texto += `🔧 **Central Race – Mantenha sua mecânica em dia e evolua sempre!**\n`;
   texto += `════════════════════════════════`;
 
   relatorio.value = texto;
