@@ -11,11 +11,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-body{font-family:Inter,sans-serif;background:#f4f4f4}
+body{
+  font-family:Inter,sans-serif;
+  background:#f4f4f4;
+}
 
 /* TOPBAR */
-.topbar{background:#2b2f33;color:#fff;padding:12px 0}
-.logo{font-weight:700;font-size:18px}
+.topbar{
+  background:#2b2f33;
+  color:#fff;
+  padding:12px 0;
+}
+.logo{
+  font-weight:700;
+  font-size:18px;
+}
 
 /* TITULOS */
 .subtitulo{
@@ -23,28 +33,32 @@ body{font-family:Inter,sans-serif;background:#f4f4f4}
   text-align:center;
   font-weight:700;
   padding:6px;
-  margin:30px 0 15px
+  margin:30px 0 15px;
 }
 
-/* CARDS */
+/* CARD */
 .card-employee{
   border-radius:16px;
   overflow:hidden;
-  position:relative
+  position:relative;
+  width:100%;
+  max-width:260px; /* mantém padrão */
 }
 
-/* 🔒 IMAGEM CENTRALIZADA E PROTEGIDA */
+/* ✅ IMAGEM SEMPRE CENTRALIZADA POR DENTRO */
 .card-employee img{
-  height:180px;
   width:100%;
+  height:180px;
+
   object-fit:cover;
-  object-position:center center; /* CENTRALIZA SEMPRE */
+  object-position:50% 30%;
+
   display:block;
   margin:auto;
 
   pointer-events:none;
   user-select:none;
-  -webkit-user-drag:none
+  -webkit-user-drag:none;
 }
 
 /* REMOVER */
@@ -60,12 +74,17 @@ body{font-family:Inter,sans-serif;background:#f4f4f4}
   border:none;
   display:none;
   font-weight:700;
-  z-index:10
+  z-index:10;
 }
 .gerencia-mode .btn-remover{display:block}
 
 /* ADMIN */
-.admin-btn{position:fixed;right:20px;bottom:20px;z-index:1001}
+.admin-btn{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:1001;
+}
 .admin-menu{
   position:fixed;
   right:-380px;
@@ -76,21 +95,9 @@ body{font-family:Inter,sans-serif;background:#f4f4f4}
   box-shadow:-4px 0 20px rgba(0,0,0,.2);
   padding:20px;
   transition:.3s;
-  z-index:1000
+  z-index:1000;
 }
 .admin-menu.open{right:0}
-
-/* BADGE */
-.badge-gerencia{
-  display:none;
-  background:#dc3545;
-  color:#fff;
-  font-weight:700;
-  padding:6px 10px;
-  border-radius:8px;
-  font-size:12px
-}
-.gerencia-ativa .badge-gerencia{display:inline-block}
 </style>
 </head>
 
@@ -112,14 +119,11 @@ body{font-family:Inter,sans-serif;background:#f4f4f4}
 <button class="btn btn-danger admin-btn" style="bottom:70px" onclick="acessoGerencia()">Acesso Gerência</button>
 
 <div class="admin-menu" id="adminMenu">
-  <div class="d-flex justify-content-between align-items-center">
-    <h5>Painel</h5>
-    <span class="badge-gerencia">GERÊNCIA</span>
-  </div>
+  <h5>Painel Mecânico</h5>
   <hr>
 
   <label>Cargo</label>
-  <select id="cargo" class="form-select mb-2" onchange="validarBotao()"></select>
+  <select id="cargo" class="form-select mb-2"></select>
 
   <label>Nome</label>
   <input id="nome" class="form-control mb-2">
@@ -127,24 +131,20 @@ body{font-family:Inter,sans-serif;background:#f4f4f4}
   <label>Foto</label>
   <input id="foto" type="file" accept="image/*" class="form-control mb-3">
 
-  <button id="btnAdd" class="btn btn-primary w-100" disabled onclick="adicionarVaga()">
-    Adicionar vaga
-  </button>
+  <button class="btn btn-primary w-100" onclick="adicionarVaga()">Adicionar vaga</button>
 </div>
 
 <script type="module">
 /* CARGOS */
 const CARGOS=[
-  "Responsável Mecânico","Líder","Sub-Líder",
-  "Gerente","Supervisor de Turnagem","Turnagem","Reparo"
+  "Responsável Mecânico",
+  "Líder",
+  "Sub-Líder",
+  "Gerente",
+  "Supervisor de Turnagem",
+  "Turnagem",
+  "Reparo"
 ];
-const CARGOS_GERENCIA=[
-  "Responsável Mecânico","Líder","Sub-Líder",
-  "Gerente","Supervisor de Turnagem"
-];
-
-/* DISCORD */
-const DISCORD_WEBHOOK="COLE_AQUI_A_URL_DO_WEBHOOK";
 
 /* FIREBASE */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -164,7 +164,10 @@ async function uploadImagem(f){
   const fd=new FormData();
   fd.append("file",f);
   fd.append("upload_preset",UPLOAD_PRESET);
-  const r=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,{method:"POST",body:fd});
+  const r=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,{
+    method:"POST",
+    body:fd
+  });
   return (await r.json()).secure_url;
 }
 
@@ -173,43 +176,10 @@ const SENHA_ADMIN="admin123";
 const SENHA_GERENCIA="gerencia456";
 let gerenciaAtiva=false;
 
-/* LOG DISCORD */
-async function logDiscord(acao,d){
-  await fetch(DISCORD_WEBHOOK,{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      username:"Central Race Logs",
-      embeds:[{
-        title:acao,
-        color:acao.includes("ADICIONOU")?0x2ecc71:0xe74c3c,
-        fields:[
-          {name:"Funcionário",value:d.nome,inline:true},
-          {name:"Cargo",value:d.cargo,inline:true},
-          {name:"Acesso",value:d.acesso,inline:true},
-          {name:"Data",value:new Date().toLocaleString("pt-BR")}
-        ]
-      }]
-    })
-  });
-}
-
-/* SELECT */
-function atualizarSelectCargo(){
-  cargo.innerHTML='<option value="">Selecione</option>';
-  CARGOS.forEach(c=>{
-    if(CARGOS_GERENCIA.includes(c)&&!gerenciaAtiva)return;
-    cargo.innerHTML+=`<option>${c}</option>`;
-  });
-  validarBotao();
-}
-window.validarBotao=()=>btnAdd.disabled=!cargo.value;
-
 /* ADMIN */
 window.abrirAdmin=()=>{
   if(prompt("Senha Admin:")===SENHA_ADMIN){
     adminMenu.classList.toggle("open");
-    atualizarSelectCargo();
   }
 };
 
@@ -217,15 +187,13 @@ window.abrirAdmin=()=>{
 window.acessoGerencia=()=>{
   if(prompt("Senha Gerência:")===SENHA_GERENCIA){
     gerenciaAtiva=true;
-    document.body.classList.add("gerencia-mode","gerencia-ativa");
-    atualizarSelectCargo();
+    document.body.classList.add("gerencia-mode");
     alert("Modo Gerência ativado");
   }
 };
 
 /* ADICIONAR */
 window.adicionarVaga=async()=>{
-  if(CARGOS_GERENCIA.includes(cargo.value)&&!gerenciaAtiva)return alert("Apenas gerência");
   if(!nome.value||!foto.files[0])return alert("Preencha tudo");
 
   const img=await uploadImagem(foto.files[0]);
@@ -233,69 +201,51 @@ window.adicionarVaga=async()=>{
 
   let lista=[];
   const snap=await getDocs(collection(db,"vagas"));
-  snap.forEach(d=>{if(d.id===cargo.value)lista=d.data().lista||[]});
+  snap.forEach(d=>{
+    if(d.id===cargo.value) lista=d.data().lista||[];
+  });
 
   lista.push({nome:nome.value,foto:img});
   await setDoc(ref,{lista});
 
-  await logDiscord("➕ ADICIONOU FUNCIONÁRIO",{
-    nome:nome.value,
-    cargo:cargo.value,
-    acesso:gerenciaAtiva?"Gerência":"Mecânico"
-  });
-
-  nome.value="";foto.value="";cargo.value="";
-  validarBotao();
-  renderizar();
-};
-
-/* REMOVER */
-window.removerVaga=async(c,i)=>{
-  if(!gerenciaAtiva)return alert("Acesso negado");
-
-  const ref=doc(db,"vagas",c);
-  let lista=[];
-  const snap=await getDocs(collection(db,"vagas"));
-  snap.forEach(d=>{if(d.id===c)lista=d.data().lista||[]});
-
-  const r=lista[i];
-  lista.splice(i,1);
-  await setDoc(ref,{lista});
-
-  await logDiscord("❌ REMOVEU FUNCIONÁRIO",{
-    nome:r.nome,cargo:c,acesso:"Gerência"
-  });
-
+  nome.value="";
+  foto.value="";
   renderizar();
 };
 
 /* RENDER */
 async function renderizar(){
   listaCargos.innerHTML="";
+  cargo.innerHTML="";
+
   const dados={};
   const snap=await getDocs(collection(db,"vagas"));
   snap.forEach(d=>dados[d.id]=d.data().lista||[]);
+
   CARGOS.forEach(c=>{
-    const v=dados[c]||[];
+    cargo.innerHTML+=`<option>${c}</option>`;
+    const vagas=dados[c]||[];
+
     listaCargos.innerHTML+=`
-    <div class="subtitulo">${c}</div>
-    <div class="row">
-      ${v.map((x,i)=>`
-      <div class="col-md-3 mb-3">
-        <div class="card card-employee">
-          <button class="btn-remover" onclick="removerVaga('${c}',${i})">×</button>
-          <img src="${x.foto}">
-          <div class="card-body text-center">
-            <h5>${x.nome}</h5>
-            <p class="text-muted small">${c}</p>
+      <div class="subtitulo">${c}</div>
+      <div class="row justify-content-center mb-4">
+        ${vagas.map((v,i)=>`
+          <div class="col-md-3 col-sm-6 d-flex justify-content-center mb-3">
+            <div class="card card-employee">
+              <button class="btn-remover" onclick="removerVaga('${c}',${i})">×</button>
+              <img src="${v.foto}">
+              <div class="card-body text-center">
+                <h5>${v.nome}</h5>
+                <p class="text-muted small">${c}</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>`).join("")}
-    </div>`;
+        `).join("")}
+      </div>
+    `;
   });
 }
 
-atualizarSelectCargo();
 renderizar();
 
 /* 🔒 PROTEÇÕES */
