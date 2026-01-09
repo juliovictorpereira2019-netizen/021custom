@@ -3,11 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Central Race - Funcionários</title>
 
 <link rel="icon" href="https://imgur.com/0iskhD3.png">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- PERFORMANCE -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
 body {
@@ -15,7 +21,6 @@ body {
   background:#f4f4f4;
 }
 
-/* NAVBAR */
 .navbar {
   background:#2b2f33;
 }
@@ -27,12 +32,7 @@ body {
   height:45px;
   margin-right:10px;
 }
-.nav-link {
-  color:#fff !important;
-  font-weight:600;
-}
 
-/* CARDS */
 .card-employee {
   border-radius:16px;
   overflow:hidden;
@@ -45,15 +45,15 @@ body {
   height:180px;
   object-fit:cover;
 }
+
 .subtitulo {
   background:#ddd;
   text-align:center;
   font-weight:700;
   padding:6px;
-  margin-bottom:15px;
+  margin:25px 0 15px;
 }
 
-/* BOTÃO ADMIN */
 .admin-btn {
   position:fixed;
   right:20px;
@@ -61,7 +61,6 @@ body {
   z-index:1001;
 }
 
-/* MENU ADMIN */
 .admin-menu {
   position:fixed;
   right:-340px;
@@ -82,49 +81,120 @@ body {
 
 <body>
 
-<!-- MENU TOPO -->
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar">
   <div class="container">
-<div class="navbar-brand d-flex align-items-center">
-  <img src="https://imgur.com/0iskhD3.png">
-  Central Race
-</div>
-
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="#">Início</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Preços</a></li>
-        <li class="nav-item"><a class="nav-link active" href="#">Funcionários</a></li>
-      </ul>
+    <div class="navbar-brand d-flex align-items-center">
+      <img src="https://imgur.com/0iskhD3.png" loading="lazy">
+      Central Race
     </div>
   </div>
 </nav>
 
 <main class="container my-5">
-
 <h2 class="text-center mb-4">Nossa Equipe</h2>
 
+<!-- RESPONSÁVEL MECÂNICO -->
 <div class="subtitulo">RESPONSÁVEL MECÂNICO</div>
-<div class="row justify-content-center mb-4">
+<div class="row justify-content-center">
   <div class="col-md-3">
     <div class="card card-employee">
-      <img id="resp-mec-1" src="https://via.placeholder.com/400x250">
+      <img id="resp-mec-1" src="https://via.placeholder.com/400x250" loading="lazy">
       <div class="card-body text-center">
         <h5>Vaga aberta</h5>
-        <p class="small text-muted">Responsável Mecânico</p>
+        <p class="text-muted small">Responsável Mecânico</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- (demais cargos continuam iguais, sem mudança) -->
+<!-- LÍDER -->
+<div class="subtitulo">LÍDER</div>
+<div class="row justify-content-center">
+  <div class="col-md-3">
+    <div class="card card-employee">
+      <img id="lider-1" src="https://via.placeholder.com/400x250" loading="lazy">
+      <div class="card-body text-center">
+        <h5>Vaga aberta</h5>
+        <p class="text-muted small">Líder</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUB-LÍDER -->
+<div class="subtitulo">SUB-LÍDER</div>
+<div class="row justify-content-center">
+  <div class="col-md-3">
+    <div class="card card-employee">
+      <img id="sub-lider-1" src="https://via.placeholder.com/400x250" loading="lazy">
+      <div class="card-body text-center">
+        <h5>Vaga aberta</h5>
+        <p class="text-muted small">Sub-Líder</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GERENTE -->
+<div class="subtitulo">GERENTE</div>
+<div class="row justify-content-center">
+  <div class="col-md-3">
+    <div class="card card-employee">
+      <img id="gerente-1" src="https://via.placeholder.com/400x250" loading="lazy">
+      <div class="card-body text-center">
+        <h5>Vaga aberta</h5>
+        <p class="text-muted small">Gerente</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUPERVISOR DE TURNAGEM -->
+<div class="subtitulo">SUPERVISOR DE TURNAGEM</div>
+<div class="row justify-content-center">
+  <div class="col-md-3">
+    <div class="card card-employee">
+      <img id="sup-turnagem-1" src="https://via.placeholder.com/400x250" loading="lazy">
+      <div class="card-body text-center">
+        <h5>Vaga aberta</h5>
+        <p class="text-muted small">Supervisor de Turnagem</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TURNAGEM -->
+<div class="subtitulo">TURNAGEM</div>
+<div class="row justify-content-center">
+  <div class="col-md-3">
+    <div class="card card-employee">
+      <img id="turnagem-1" src="https://via.placeholder.com/400x250" loading="lazy">
+      <div class="card-body text-center">
+        <h5>Vaga aberta</h5>
+        <p class="text-muted small">Turnagem</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REPARO -->
+<div class="subtitulo">REPARO</div>
+<div class="row justify-content-center mb-5">
+  <div class="col-md-3">
+    <div class="card card-employee">
+      <img id="reparo-1" src="https://via.placeholder.com/400x250" loading="lazy">
+      <div class="card-body text-center">
+        <h5>Vaga aberta</h5>
+        <p class="text-muted small">Reparo</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 </main>
 
-<!-- BOTÃO ADMIN -->
 <button class="btn btn-dark admin-btn" onclick="abrirAdmin()">Admin</button>
 
-<!-- MENU ADMIN -->
 <div class="admin-menu" id="adminMenu">
   <h5>Menu Admin</h5>
   <hr>
@@ -135,7 +205,7 @@ body {
     <option value="lider-1">Líder</option>
     <option value="sub-lider-1">Sub-Líder</option>
     <option value="gerente-1">Gerente</option>
-    <option value="sup-turnagem-1">Sup. Turnagem</option>
+    <option value="sup-turnagem-1">Supervisor Turnagem</option>
     <option value="turnagem-1">Turnagem</option>
     <option value="reparo-1">Reparo</option>
   </select>
@@ -156,7 +226,7 @@ const SENHA_ADMIN = "admin123";
 function abrirAdmin() {
   const senha = prompt("Digite a senha do Admin:");
   if (senha === SENHA_ADMIN) {
-    document.getElementById("adminMenu").classList.toggle("open");
+    adminMenu.classList.toggle("open");
   } else {
     alert("Senha incorreta!");
   }
@@ -166,25 +236,32 @@ function salvarPerfil() {
   const dados = JSON.parse(localStorage.getItem("perfis") || "{}");
   dados[cargo.value] = { nome: nome.value, foto: foto.value };
   localStorage.setItem("perfis", JSON.stringify(dados));
-  location.reload();
+  atualizarCard(cargo.value, dados[cargo.value]);
 }
 
 function limparPerfil() {
   const dados = JSON.parse(localStorage.getItem("perfis") || "{}");
   delete dados[cargo.value];
   localStorage.setItem("perfis", JSON.stringify(dados));
-  location.reload();
+  resetarCard(cargo.value);
+}
+
+function atualizarCard(id, perfil) {
+  const img = document.getElementById(id);
+  if (!img) return;
+  img.src = perfil.foto;
+  img.closest(".card").querySelector("h5").textContent = perfil.nome;
+}
+
+function resetarCard(id) {
+  const img = document.getElementById(id);
+  if (!img) return;
+  img.src = "https://via.placeholder.com/400x250";
+  img.closest(".card").querySelector("h5").textContent = "Vaga aberta";
 }
 
 const perfis = JSON.parse(localStorage.getItem("perfis") || "{}");
-
-Object.keys(perfis).forEach(id => {
-  const img = document.getElementById(id);
-  if (img) {
-    img.src = perfis[id].foto;
-    img.closest(".card").querySelector("h5").textContent = perfis[id].nome;
-  }
-});
+Object.keys(perfis).forEach(id => atualizarCard(id, perfis[id]));
 </script>
 
 </body>
