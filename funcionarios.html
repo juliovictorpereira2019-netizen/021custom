@@ -3,146 +3,249 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Central Race - Funcionários</title>
 
-<link rel="icon" type="image/x-icon" href="https://imgur.com/0iskhD3.png">
+<title>Central Race - Funcionários</title>
+<link rel="icon" href="https://imgur.com/0iskhD3.png">
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-body{font-family:Inter;background:#f7f7f7}
-.topbar{background:#2b2f33;color:#fff;padding:12px 0}
-.logo{font-weight:700;letter-spacing:.6px}
-.nav-links a{color:#fff;text-decoration:none;margin-left:18px;font-weight:600}
-.nav-links a:hover{color:#cfcfcf}
-.discord-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:12px;background:linear-gradient(135deg,#7289da,#99a9f0);color:#fff;font-weight:700;text-decoration:none}
+body { font-family: Inter, sans-serif; background:#f4f4f4; }
 
-.container-box{max-width:900px;margin:40px auto}
-.card{border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.1)}
-.func-card{display:flex;align-items:center;gap:15px}
-.func-card img{width:70px;height:70px;border-radius:10px;object-fit:cover}
-.remove-btn{color:#f44336;cursor:pointer;font-weight:700}
+/* NAVBAR */
+.navbar { background:#2b2f33; }
+.navbar-brand { color:#fff; font-weight:700; display:flex; align-items:center; gap:10px; }
+.navbar-brand img { height:40px; }
+
+/* TITULOS */
+.subtitulo {
+  background:#ddd;
+  text-align:center;
+  font-weight:700;
+  padding:6px;
+  margin:30px 0 15px;
+}
+
+/* CARDS */
+.card-employee {
+  border-radius:16px;
+  overflow:hidden;
+  position:relative;
+}
+.card-employee img {
+  height:180px;
+  object-fit:cover;
+}
+
+/* BOTAO REMOVER */
+.btn-remover {
+  position:absolute;
+  top:8px;
+  right:8px;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#dc3545;
+  color:#fff;
+  border:none;
+  display:none;
+  font-weight:700;
+}
+.admin-mode .btn-remover { display:block; }
+
+/* ADMIN */
+.admin-btn {
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:1001;
+}
+.admin-menu {
+  position:fixed;
+  right:-380px;
+  top:0;
+  width:380px;
+  height:100%;
+  background:#fff;
+  box-shadow:-4px 0 20px rgba(0,0,0,.2);
+  padding:20px;
+  transition:.3s;
+  z-index:1000;
+}
+.admin-menu.open { right:0; }
 </style>
 </head>
 
 <body>
 
 <!-- MENU -->
-<header class="topbar">
-<div class="container d-flex justify-content-between align-items-center">
-<div class="d-flex align-items-center gap-3">
-<img src="https://imgur.com/0iskhD3.png" style="height:60px;border-radius:8px">
-<div class="logo">Central Race</div>
-</div>
-
-<nav class="d-none d-md-flex align-items-center nav-links">
-<a href="index.html">Início</a>
-<a href="tabela.html">Preços</a>
-<a href="relatorio.html">Relatório</a>
-<a href="funcionarios.html">Funcionários</a>
-<a href="https://discord.gg/YuUsJGfH" target="_blank" class="discord-btn">
-<i class="fa-brands fa-discord"></i> Discord
-</a>
+<nav class="navbar">
+  <div class="container">
+    <span class="navbar-brand">
+      <img src="https://imgur.com/0iskhD3.png">
+      Central Race
+    </span>
+  </div>
 </nav>
-</div>
-</header>
 
-<!-- CONTEÚDO -->
-<div class="container-box">
+<main class="container my-5">
+  <h2 class="text-center mb-4">Nossa Equipe</h2>
+  <div id="listaCargos"></div>
+</main>
 
-<h3 class="text-center mb-4">👥 Funcionários</h3>
+<!-- BOTAO ADMIN -->
+<button class="btn btn-dark admin-btn" onclick="abrirAdmin()">Admin</button>
 
-<div class="card p-4 mb-4">
-<h5>Área Administrativa</h5>
+<!-- MENU ADMIN -->
+<div class="admin-menu" id="adminMenu">
+  <h5>Painel Admin</h5>
+  <hr>
 
-<input id="senhaAdmin" class="form-control mb-2" placeholder="Senha do admin">
-<input id="nome" class="form-control mb-2" placeholder="Nome do funcionário">
-<select id="cargo" class="form-control mb-2">
-<option>Mecânico</option>
-<option>Líder</option>
-<option>Sub Líder</option>
-<option>Gerente</option>
-<option>Supervisor de Turnagem</option>
-<option>Turnagem</option>
-<option>Reparo</option>
-</select>
-<input id="foto" class="form-control mb-2" placeholder="URL da foto">
+  <label>Cargo</label>
+  <select id="cargo" class="form-select mb-2"></select>
 
-<button class="btn btn-success w-100" onclick="adicionar()">Adicionar vaga</button>
-</div>
+  <label>Nome</label>
+  <input id="nome" class="form-control mb-2">
 
-<div id="lista"></div>
+  <label>Foto</label>
+  <input id="foto" type="file" accept="image/*" class="form-control mb-3">
+
+  <button class="btn btn-primary w-100" onclick="adicionarVaga()">Adicionar vaga</button>
 </div>
 
-<!-- FIREBASE -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+/* ===== CARGOS FIXOS ===== */
+const CARGOS = [
+  "Responsável Mecânico",
+  "Líder",
+  "Sub-Líder",
+  "Gerente",
+  "Supervisor de Turnagem",
+  "Turnagem",
+  "Reparo"
+];
 
-const firebaseConfig = {
+/* ===== FIREBASE ===== */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, doc, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const app = initializeApp({
   apiKey: "AIzaSyD2zieCD4d-_olcWE6O0QlepyxWLGhyI",
   authDomain: "centralrace-c4ad0.firebaseapp.com",
-  projectId: "centralrace-c4ad0",
-};
-
-const app = initializeApp(firebaseConfig);
+  projectId: "centralrace-c4ad0"
+});
 const db = getFirestore(app);
 
+/* ===== CLOUDINARY ===== */
+const CLOUD_NAME = "dfyiwxdhn";
+const UPLOAD_PRESET = "funcionarios";
+
+async function uploadImagem(file) {
+  const fd = new FormData();
+  fd.append("file", file);
+  fd.append("upload_preset", UPLOAD_PRESET);
+  const res = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+    { method: "POST", body: fd }
+  );
+  return (await res.json()).secure_url;
+}
+
+/* ===== ADMIN ===== */
 const SENHA_ADMIN = "admin123";
-const SENHA_REMOVER = "remover123";
+let adminAtivo = false;
 
-window.adicionar = async () => {
-  if (senhaAdmin.value !== SENHA_ADMIN) {
-    alert("Senha admin incorreta");
-    return;
+window.abrirAdmin = () => {
+  if (prompt("Senha do admin:") === SENHA_ADMIN) {
+    adminMenu.classList.toggle("open");
+    adminAtivo = true;
+    document.body.classList.add("admin-mode");
   }
+};
 
-  if (!nome.value || !foto.value) {
-    alert("Preencha tudo");
-    return;
-  }
+/* ===== ADICIONAR ===== */
+window.adicionarVaga = async () => {
+  if (!nome.value || !foto.files[0]) return alert("Preencha tudo!");
 
-  await addDoc(collection(db, "vagas"), {
-    nome: nome.value,
-    cargo: cargo.value,
-    foto: foto.value
+  const img = await uploadImagem(foto.files[0]);
+  const ref = doc(db, "vagas", cargo.value);
+
+  let lista = [];
+  const snap = await getDocs(collection(db, "vagas"));
+  snap.forEach(d => {
+    if (d.id === cargo.value) lista = d.data().lista || [];
   });
+
+  lista.push({ nome: nome.value, foto: img });
+  await setDoc(ref, { lista });
 
   nome.value = "";
   foto.value = "";
+  renderizar();
 };
 
-const lista = document.getElementById("lista");
+/* ===== REMOVER ===== */
+window.removerVaga = async (cargoNome, index) => {
+  if (!confirm("Remover esta vaga?")) return;
 
-onSnapshot(collection(db, "vagas"), snap => {
-  lista.innerHTML = "";
-  snap.forEach(docu => {
-    const v = docu.data();
-    lista.innerHTML += `
-    <div class="card p-3 mb-3">
-      <div class="func-card">
-        <img src="${v.foto}">
-        <div>
-          <strong>${v.nome}</strong><br>
-          <small>${v.cargo}</small>
-        </div>
-        <div class="ms-auto remove-btn" onclick="remover('${docu.id}')">❌ Remover</div>
+  const ref = doc(db, "vagas", cargoNome);
+  let lista = [];
+
+  const snap = await getDocs(collection(db, "vagas"));
+  snap.forEach(d => {
+    if (d.id === cargoNome) lista = d.data().lista || [];
+  });
+
+  lista.splice(index, 1);
+  await setDoc(ref, { lista });
+  renderizar();
+};
+
+/* ===== RENDER ===== */
+async function renderizar() {
+  listaCargos.innerHTML = "";
+  cargo.innerHTML = "";
+
+  const dados = {};
+  const snap = await getDocs(collection(db, "vagas"));
+  snap.forEach(d => dados[d.id] = d.data().lista || []);
+
+  CARGOS.forEach(c => {
+    cargo.innerHTML += `<option>${c}</option>`;
+    const vagas = dados[c] || [];
+
+    listaCargos.innerHTML += `
+      <div class="subtitulo">${c}</div>
+      <div class="row justify-content-center mb-4">
+        ${vagas.length ? vagas.map((v,i)=>`
+          <div class="col-md-3 mb-3">
+            <div class="card card-employee">
+              <button class="btn-remover" onclick="removerVaga('${c}',${i})">×</button>
+              <img src="${v.foto}">
+              <div class="card-body text-center">
+                <h5>${v.nome}</h5>
+                <p class="small text-muted">${c}</p>
+              </div>
+            </div>
+          </div>
+        `).join("") : `
+          <div class="col-md-3">
+            <div class="card card-employee">
+              <img src="https://via.placeholder.com/400x250">
+              <div class="card-body text-center">
+                <h5>Vaga aberta</h5>
+                <p class="small text-muted">${c}</p>
+              </div>
+            </div>
+          </div>`
+        }
       </div>
-    </div>
     `;
   });
-});
+}
 
-window.remover = async (id) => {
-  const senha = prompt("Digite a senha para remover:");
-  if (senha !== SENHA_REMOVER) {
-    alert("Senha incorreta");
-    return;
-  }
-  if (!confirm("Tem certeza?")) return;
-  await deleteDoc(doc(db, "vagas", id));
-};
+renderizar();
 </script>
 
 </body>
