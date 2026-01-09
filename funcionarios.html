@@ -12,33 +12,83 @@
 
 <style>
 body{font-family:Inter,sans-serif;background:#f4f4f4}
+
+/* TOPBAR */
 .topbar{background:#2b2f33;color:#fff;padding:12px 0}
 .logo{font-weight:700;font-size:18px}
-.subtitulo{background:#ddd;text-align:center;font-weight:700;padding:6px;margin:30px 0 15px}
 
-.card-employee{border-radius:16px;overflow:hidden;position:relative}
-.card-employee img{
-  height:180px;width:100%;object-fit:cover;
-  pointer-events:none;user-select:none;-webkit-user-drag:none
+/* TITULOS */
+.subtitulo{
+  background:#ddd;
+  text-align:center;
+  font-weight:700;
+  padding:6px;
+  margin:30px 0 15px
 }
+
+/* CARDS */
+.card-employee{
+  border-radius:16px;
+  overflow:hidden;
+  position:relative
+}
+
+/* 🔒 IMAGEM CENTRALIZADA E PROTEGIDA */
+.card-employee img{
+  height:180px;
+  width:100%;
+  object-fit:cover;
+  object-position:center center; /* CENTRALIZA SEMPRE */
+  display:block;
+  margin:auto;
+
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none
+}
+
+/* REMOVER */
 .btn-remover{
-  position:absolute;top:8px;right:8px;width:30px;height:30px;
-  border-radius:50%;background:#dc3545;color:#fff;border:none;
-  display:none;font-weight:700
+  position:absolute;
+  top:8px;
+  right:8px;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#dc3545;
+  color:#fff;
+  border:none;
+  display:none;
+  font-weight:700;
+  z-index:10
 }
 .gerencia-mode .btn-remover{display:block}
 
+/* ADMIN */
 .admin-btn{position:fixed;right:20px;bottom:20px;z-index:1001}
 .admin-menu{
-  position:fixed;right:-380px;top:0;width:380px;height:100%;
-  background:#fff;box-shadow:-4px 0 20px rgba(0,0,0,.2);
-  padding:20px;transition:.3s;z-index:1000
+  position:fixed;
+  right:-380px;
+  top:0;
+  width:380px;
+  height:100%;
+  background:#fff;
+  box-shadow:-4px 0 20px rgba(0,0,0,.2);
+  padding:20px;
+  transition:.3s;
+  z-index:1000
 }
 .admin-menu.open{right:0}
 
+/* BADGE */
 .badge-gerencia{
-  display:none;background:#dc3545;color:#fff;
-  font-weight:700;padding:6px 10px;border-radius:8px;font-size:12px
+  display:none;
+  background:#dc3545;
+  color:#fff;
+  font-weight:700;
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:12px
 }
 .gerencia-ativa .badge-gerencia{display:inline-block}
 </style>
@@ -123,7 +173,7 @@ const SENHA_ADMIN="admin123";
 const SENHA_GERENCIA="gerencia456";
 let gerenciaAtiva=false;
 
-/* LOG */
+/* LOG DISCORD */
 async function logDiscord(acao,d){
   await fetch(DISCORD_WEBHOOK,{
     method:"POST",
@@ -189,7 +239,8 @@ window.adicionarVaga=async()=>{
   await setDoc(ref,{lista});
 
   await logDiscord("➕ ADICIONOU FUNCIONÁRIO",{
-    nome:nome.value,cargo:cargo.value,
+    nome:nome.value,
+    cargo:cargo.value,
     acesso:gerenciaAtiva?"Gerência":"Mecânico"
   });
 
