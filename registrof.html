@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<title>Admin - Funcionários</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  font-family: Inter, Arial, sans-serif;
+  background:#f2f2f2;
+  padding:30px;
+}
+.admin {
+  background:#fff;
+  max-width:480px;
+  margin:auto;
+  padding:25px;
+  border-radius:14px;
+}
+input, button {
+  width:100%;
+  padding:12px;
+  margin-top:12px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+button {
+  background:#2b2f33;
+  color:#fff;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+}
+textarea {
+  width:100%;
+  height:180px;
+  margin-top:15px;
+  border-radius:10px;
+  padding:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="admin">
+  <h2>Adicionar Funcionário</h2>
+
+  <input type="text" id="nome" placeholder="Nome">
+  <input type="text" id="cargo" placeholder="Cargo">
+  <input type="file" id="imagem" accept="image/*">
+
+  <button onclick="enviar()">Upload e gerar card</button>
+
+  <textarea id="saida" placeholder="O card HTML aparecerá aqui"></textarea>
+</div>
+
+<script>
+const CLOUD_NAME = "dfyiwxdhn";
+const UPLOAD_PRESET = "funcionarios";
+
+async function enviar() {
+  const nome = document.getElementById("nome").value.trim();
+  const cargo = document.getElementById("cargo").value.trim();
+  const imagem = document.getElementById("imagem").files[0];
+
+  if (!nome || !cargo || !imagem) {
+    alert("Preencha todos os campos");
+    return;
+  }
+
+  const form = new FormData();
+  form.append("file", imagem);
+  form.append("upload_preset", UPLOAD_PRESET);
+
+  const res = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+    { method: "POST", body: form }
+  );
+
+  const data = await res.json();
+
+  const cardHTML = `
+<div class="col-lg-3 col-md-6 mb-4">
+  <div class="card card-employee">
+    <img src="${data.secure_url}" class="card-img-top">
+    <div class="card-body text-center">
+      <h5 class="mb-0">${nome}</h5>
+      <p class="small text-muted">${cargo}</p>
+    </div>
+  </div>
+</div>`;
+
+  document.getElementById("saida").value = cardHTML;
+}
+</script>
+
+</body>
+</html>
