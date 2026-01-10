@@ -7,13 +7,8 @@
 
 <link rel="icon" href="https://imgur.com/Nw9g2Q2.png">
 
-<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
-
-<!-- Fonte -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -23,7 +18,7 @@
   --preto:#111;
 }
 
-/* ===== BASE ===== */
+/* BASE */
 body{
   font-family:'Inter',sans-serif;
   background:#fff;
@@ -32,13 +27,12 @@ body{
   user-select:none;
 }
 
-/* ===== TOPO ===== */
+/* HEADER */
 .topbar{
   background:linear-gradient(90deg,#000,#1a0000,#000);
   border-bottom:3px solid var(--vermelho);
   padding:14px 0;
 }
-
 .logo{
   font-weight:800;
   font-size:1.3rem;
@@ -46,7 +40,6 @@ body{
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-
 .nav-links a{
   color:#fff;
   margin-left:20px;
@@ -54,7 +47,6 @@ body{
   text-decoration:none;
   position:relative;
 }
-
 .nav-links a::after{
   content:"";
   position:absolute;
@@ -66,7 +58,6 @@ body{
   transition:.3s;
 }
 .nav-links a:hover::after{width:100%;}
-
 .discord-btn{
   margin-left:25px;
   padding:8px 16px;
@@ -77,13 +68,14 @@ body{
   text-decoration:none;
 }
 
-/* ===== CURSOS ===== */
+/* CURSOS */
 .card-service{
   border-radius:16px;
   overflow:hidden;
   background:#fff;
   border:1px solid #ddd;
   transition:.3s;
+  cursor:pointer;
 }
 .card-service:hover{
   transform:translateY(-5px);
@@ -95,14 +87,26 @@ body{
   object-fit:cover;
 }
 .card-service .card-body{
-  font-weight:700;
   text-align:center;
 }
+.card-service h5{
+  font-weight:800;
+}
 
-/* ===== ANIMAÇÃO ÚNICA (LOGO STYLE) ===== */
-@keyframes glowLogo{
+/* MODAL VIDEO */
+.modal-video iframe{
+  width:100%;
+  height:420px;
+  border-radius:12px;
+}
+@media(max-width:576px){
+  .modal-video iframe{height:240px;}
+}
+
+/* ANIMAÇÃO REGRAS */
+@keyframes glow{
   0%{box-shadow:0 0 15px rgba(225,6,0,.4)}
-  50%{box-shadow:0 0 40px rgba(255,204,0,.9)}
+  50%{box-shadow:0 0 40px rgba(255,204,0,.8)}
   100%{box-shadow:0 0 15px rgba(225,6,0,.4)}
 }
 @keyframes scan{
@@ -110,14 +114,13 @@ body{
   to{left:100%}
 }
 
-/* ===== REGRAS ===== */
+/* REGRAS */
 .cards-animated{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:30px;
   margin-top:60px;
 }
-
 .card-animated{
   background:#111;
   color:#eee;
@@ -126,7 +129,7 @@ body{
   text-align:center;
   position:relative;
   overflow:hidden;
-  animation:glowLogo 3s infinite;
+  animation:glow 3s infinite;
 }
 .card-animated::after{
   content:"";
@@ -135,15 +138,11 @@ body{
   left:-100%;
   width:100%;
   height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
   animation:scan 2.2s linear infinite;
 }
-.card-animated h3{
-  margin-top:15px;
-  font-weight:800;
-}
 
-/* ===== SOBRE ===== */
+/* SOBRE */
 .about-section{
   background:#111;
   color:#eee;
@@ -155,7 +154,7 @@ body{
   max-width:240px;
 }
 
-/* ===== FOOTER ===== */
+/* FOOTER */
 footer{
   background:#000;
   color:#aaa;
@@ -165,76 +164,92 @@ footer{
 
 <body oncontextmenu="return false">
 
-<!-- ===== HEADER ===== -->
 <header class="topbar">
 <div class="container d-flex justify-content-between align-items-center">
   <div class="d-flex align-items-center gap-3">
-    <img src="https://imgur.com/Nw9g2Q2.png" height="80" draggable="false">
+    <img src="https://imgur.com/Nw9g2Q2.png" height="80">
     <div class="logo">Deboxe Customs</div>
   </div>
-
   <nav class="d-none d-md-flex align-items-center nav-links">
     <a href="#">Início</a>
-    <a href="tabela.html">Preços</a>
-    <a href="funcionarios.html">Funcionários</a>
-    <a href="#" class="discord-btn">
-      <i class="fa-brands fa-discord"></i> Discord
-    </a>
+    <a href="#cursos">Cursos</a>
+    <a href="#regras">Regras</a>
+    <a href="#" class="discord-btn"><i class="fa-brands fa-discord"></i> Discord</a>
   </nav>
 </div>
 </header>
 
-<!-- ===== CONTEÚDO ===== -->
 <main class="container my-5">
 
 <!-- CURSOS -->
-<section>
-<h2 class="text-center mb-4">Nossos Cursos</h2>
+<section id="cursos">
+<h2 class="text-center mb-4">Cursos da Mecânica</h2>
+
 <div class="row justify-content-center">
   <div class="col-md-4 mb-4">
-    <div class="card card-service">
+    <div class="card card-service" data-bs-toggle="modal" data-bs-target="#cursoConserto">
       <img src="https://i.imgur.com/LTGWCKU.png">
-      <div class="card-body">Conserto de Veículos</div>
+      <div class="card-body">
+        <h5>Conserto de Veículos</h5>
+        <p>Manutenção, reparos e procedimentos corretos.</p>
+      </div>
     </div>
   </div>
-  <div class="col-md-4 mb-4">
-    <div class="card card-service">
-      <img src="https://imgur.com/NnaqrpG.png">
-      <div class="card-body">Tunning de Veículos</div>
-    </div>
-  </div>
-</div>
 
-<!-- YOUTUBE -->
-<div class="text-center mt-4">
-<iframe width="560" height="315"
-src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-title="YouTube video"
-frameborder="0"
-allowfullscreen></iframe>
+  <div class="col-md-4 mb-4">
+    <div class="card card-service" data-bs-toggle="modal" data-bs-target="#cursoTunning">
+      <img src="https://imgur.com/NnaqrpG.png">
+      <div class="card-body">
+        <h5>Tunning de Veículos</h5>
+        <p>Performance, estética e personalização.</p>
+      </div>
+    </div>
+  </div>
 </div>
 </section>
 
-<!-- REGRAS -->
-<section class="cards-animated">
-  <div class="card-animated">
-    <i class="fa-solid fa-car fa-3x text-danger"></i>
-    <h3>Veículos Restritos</h3>
-    <p>
-      É terminantemente proibido realizar qualquer tipo de modificação
-      em veículos governamentais, viaturas policiais, ambulâncias ou
-      veículos de serviços públicos.
-    </p>
-  </div>
+<!-- MODAIS -->
+<div class="modal fade" id="cursoConserto" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Curso – Conserto de Veículos</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body modal-video">
+<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+</div>
 
-  <div class="card-animated">
-    <i class="fa-solid fa-coins fa-3x text-warning"></i>
-    <h3>Valores da Tabela</h3>
-    <p>
-      Todos os serviços prestados devem seguir rigorosamente a tabela
-      oficial da mecânica. Cobranças indevidas resultarão em punições.
-    </p>
-  </div>
+<div class="modal fade" id="cursoTunning" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Curso – Tunning de Veículos</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body modal-video">
+<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+</div>
+
+<!-- REGRAS -->
+<section id="regras" class="cards-animated">
+<div class="card-animated">
+  <i class="fa-solid fa-car fa-3x text-danger"></i>
+  <h3 class="mt-3">Veículos Restritos</h3>
+  <p>Proibido modificar veículos do governo, viaturas e serviços públicos.</p>
+</div>
+
+<div class="card-animated">
+  <i class="fa-solid fa-coins fa-3x text-warning"></i>
+  <h3 class="mt-3">Valores da Tabela</h3>
+  <p>Todos os serviços devem seguir rigorosamente a tabela oficial.</p>
+</div>
 </section>
 
 <!-- SOBRE -->
@@ -246,19 +261,13 @@ allowfullscreen></iframe>
   </div>
   <div class="col-md-6">
     <p>
-      A <strong>Deboxe Customs</strong> é uma mecânica referência dentro da
-      Central RP, reconhecida pela seriedade, organização e alto padrão
-      de atendimento.
+      A <strong>Deboxe Customs</strong> é referência em mecânica na cidade,
+      oferecendo serviços de alto nível, respeitando as regras
+      e mantendo a qualidade do roleplay.
     </p>
     <p>
-      Trabalhamos com consertos, tunagem, personalização e manutenção
-      completa de veículos, sempre respeitando as regras da cidade e
-      prezando pelo roleplay de qualidade.
-    </p>
-    <p>
-      Nosso objetivo é entregar um serviço profissional, justo e
-      transparente, garantindo a satisfação dos clientes e o bom
-      funcionamento da economia do servidor.
+      Trabalhamos com profissionalismo, organização
+      e compromisso com a experiência de todos.
     </p>
   </div>
 </div>
@@ -266,35 +275,23 @@ allowfullscreen></iframe>
 
 </main>
 
-<!-- FOOTER -->
 <footer class="text-center py-4">
-© <span id="year"></span> Deboxe Customs — Todos os direitos reservados
+© <span id="year"></span> Deboxe Customs
 </footer>
 
-<!-- ===== SEGURANÇA ===== -->
+<!-- SEGURANÇA -->
 <script>
 document.addEventListener("keydown",e=>{
   if(
     e.key==="F12" ||
     (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) ||
     (e.ctrlKey && e.key==="U")
-  ){
-    e.preventDefault();
-  }
+  ) e.preventDefault();
 });
 document.addEventListener("copy",e=>e.preventDefault());
-
-setInterval(()=>{
-  if(window.outerWidth-window.innerWidth>160){
-    document.body.innerHTML="<h1 style='margin-top:20%;text-align:center'>Acesso bloqueado</h1>";
-  }
-},1000);
-
-console.log=function(){};
 document.getElementById("year").textContent=new Date().getFullYear();
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
