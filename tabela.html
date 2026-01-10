@@ -10,74 +10,164 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{--bg:#f7f9fb;--top:#2b2f33;}
+:root{
+  --bg:#f7f9fb;
+  --menu-grad: linear-gradient(90deg,#000000,#1a0000,#000000);
+  --red:#ff0000;
+  --orange-grad: linear-gradient(135deg,#ff7a00,#ffb300);
+}
+
 body{
   font-family:Inter,sans-serif;
   background:var(--bg);
   user-select:none;
+  margin:0;
 }
-.topbar{background:var(--top);color:#fff;padding:12px 0}
-.logo{font-weight:700}
-.nav-links a{color:#fff;margin-left:18px;text-decoration:none;font-weight:600}
-.nav-links a:hover{color:#cfcfcf}
-.dropdown{position:relative;margin-left:18px;font-weight:600;cursor:pointer}
-.dropdown-toggle::after{content:" ▼";font-size:.7em}
-.dropdown-menu{display:none;position:absolute;background:#2b2f33;min-width:230px;border-radius:6px;z-index:1000}
-.dropdown-menu a{color:#fff;padding:10px 15px;display:block;text-decoration:none}
-.dropdown-menu a:hover{background:#3a3f45}
 
+/* ===== MENU ===== */
+.topbar{
+  background:var(--menu-grad);
+  padding:14px 0;
+  position:relative;
+}
+
+.topbar::after{
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:2px;
+  background:var(--red);
+}
+
+.logo-area{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-area img{
+  height:48px;
+}
+
+.logo-text{
+  font-weight:700;
+  font-size:18px;
+  color:#ff7a00;
+}
+
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  margin-left:22px;
+}
+
+.nav-links a:hover{
+  color:#ffb300;
+}
+
+.btn-discord{
+  margin-left:22px;
+  padding:8px 18px;
+  border-radius:14px;
+  font-weight:700;
+  color:#fff;
+  text-decoration:none;
+  background:var(--orange-grad);
+}
+
+.btn-discord:hover{
+  filter:brightness(1.1);
+}
+
+/* ===== CONTEÚDO ===== */
 .container-max{max-width:1200px}
-.card-gradient{background:#fff;border-radius:16px;margin-top:20px}
-.card-header-gradient{padding:26px;color:#fff;text-align:center;border-radius:16px 16px 0 0}
 
-.service-columns{display:flex;flex-wrap:wrap;gap:20px;padding:20px}
-.service-column{flex:1;min-width:320px}
-.subtitulo{background:#e0e0e0;padding:8px;font-weight:700;text-align:center;border-radius:6px}
+.card-gradient{
+  background:#fff;
+  border-radius:16px;
+  margin-top:20px
+}
 
-table{width:100%;border-collapse:collapse;margin-top:10px}
-th,td{border:1px solid #ddd;padding:10px}
+.card-header-gradient{
+  padding:26px;
+  color:#fff;
+  text-align:center;
+  border-radius:16px 16px 0 0;
+}
+
+.service-columns{
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  padding:20px
+}
+
+.service-column{
+  flex:1;
+  min-width:320px
+}
+
+.subtitulo{
+  background:#e0e0e0;
+  padding:8px;
+  font-weight:700;
+  text-align:center;
+  border-radius:6px
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px
+}
+
+th,td{
+  border:1px solid #ddd;
+  padding:10px
+}
+
 th{background:#f1f1f1}
-.price-sem{color:#d13b3b;font-weight:700}
 
-.conserto-img{width:100%;max-width:420px;border-radius:14px;margin:10px auto;display:block}
+.price-sem{
+  color:#d13b3b;
+  font-weight:700
+}
 
-@media(max-width:768px){table{min-width:520px}}
+.conserto-img{
+  width:100%;
+  max-width:420px;
+  border-radius:14px;
+  margin:10px auto;
+  display:block
+}
+
+@media(max-width:768px){
+  table{min-width:520px}
+}
 </style>
 </head>
 
 <body>
 
-<!-- MENU (AJUSTADO E FUNCIONAL) -->
+<!-- MENU IGUAL AO DA IMAGEM -->
 <header class="topbar">
   <div class="container container-max d-flex justify-content-between align-items-center">
 
-    <div class="d-flex align-items-center gap-3">
-      <img src="https://imgur.com/0iskhD3.png" style="height:80px;border-radius:8px">
-      <div class="logo">Central Race</div>
+    <div class="logo-area">
+      <img src="https://imgur.com/0iskhD3.png">
+      <div class="logo-text">Central Race</div>
     </div>
 
-    <nav class="d-none d-md-flex nav-links align-items-center">
+    <nav class="nav-links d-flex align-items-center">
       <a href="index.html">Início</a>
-
-      <div class="dropdown">
-        <span class="dropdown-toggle">Preços</span>
-        <div class="dropdown-menu">
-          <a href="calculadora.html">
-            <i class="fa-solid fa-calculator me-2"></i>Calculadora
-          </a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <span class="dropdown-toggle">Relatórios</span>
-        <div class="dropdown-menu">
-          <a href="reparo.html">
-            <i class="fa-solid fa-screwdriver-wrench me-2"></i>Relatório de Reparo
-          </a>
-        </div>
-      </div>
-
+      <a href="#">Preços</a>
       <a href="funcionarios.html">Funcionários</a>
+      <a href="https://discord.gg/" target="_blank" class="btn-discord">
+        Discord
+      </a>
     </nav>
 
   </div>
@@ -208,6 +298,7 @@ document.addEventListener('dragstart', e => e.preventDefault());
 
 </body>
 </html>
+
 
 
 
