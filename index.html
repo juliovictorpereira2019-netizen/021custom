@@ -13,7 +13,7 @@
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
 
-<!-- Google Font -->
+<!-- Fonte -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -21,20 +21,20 @@
   --preto:#0b0b0b;
   --vermelho:#e10600;
   --dourado:#ffcc00;
+  --cinza:#f5f5f5;
 }
 
-/* ===== BASE ===== */
 body{
   font-family:'Inter',system-ui,sans-serif;
-  background:#ffffff; /* FUNDO BRANCO */
-  color:#222;
+  background:#fff;
+  color:#111;
   margin:0;
 }
 
 /* ===== TOPO ===== */
 .topbar{
   background:linear-gradient(90deg,#000,#1a0000,#000);
-  border-bottom:2px solid var(--vermelho);
+  border-bottom:3px solid var(--vermelho);
   padding:14px 0;
 }
 
@@ -47,15 +47,26 @@ body{
 }
 
 .nav-links a{
-  color:#ffffff;
+  color:#fff;
   margin-left:20px;
   font-weight:600;
   text-decoration:none;
   position:relative;
 }
 
-.nav-links a:hover{
-  color:var(--dourado);
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  bottom:-6px;
+  left:0;
+  width:0%;
+  height:2px;
+  background:linear-gradient(90deg,var(--vermelho),var(--dourado));
+  transition:.3s;
+}
+
+.nav-links a:hover::after{
+  width:100%;
 }
 
 .discord-btn{
@@ -72,30 +83,31 @@ body{
 .card-service{
   border-radius:16px;
   overflow:hidden;
-  background:#ffffff; /* CONTRASTE */
+  background:#fff;
   border:1px solid #ddd;
   transition:.3s;
+  cursor:pointer;
 }
 
 .card-service:hover{
   transform:translateY(-5px);
-  box-shadow:0 0 30px rgba(225,6,0,.25);
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
 .card-service img{
   height:180px;
-  object-fit:contain;
-  background:#f5f5f5;
+  object-fit:cover;
+  width:100%;
 }
 
-/* TEXTO DO CURSO MAIS FORTE */
 .card-service .card-body{
   font-weight:700;
-  color:#111;
-  background:#ffffff;
+  font-size:1.1rem;
+  color:#000;
+  text-align:center;
 }
 
-/* ===== CARDS REGRAS ===== */
+/* ===== REGRAS ===== */
 .cards-animated{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -105,35 +117,69 @@ body{
 
 .card-animated{
   background:#111;
+  color:#eee;
   border-radius:18px;
   padding:30px 25px;
   text-align:center;
-  color:#eee;
+  position:relative;
+  overflow:hidden;
 }
 
-.glow-red{
-  color:var(--vermelho);
-  font-size:46px;
-  text-shadow:0 0 10px var(--vermelho);
+/* animações */
+@keyframes pulseRed{
+  0%{box-shadow:0 0 10px rgba(225,6,0,.3)}
+  50%{box-shadow:0 0 35px rgba(225,6,0,.8)}
+  100%{box-shadow:0 0 10px rgba(225,6,0,.3)}
 }
 
-.glow-yellow{
-  color:var(--dourado);
-  font-size:46px;
-  text-shadow:0 0 10px var(--dourado);
+@keyframes pulseGold{
+  0%{box-shadow:0 0 10px rgba(255,204,0,.3)}
+  50%{box-shadow:0 0 35px rgba(255,204,0,.8)}
+  100%{box-shadow:0 0 10px rgba(255,204,0,.3)}
 }
+
+@keyframes scan{
+  from{left:-100%}
+  to{left:100%}
+}
+
+.card-animated::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+}
+
+.card-animated.alert{
+  animation:pulseRed 2.5s infinite;
+}
+
+.card-animated.warning{
+  animation:pulseGold 2.5s infinite;
+}
+
+.card-animated.alert::after,
+.card-animated.warning::after{
+  animation:scan 2s linear infinite;
+}
+
+.card-animated:hover{
+  transform:translateY(-6px) scale(1.03);
+}
+
+.glow-red{color:var(--vermelho);font-size:46px;}
+.glow-yellow{color:var(--dourado);font-size:46px;}
 
 /* ===== SOBRE ===== */
 .about-section{
-  background:#0e0e0e; /* SOBRE MAIS ESCURO */
+  background:#111;
+  color:#eee;
   border-radius:18px;
   padding:40px 25px;
   margin-top:60px;
-  color:#eaeaea;
-}
-
-.about-section p{
-  color:#d0d0d0;
 }
 
 .about-section img{
@@ -142,20 +188,18 @@ body{
 
 /* ===== FOOTER ===== */
 footer{
-  background:#ffffff;
-  border-top:1px solid #ddd;
-  color:#666;
+  background:#000;
+  color:#aaa;
 }
-
 </style>
 </head>
 
-<body oncontextmenu="return false">
+<body>
 
 <header class="topbar">
 <div class="container d-flex justify-content-between align-items-center">
   <div class="d-flex align-items-center gap-3">
-    <img src="https://imgur.com/Nw9g2Q2.png" height="80" draggable="false">
+    <img src="https://imgur.com/Nw9g2Q2.png" height="80">
     <div class="logo">Deboxe Customs</div>
   </div>
 
@@ -163,9 +207,7 @@ footer{
     <a href="#">Início</a>
     <a href="tabela.html">Preços</a>
     <a href="funcionarios.html">Funcionários</a>
-    <a href="https://discord.gg/YuUsJGfH" target="_blank" class="discord-btn">
-      <i class="fa-brands fa-discord"></i> Discord
-    </a>
+    <a href="#" class="discord-btn"><i class="fa-brands fa-discord"></i> Discord</a>
   </nav>
 </div>
 </header>
@@ -178,30 +220,30 @@ footer{
   <div class="col-md-4">
     <div class="card card-service" data-bs-toggle="modal" data-bs-target="#ConsertoModal">
       <img src="https://i.imgur.com/LTGWCKU.png">
-      <div class="card-body text-center">Conserto de Veículos</div>
+      <div class="card-body">Conserto de Veículos</div>
     </div>
   </div>
   <div class="col-md-4">
     <div class="card card-service" data-bs-toggle="modal" data-bs-target="#TunningModal">
       <img src="https://imgur.com/NnaqrpG.png">
-      <div class="card-body text-center">Tunning de Veículos</div>
+      <div class="card-body">Tunning de Veículos</div>
     </div>
   </div>
 </div>
 </section>
 
 <section class="cards-animated">
-<div class="card-animated">
-  <i class="fa-solid fa-car glow-red"></i>
-  <h3>Veículos Restritos</h3>
-  <p>Proibido modificar veículos da prefeitura.</p>
-</div>
+  <div class="card-animated alert">
+    <i class="fa-solid fa-car glow-red"></i>
+    <h3>Veículos Restritos</h3>
+    <p>Proibido modificar viaturas, veículos públicos ou de serviços.</p>
+  </div>
 
-<div class="card-animated">
-  <i class="fa-solid fa-coins glow-yellow"></i>
-  <h3>Valores da Tabela</h3>
-  <p>Cobranças fora da tabela resultam em punições.</p>
-</div>
+  <div class="card-animated warning">
+    <i class="fa-solid fa-coins glow-yellow"></i>
+    <h3>Valores da Tabela</h3>
+    <p>Cobranças fora da tabela geram punições severas.</p>
+  </div>
 </section>
 
 <section class="about-section">
@@ -213,7 +255,8 @@ footer{
   <div class="col-md-6">
     <p>
       A <strong>Deboxe Customs</strong> é referência em mecânica na Central RP,
-      trabalhando com seriedade, organização e respeito às regras da cidade.
+      atuando com consertos, tunagem e personalização, sempre seguindo as regras
+      da cidade e mantendo o mais alto padrão de RP.
     </p>
   </div>
 </div>
@@ -222,13 +265,33 @@ footer{
 </main>
 
 <footer class="text-center py-4">
-© <span id="year"></span> Deboxe Customs — Todos os direitos reservados
+© <span id="year"></span> Deboxe Customs
 </footer>
+
+<!-- MODAIS -->
+<div class="modal fade" id="ConsertoModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body ratio ratio-16x9">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID_CONSERTO" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="TunningModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body ratio ratio-16x9">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID_TUNNING" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-document.getElementById('year').textContent = new Date().getFullYear();
-document.onkeydown = e => (e.key==="F12") && e.preventDefault();
+document.getElementById("year").textContent=new Date().getFullYear();
 </script>
 
 </body>
