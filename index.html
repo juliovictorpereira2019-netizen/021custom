@@ -1,224 +1,270 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mecânica - Central Race</title>
+
 <link rel="icon" href="https://imgur.com/0iskhD3.png">
 
+<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
+
+<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --preto:#0b0b0b;
-  --cinza:#141414;
   --vermelho:#e10600;
-  --vermelho2:#ff2a1a;
-  --amarelo:#ffcc00;
-  --dourado:#ffb300;
+  --vermelho-claro:#ff2a1a;
+  --dourado:#ffcc00;
 }
 
 body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:#111;
+  color:#eaeaea;
   margin:0;
-  font-family:Inter,system-ui;
-  background:var(--preto);
-  color:#f1f1f1;
 }
 
-/* ===== MENU ===== */
-header{
-  background:linear-gradient(90deg,#000,#140000,#1a0000);
+/* ===== TOPO ===== */
+.topbar{
+  background:linear-gradient(90deg,#000,#1a0000,#000);
   border-bottom:2px solid var(--vermelho);
-  box-shadow:0 6px 20px rgba(0,0,0,.7);
+  padding:14px 0;
 }
-.logo-text{
+
+.logo{
   font-weight:800;
-  font-size:1.3rem;
-  background:linear-gradient(135deg,var(--vermelho),var(--amarelo));
+  font-size:1.2rem;
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-.nav-link{
-  color:#fff!important;
+
+.nav-links a{
+  color:#f5f5f5;
+  margin-left:20px;
   font-weight:600;
-}
-.nav-link:hover{ color:var(--amarelo)!important; }
-
-.discord-btn{
-  background:linear-gradient(135deg,var(--vermelho),var(--amarelo));
-  color:#000;
-  font-weight:800;
-  border-radius:14px;
-  padding:8px 18px;
   text-decoration:none;
-}
-
-/* ===== SEÇÕES ===== */
-.section{
-  padding:70px 20px;
-}
-.section-title{
-  text-align:center;
-  font-size:2.4rem;
-  font-weight:800;
-  margin-bottom:20px;
-  background:linear-gradient(135deg,var(--vermelho),var(--amarelo));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.section-sub{
-  text-align:center;
-  max-width:900px;
-  margin:0 auto 40px;
-  color:#ccc;
-}
-
-/* ===== CARDS ===== */
-.card-box{
-  background:linear-gradient(180deg,#111,#080808);
-  border-radius:18px;
-  padding:30px;
-  border:1px solid #1e1e1e;
+  position:relative;
   transition:.3s;
 }
-.card-box:hover{
-  transform:translateY(-6px);
-  box-shadow:0 0 35px rgba(225,6,0,.35);
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  bottom:-6px;
+  left:0;
+  width:0%;
+  height:2px;
+  background:linear-gradient(90deg,var(--vermelho),var(--dourado));
+  transition:.3s;
 }
 
-/* ===== VIDEOS ===== */
-.video-box iframe{
+.nav-links a:hover{
+  color:var(--dourado);
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+.discord-btn{
+  margin-left:25px;
+  padding:8px 16px;
+  border-radius:14px;
+  font-weight:700;
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  color:#000;
+  text-decoration:none;
+  transition:.25s;
+}
+
+.discord-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 25px rgba(255,204,0,.5);
+}
+
+/* ===== CURSOS ===== */
+.card-service{
   border-radius:16px;
-  border:2px solid var(--vermelho);
+  overflow:hidden;
+  background:#1a1a1a;
+  border:1px solid #222;
+  transition:.3s;
 }
 
-/* ===== REGRAS ===== */
-.rule{
-  display:flex;
-  gap:14px;
-  margin-bottom:15px;
+.card-service:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 30px rgba(225,6,0,.4);
 }
-.rule i{
-  color:var(--amarelo);
-  margin-top:4px;
+
+.card-service img{
+  height:180px;
+  object-fit:cover;
+}
+
+/* ===== CARDS REGRAS ===== */
+.cards-animated{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+  margin-top:60px;
+}
+
+.card-animated{
+  background:#0f0f0f;
+  border-radius:18px;
+  padding:30px 25px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  transition:.3s;
+}
+
+.card-animated:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 40px rgba(255,204,0,.35);
+}
+
+.card-animated::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,204,0,.35),transparent);
+}
+
+.card-animated:hover::after{
+  animation:runLine 1.2s linear infinite;
+}
+
+.glow-red{
+  color:var(--vermelho);
+  font-size:46px;
+  text-shadow:0 0 10px var(--vermelho);
+}
+
+.glow-yellow{
+  color:var(--dourado);
+  font-size:46px;
+  text-shadow:0 0 10px var(--dourado);
+}
+
+/* ===== SOBRE ===== */
+.about-section{
+  background:#0d0d0d;
+  border:1px solid #222;
+  border-radius:18px;
+  padding:40px 25px;
+  margin-top:60px;
+}
+
+.about-section img{
+  max-width:240px;
 }
 
 /* ===== FOOTER ===== */
 footer{
   background:#000;
-  padding:25px;
-  text-align:center;
-  border-top:2px solid var(--vermelho);
-  color:#aaa;
+  border-top:1px solid #222;
+  color:#888;
+}
+
+@keyframes runLine{
+  from{left:-100%}
+  to{left:100%}
 }
 </style>
 </head>
 
 <body oncontextmenu="return false">
 
-<header>
-<nav class="navbar navbar-expand-lg container">
-  <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-    <img src="https://imgur.com/0iskhD3.png" height="60">
-    <span class="logo-text">Central Race</span>
-  </a>
-  <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse justify-content-end" id="menu">
-    <ul class="navbar-nav gap-3 align-items-center">
-      <li><a class="nav-link" href="#">Início</a></li>
-      <li><a class="nav-link" href="#sobre">Sobre</a></li>
-      <li><a class="nav-link" href="#videos">Vídeos</a></li>
-      <li><a class="nav-link" href="#regras">Regras</a></li>
-      <li>
-        <a class="discord-btn" href="https://discord.gg/YuUsJGfH" target="_blank">
-          <i class="fa-brands fa-discord"></i> Discord
-        </a>
-      </li>
-    </ul>
+<header class="topbar">
+<div class="container d-flex justify-content-between align-items-center">
+  <div class="d-flex align-items-center gap-3">
+    <img src="https://imgur.com/0iskhD3.png" height="80" draggable="false">
+    <div class="logo">Central Race</div>
   </div>
-</nav>
+
+  <nav class="d-none d-md-flex align-items-center nav-links">
+    <a href="#">Início</a>
+    <a href="tabela.html">Preços</a>
+    <a href="funcionarios.html">Funcionários</a>
+    <a href="https://discord.gg/YuUsJGfH" target="_blank" class="discord-btn">
+      <i class="fa-brands fa-discord"></i> Discord
+    </a>
+  </nav>
+</div>
 </header>
 
-<!-- ===== SOBRE NÓS ===== -->
-<section class="section" id="sobre">
-  <h2 class="section-title">Sobre Nós</h2>
-  <p class="section-sub">
-    A <b>Central Race Mecânica</b> é referência em atendimento, qualidade e realismo dentro do RP.
-    Nosso objetivo é entregar uma experiência profissional, organizada e fiel ao roleplay,
-    mantendo sempre o respeito às regras e à imersão.
-  </p>
+<main class="container my-5">
 
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card-box">
-          <h4>🔧 Profissionalismo</h4>
-          <p>Equipe treinada, hierarquia definida e serviços executados com total padrão RP.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card-box">
-          <h4>🏁 Compromisso</h4>
-          <p>Atendimento rápido, organizado e sempre respeitando o servidor.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card-box">
-          <h4>🔥 Qualidade</h4>
-          <p>Desde tuning até reparos completos, tudo feito com excelência.</p>
-        </div>
-      </div>
+<section class="mb-5">
+<h2 class="text-center mb-4">Nossos Cursos</h2>
+<div class="row justify-content-center">
+  <div class="col-md-4">
+    <div class="card card-service" data-bs-toggle="modal" data-bs-target="#ConsertoModal">
+      <img src="https://i.imgur.com/LTGWCKU.png">
+      <div class="card-body text-center">Conserto de Veículos</div>
     </div>
   </div>
-</section>
-
-<!-- ===== VÍDEOS ===== -->
-<section class="section bg-dark" id="videos">
-  <h2 class="section-title">Vídeos</h2>
-  <p class="section-sub">Confira alguns momentos da nossa mecânica em ação</p>
-
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-md-6 video-box">
-        <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-      </div>
-      <div class="col-md-6 video-box">
-        <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-      </div>
+  <div class="col-md-4">
+    <div class="card card-service" data-bs-toggle="modal" data-bs-target="#TunningModal">
+      <img src="https://imgur.com/NnaqrpG.png">
+      <div class="card-body text-center">Tunning de Veículos</div>
     </div>
   </div>
+</div>
 </section>
 
-<!-- ===== REGRAS ===== -->
-<section class="section" id="regras">
-  <h2 class="section-title">Regras da Mecânica</h2>
-  <div class="container">
-    <div class="card-box">
-      <div class="rule"><i class="fa-solid fa-check"></i> Respeitar todos os jogadores e staff.</div>
-      <div class="rule"><i class="fa-solid fa-check"></i> Proibido anti-RP ou abuso de mecânicas.</div>
-      <div class="rule"><i class="fa-solid fa-check"></i> Somente cargos autorizados realizam serviços específicos.</div>
-      <div class="rule"><i class="fa-solid fa-check"></i> Uso obrigatório de uniforme em serviço.</div>
-      <div class="rule"><i class="fa-solid fa-check"></i> Hierarquia deve ser respeitada.</div>
-      <div class="rule"><i class="fa-solid fa-check"></i> Qualquer infração será punida.</div>
-    </div>
+<section class="cards-animated">
+<div class="card-animated">
+  <i class="fa-solid fa-car glow-red"></i>
+  <h3>Veículos Restritos</h3>
+  <p>Proibido modificar veículos da prefeitura, viaturas e serviços públicos.</p>
+</div>
+
+<div class="card-animated">
+  <i class="fa-solid fa-coins glow-yellow"></i>
+  <h3>Valores da Tabela</h3>
+  <p>Cobranças fora da tabela resultam em punições severas.</p>
+</div>
+</section>
+
+<section class="about-section">
+<h2 class="text-center mb-4">Sobre Nós</h2>
+<div class="row align-items-center">
+  <div class="col-md-6 text-center">
+    <img src="https://imgur.com/0iskhD3.png">
   </div>
+  <div class="col-md-6">
+    <p>
+      A <strong>Central Race</strong> é referência em mecânica na Central RP.
+      Trabalhamos com consertos, tunagem e personalização, sempre respeitando
+      as regras da cidade e oferecendo um serviço sério, profissional e de alto nível.
+    </p>
+  </div>
+</div>
 </section>
 
-<footer>
-© Central Race Mecânica — Todos os direitos reservados
+</main>
+
+<footer class="text-center py-4">
+© <span id="year"></span> Central Race — Todos os direitos reservados
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-document.addEventListener("keydown",function(e){
- if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&["I","J"].includes(e.key))||(e.ctrlKey&&["U","S"].includes(e.key))){
-  e.preventDefault();
- }
-});
+document.getElementById('year').textContent = new Date().getFullYear();
+document.onkeydown = e => (e.key==="F12") && e.preventDefault();
 </script>
 
 </body>
