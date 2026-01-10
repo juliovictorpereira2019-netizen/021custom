@@ -157,7 +157,6 @@ footer{
   color:#777;
   margin-top:40px;
 }
-
 </style>
 </head>
 
@@ -186,10 +185,10 @@ footer{
   <h4>📄 RELATÓRIO DE PAGAMENTO RP</h4>
 
   <label>Nome do Funcionário</label>
-  <input id="nome" type="text">
+  <input id="nome" type="text" placeholder="Digite apenas letras" oninput="validarNome(this)">
 
   <label>ID do Funcionário</label>
-  <input id="idFunc" type="text">
+  <input id="idFunc" type="text" placeholder="Digite apenas números" oninput="validarID(this)">
 
   <label>Cargo do Funcionário</label>
   <input id="cargoFunc" type="text" placeholder="Digite o cargo do funcionário">
@@ -216,6 +215,15 @@ document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('keydown', e => { if(e.ctrlKey && ['c','v','x','a'].includes(e.key.toLowerCase())){ e.preventDefault(); alert("Ação proibida!"); } });
 document.addEventListener('dragstart', e => e.preventDefault());
 
+// ===== Validação de campos =====
+function validarNome(input){
+  input.value = input.value.replace(/[^a-zA-ZÀ-ú\s]/g,''); // apenas letras e espaços
+}
+
+function validarID(input){
+  input.value = input.value.replace(/[^0-9]/g,''); // apenas números
+}
+
 function gerarRelatorio(){
   const nome = document.getElementById("nome").value.trim();
   const id = document.getElementById("idFunc").value.trim();
@@ -235,7 +243,7 @@ function gerarRelatorio(){
   const idMes = `${id}-${mes}`;
 
   let texto = `════════════════════════════════\n`;
-  texto += `🛠️ **Deboxe Customs – PAGAMENTO SEMANAL** 🛠️\n`;
+  texto += `🛠️ **Central Race – PAGAMENTO SEMANAL** 🛠️\n`;
   texto += `════════════════════════════════\n\n`;
   texto += `👤 **Funcionário:** ${nome} (ID: ${idMes})\n`;
   texto += `🏷️ **Cargo:** ${cargo}\n`;
