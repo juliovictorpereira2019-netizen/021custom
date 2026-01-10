@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Deboxe Customs - Relatorio de Reparo</title>
+<title>Deboxe Customs - Relatório de Reparo</title>
 
 <link rel="icon" href="https://imgur.com/Nw9g2Q2.png">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -119,58 +119,107 @@ body{
   transform:translateY(0);
 }
 
-/* ===== CONTEÚDO ===== */
-.container-max{max-width:1200px}
-
-.card-gradient{
+/* ===== LAYOUT RELATÓRIO ===== */
+.calc-container{
+  max-width:800px;
+  margin:40px auto;
   background:#fff;
-  border-radius:16px;
-  margin-top:20px
+  border-radius:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,.08);
+  padding:30px;
 }
 
-.card-header-gradient{
-  padding:26px;
-  color:#fff;
+.calc-container h4{
+  font-weight:800;
   text-align:center;
-  border-radius:16px 16px 0 0;
+  margin-bottom:25px;
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-.service-columns{
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+}
+
+.form-group label{
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.form-group input{
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+.checkbox-group{
+  grid-column:1/3;
   display:flex;
   flex-wrap:wrap;
-  gap:20px;
-  padding:20px
+  gap:15px;
+  background:#f4f4f4;
+  padding:15px;
+  border-radius:12px;
 }
 
-.service-column{
+.checkbox-group label{
+  font-weight:600;
+}
+
+.calc-actions{
+  display:flex;
+  gap:15px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.calc-btn,
+.discord-send,
+.clear-btn{
   flex:1;
-  min-width:320px
-}
-
-.subtitulo{
-  background:#e0e0e0;
-  padding:8px;
+  padding:12px;
+  border-radius:14px;
   font-weight:700;
-  text-align:center;
-  border-radius:6px
+  border:none;
+  cursor:pointer;
 }
 
-table{
+.calc-btn{
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  color:#000;
+}
+
+.discord-send{
+  background:#5865f2;
+  color:#fff;
+}
+
+.clear-btn{
+  background:#e0e0e0;
+}
+
+textarea{
   width:100%;
-  border-collapse:collapse;
-  margin-top:10px
+  min-height:180px;
+  margin-top:20px;
+  border-radius:14px;
+  padding:15px;
+  border:1px solid #ccc;
+  font-family:monospace;
+  resize:none;
 }
 
-th,td{
-  border:1px solid #ddd;
-  padding:10px
-}
-
-th{background:#f1f1f1}
-
-.price-sem{
-  color:#d13b3b;
-  font-weight:700
+/* ===== RODAPÉ ===== */
+footer{
+  margin-top:50px;
 }
 </style>
 </head>
@@ -186,47 +235,75 @@ th{background:#f1f1f1}
       <div class="logo">Deboxe Customs</div>
     </div>
     
-  <nav class="d-none d-md-flex align-items-center nav-links">
-    <a href="index.html">Início</a>
-    <a href="tabela.html">Preços</a>
-    <a href="funcionarios.html">Funcionarios</a>
-    <a href="https://discord.gg/Z72tjMRmUX" class="discord-btn"><i class="fa-brands fa-discord"></i> Discord</a>
-  </nav>
-</div>
+    <nav class="d-none d-md-flex align-items-center nav-links">
+      <a href="index.html">Início</a>
+      <a href="tabela.html">Preços</a>
+
+      <!-- SUBMENU FUNCIONÁRIOS -->
+      <div class="menu-dropdown">
+        <a href="#">Funcionários</a>
+        <div class="dropdown-content">
+          <a href="funcionarios.html">Lista de Funcionários</a>
+          <a href="relatorio.html">Relatórios</a>
+        </div>
+      </div>
+
+      <a href="https://discord.gg/Z72tjMRmUX" class="discord-btn">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
+    </nav>
+
+  </div>
 </header>
 
+<!-- RELATÓRIO -->
 <div class="calc-container">
-<h4 class="text-center">RELATÓRIO DO REPARO</h4>
 
-<label>Nome do Mecânico</label>
-<input id="nome">
+  <h4>RELATÓRIO DO REPARO</h4>
 
-<label>ID Mecânico</label>
-<input id="idMec">
+  <div class="form-grid">
 
-<label>ID do Cliente</label>
-<input id="idCliente">
+    <div class="form-group">
+      <label>Nome do Mecânico</label>
+      <input id="nome">
+    </div>
 
-<label>Itens</label>
-<div class="checkbox-group">
-<label><input type="checkbox" value="Mecânica"> Mecânica</label>
-<label><input type="checkbox" value="Cidade"> Cidade</label>
-<label><input type="checkbox" value="Paleto/Norte"> Paleto / Norte</label>
-<label><input type="checkbox" id="parceria"> Parceria (Reparo Grátis)</label>
-</div>
+    <div class="form-group">
+      <label>ID Mecânico</label>
+      <input id="idMec">
+    </div>
 
-<label>Imagem do Serviço</label>
-<input type="file" id="imagem" accept="image/*">
+    <div class="form-group">
+      <label>ID do Cliente</label>
+      <input id="idCliente">
+    </div>
 
-<button class="calc-btn" onclick="gerarRelatorio()">Gerar Relatório</button>
-<button class="discord-send" onclick="enviarDiscord()">Enviar no Discord</button>
-<button class="clear-btn" onclick="limpar()">Limpar</button>
+    <div class="form-group">
+      <label>Imagem do Serviço</label>
+      <input type="file" id="imagem" accept="image/*">
+    </div>
 
-<textarea id="relatorio" readonly></textarea>
+    <div class="checkbox-group">
+      <label><input type="checkbox" value="Mecânica"> Mecânica</label>
+      <label><input type="checkbox" value="Cidade"> Cidade</label>
+      <label><input type="checkbox" value="Paleto/Norte"> Paleto / Norte</label>
+      <label><input type="checkbox" id="parceria"> Parceria (Reparo Grátis)</label>
+    </div>
+
+  </div>
+
+  <div class="calc-actions">
+    <button class="calc-btn" onclick="gerarRelatorio()">Gerar Relatório</button>
+    <button class="discord-send" onclick="enviarDiscord()">Enviar no Discord</button>
+    <button class="clear-btn" onclick="limpar()">Limpar</button>
+  </div>
+
+  <textarea id="relatorio" readonly></textarea>
+
 </div>
 
 <footer class="text-center py-4 text-muted">
-© <span id="year"></span> 021 CUSTOMS
+© <span id="year"></span> Deboxe Customs
 </footer>
 
 <script>
@@ -274,7 +351,7 @@ function gerarRelatorio(){
 
   if(isParceria){
     texto += "🤝 Parceria: Reparo Grátis\n";
-    total = 0; // Total zerado para parceria
+    total = 0;
   }
 
   texto += `👨‍🔧 Mecânico: ${nome} (ID ${id})\n🛒 Cliente: ${cliente}\n💰 Total: ${total}`;
@@ -323,13 +400,3 @@ function limpar(){
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
