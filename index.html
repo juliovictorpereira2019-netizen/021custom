@@ -11,280 +11,253 @@
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-body {
-  font-family: "Inter", system-ui, sans-serif;
-  background: #f7f7f7;
-  color: #222;
-  margin: 0;
+:root{
+  --preto:#0b0b0b;
+  --vermelho:#e10600;
+  --amarelo:#ffcc00;
+  --dourado:#ffb300;
 }
 
-/* Topbar */
-.topbar { background: #2b2f33; color: #fff; padding: 12px 0; }
-.logo { font-weight:700; letter-spacing:0.6px; color:#fff; }
-
-/* Menu desktop (hover azul) */
-.nav-links { display: flex; gap: 18px; }
-.nav-links a:not(.discord-btn) {
-  font-weight: 600;
-  position: relative;
-  padding: 4px 0;
-  text-decoration: none;
-  color: #fff;
-  transition: 0.5s;
-}
-.nav-links a:not(.discord-btn):hover {
-  background: linear-gradient(90deg, #00c8ff 30%, #fff 50%, #00c8ff 70%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shineText 1s linear infinite;
+body{
+  font-family:"Inter",system-ui,sans-serif;
+  background:#f7f7f7;
+  margin:0;
+  user-select:none;
 }
 
-/* Botão Discord */
-.discord-btn {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:8px 16px;
-  border-radius:12px;
-  background:linear-gradient(135deg,#7289da,#99a9f0);
-  color:#fff;
-  font-weight:700;
+/* ===== MENU ===== */
+.topbar{
+  background:linear-gradient(90deg,#000 0%,#140000 40%,#1a0000 100%);
+  padding:14px 0;
+  border-bottom:2px solid var(--vermelho);
+  box-shadow:0 6px 18px rgba(0,0,0,.6);
+}
+.logo{
+  font-weight:800;
+  font-size:1.25rem;
+  background:linear-gradient(135deg,var(--vermelho),var(--amarelo));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.nav-links a{
+  color:#f1f1f1;
   text-decoration:none;
-  transition:0.25s;
-  font-size:0.9rem;
+  margin-left:22px;
+  font-weight:600;
+  position:relative;
 }
-.discord-btn:hover {
-  background: linear-gradient(135deg,#5b6ea1,#7f88d0);
-  transform: translateY(-2px);
-  animation: none;
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0; bottom:-6px;
+  width:0%; height:2px;
+  background:linear-gradient(90deg,var(--vermelho),var(--amarelo));
+  transition:.25s;
+}
+.nav-links a:hover{ color:var(--amarelo); }
+.nav-links a:hover::after{ width:100%; }
+
+.discord-btn{
+  background:linear-gradient(135deg,var(--vermelho),var(--amarelo));
+  color:#000;
+  font-weight:800;
+  padding:8px 16px;
+  border-radius:14px;
+  text-decoration:none;
+  transition:.25s;
+}
+.discord-btn:hover{ transform:translateY(-2px); }
+
+#mobileMenu{ background:#0b0b0b; border-radius:14px; }
+.mobile-link{ color:#fff; text-decoration:none; font-weight:600; }
+.mobile-link:hover{ color:var(--amarelo); }
+
+/* ===== CURSOS ===== */
+.card-service{
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:20px;
+  cursor:pointer;
+  transition:.3s;
+}
+.card-service:hover{ transform:translateY(-4px); }
+.card-service img{ height:180px; object-fit:cover; }
+
+/* ===== CARDS ANIMADOS ===== */
+.cards-animated{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+  margin-top:50px;
+}
+.card-animated{
+  background:#0f0f0f;
+  border-radius:18px;
+  padding:30px;
+  text-align:center;
+  color:#eaeaea;
+  transition:.3s;
+}
+.card-animated:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 40px rgba(225,6,0,.45);
+}
+.glow-red{ color:#ff3232; font-size:48px; text-shadow:0 0 20px #ff3232; }
+.glow-yellow{ color:#ffd700; font-size:48px; text-shadow:0 0 20px #ffd700; }
+.glow-blue{ color:#00c8ff; font-size:48px; text-shadow:0 0 20px #00c8ff; }
+
+/* ===== SOBRE ===== */
+.about-section{
+  background:#222;
+  color:#fff;
+  padding:40px 20px;
+  border-radius:12px;
+  margin-top:50px;
+}
+.about-section img{
+  max-width:250px;
+  border-radius:8px;
 }
 
-/* Hamburger menu mobile */
-.navbar-toggler { border: none; background: transparent; outline: none; }
-
-/* Menu mobile (hover azul) */
-.mobile-link {
-  color: #fff;
-  font-weight: 600;
-  position: relative;
-  text-decoration: none;
-  transition: 0.5s;
+/* MODAL */
+.modal-video iframe{
+  width:100%;
+  height:400px;
+  border:none;
+  border-radius:8px;
 }
-.mobile-link:hover {
-  background: linear-gradient(90deg, #00c8ff 30%, #fff 50%, #00c8ff 70%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shineText 1s linear infinite;
-  display: inline-block;
-  padding-left: 4px;
+@media(max-width:576px){
+  .modal-video iframe{ height:250px; }
 }
-
-@keyframes shineText { from {background-position:200% 0;} to {background-position:-200% 0;} }
-
-/* Cursos */
-.card-service { border-radius:16px; overflow:hidden; margin-bottom:20px; cursor:pointer; transition:0.3s; }
-.card-service:hover { transform: translateY(-3px); }
-.card-service img { height:180px; object-fit:cover; }
-
-/* Sobre nós */
-.about-section { background:#222; color:#fff; padding:40px 20px; border-radius:12px; margin-top:40px; }
-.about-section img { width:100%; max-width:250px; margin-bottom:15px; border-radius:8px; }
-
-/* Modal vídeo */
-.modal-video iframe { width:100%; height:400px; border:none; border-radius:8px; }
-@media (max-width:576px) { .modal-video iframe { height:250px; } }
-
-/* CARDS ANIMADOS AZUIS */
-.cards-animated { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:25px; margin-top:50px; }
-.card-animated { position:relative; background:rgba(15,15,15,.95); border-radius:18px; padding:30px 25px; text-align:center; overflow:hidden; transition:.3s ease; color:#eaeaea; }
-.card-animated:hover { transform:translateY(-5px); box-shadow:0 0 50px rgba(0,200,255,.35); }
-
-/* Ícones glow */
-.glow-red { color:#ff3232; font-size:48px; margin-bottom:15px; text-shadow:0 0 5px #ff3232,0 0 10px #ff3232,0 0 20px #ff3232,0 0 30px #ff3232; }
-.glow-yellow { color:#ffd700; font-size:48px; margin-bottom:15px; text-shadow:0 0 5px #ffd700,0 0 10px #ffd700,0 0 20px #ffd700,0 0 30px #ffd700; }
-.glow-blue { color:#00c8ff; font-size:48px; margin-bottom:15px; text-shadow:0 0 5px #00c8ff,0 0 10px #00c8ff,0 0 20px #00c8ff,0 0 30px #00c8ff; animation:pulseGlowBlue 2s infinite alternate; }
-
-/* Linha animada azul nos cards */
-.card-animated::after{
-  content:""; position:absolute; top:0; left:-100%; width:100%; height:100%; border-radius:18px;
-  background: linear-gradient(90deg, transparent 40%, rgba(0,200,255,0.35), transparent 60%);
-  opacity:0; transition:0.3s;
-}
-.card-animated:hover::after{ opacity:1; animation:runLine 1.2s linear infinite; }
-
-.card-animated h3{ margin:10px 0; }
-.card-animated p{ font-size:14px; color:#aaa; }
-
-@keyframes pulseGlowBlue { from { text-shadow:0 0 5px #00c8ff,0 0 10px #00c8ff,0 0 20px #00c8ff,0 0 30px #00c8ff; } to { text-shadow:0 0 10px #00c8ff,0 0 20px #00c8ff,0 0 40px #00c8ff,0 0 60px #00c8ff; } }
-@keyframes runLine{ from{left:-100%} to{left:100%;} }
 </style>
 </head>
 
 <body oncontextmenu="return false">
 
+<!-- MENU -->
 <header class="topbar">
-<div class="container d-flex justify-content-between align-items-center flex-wrap">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap">
     <div class="d-flex align-items-center gap-3">
-        <img src="https://imgur.com/0iskhD3.png" alt="Logo" style="height:90px; width:auto; border-radius:8px;" draggable="false">
-        <div class="logo">Central Race</div>
+      <img src="https://imgur.com/0iskhD3.png" style="height:70px;border-radius:8px" draggable="false">
+      <div class="logo">Central Race</div>
     </div>
 
-    <!-- Hamburger mobile -->
-    <button class="navbar-toggler d-md-none" type="button" aria-label="Abrir menu">
-      <span style="width:30px; height:3px; background:#fff; display:block; margin:6px 0;"></span>
-      <span style="width:30px; height:3px; background:#fff; display:block; margin:6px 0;"></span>
-      <span style="width:30px; height:3px; background:#fff; display:block; margin:6px 0;"></span>
+    <button class="navbar-toggler d-md-none" type="button">
+      <span style="width:30px;height:3px;background:#fff;display:block;margin:6px 0"></span>
+      <span style="width:30px;height:3px;background:#fff;display:block;margin:6px 0"></span>
+      <span style="width:30px;height:3px;background:#fff;display:block;margin:6px 0"></span>
     </button>
 
-    <!-- Menu desktop -->
     <nav class="d-none d-md-flex align-items-center nav-links">
-        <a href="#">Início</a>
-        <a href="tabela.html">Preços</a>
-        <a href="funcionarios.html">Funcionários</a>
-        <a href="https://discord.gg/YuUsJGfH" target="_blank" class="discord-btn">
-            <i class="fa-brands fa-discord"></i> Discord
-        </a>
+      <a href="#">Início</a>
+      <a href="tabela.html">Preços</a>
+      <a href="funcionarios.html">Funcionários</a>
+      <a href="https://discord.gg/YuUsJGfH" target="_blank" class="discord-btn">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
     </nav>
 
-    <!-- Menu mobile -->
-    <div class="d-md-none w-100 collapse mt-2" id="mobileMenu">
-      <div class="bg-dark p-3 rounded">
+    <div class="d-md-none w-100 collapse mt-3" id="mobileMenu">
+      <div class="p-3">
         <a href="#" class="mobile-link d-block py-2">Início</a>
         <a href="tabela.html" class="mobile-link d-block py-2">Preços</a>
         <a href="funcionarios.html" class="mobile-link d-block py-2">Funcionários</a>
-        <a href="https://discord.gg/ejDg3YAuRn" target="_blank" class="d-block discord-btn mt-2 text-center">
+        <a href="https://discord.gg/YuUsJGfH" target="_blank" class="discord-btn w-100 text-center mt-2">
           <i class="fa-brands fa-discord"></i> Discord
         </a>
       </div>
     </div>
-</div>
+  </div>
 </header>
 
+<!-- CURSOS -->
 <main class="container my-5">
-
-<!-- Cursos -->
 <section class="mb-5">
-  <h2 class="mb-4 text-center">Nossos Cursos</h2>
-  <div class="row justify-content-center">
-    <div class="col-sm-4 d-flex justify-content-center">
-      <div class="card card-service" data-bs-toggle="modal" data-bs-target="#ConsertoModal">
-        <img src="https://i.imgur.com/LTGWCKU.png" class="card-img-top" alt="Conserto de Veículos" draggable="false">
-        <div class="card-body text-center">
-          <p class="card-text">Conserto de Veículos</p>  
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4 d-flex justify-content-center">
-      <div class="card card-service" data-bs-toggle="modal" data-bs-target="#TunningModal">
-        <img src="https://imgur.com/NnaqrpG.png" class="card-img-top" alt="Tunning de Veículos" draggable="false">
-        <div class="card-body text-center">
-          <p class="card-text">Tunning de Veículos</p>
-        </div>
-      </div>
+<h2 class="text-center mb-4">Nossos Cursos</h2>
+<div class="row justify-content-center">
+  <div class="col-sm-4">
+    <div class="card card-service" data-bs-toggle="modal" data-bs-target="#ConsertoModal">
+      <img src="https://i.imgur.com/LTGWCKU.png">
+      <div class="card-body text-center"><p>Conserto de Veículos</p></div>
     </div>
   </div>
+  <div class="col-sm-4">
+    <div class="card card-service" data-bs-toggle="modal" data-bs-target="#TunningModal">
+      <img src="https://imgur.com/NnaqrpG.png">
+      <div class="card-body text-center"><p>Tunning de Veículos</p></div>
+    </div>
+  </div>
+</div>
 </section>
 
-<!-- Cards animados -->
+<!-- CARDS -->
 <section class="cards-animated">
   <div class="card-animated">
     <i class="fa-solid fa-car glow-red"></i>
     <h3>Veículos Restritos</h3>
-    <p>Proibido fazer alterações em veículos da prefeitura, como viaturas, veículos de mecânica e OAB.</p>
+    <p>Proibido alterar veículos da prefeitura.</p>
   </div>
-
   <div class="card-animated">
     <i class="fa-solid fa-coins glow-yellow"></i>
-    <h3>Valores da Tabela</h3>
-    <p>É proibido cobrar valores acima ou abaixo da tabela. Infrações podem resultar em removimento da mecanica ou banimento da cidade.</p>
+    <h3>Valores</h3>
+    <p>Seguir tabela oficial da mecânica.</p>
   </div>
-
   <div class="card-animated">
     <i class="fa-solid fa-headset glow-blue"></i>
-    <h3>Dúvidas e Suporte</h3>
-    <p>Problemas que fujam do RP podem ser relatados aos auxiliares ou responsáveis.</p>
+    <h3>Suporte</h3>
+    <p>Procure a gerência para dúvidas.</p>
   </div>
 </section>
 
-<!-- Modais -->
-<div class="modal fade" id="ConsertoModal" tabindex="-1" aria-labelledby="ConsertoModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="ConsertoModalLabel">Conserto de Veículos</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-      <div class="modal-body modal-video">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID_CONSERTO" allowfullscreen></iframe>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="TunningModal" tabindex="-1" aria-labelledby="TunningModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="TunningModalLabel">Tunning de Veículos</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-      <div class="modal-body modal-video">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID_TUNNING" allowfullscreen></iframe>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Sobre nós -->
+<!-- SOBRE -->
 <section class="about-section">
-  <h2 class="mb-4 text-center">Sobre Nós</h2>
-  <div class="row align-items-center">
-    <div class="col-md-6 text-center">
-      <img src="https://imgur.com/0iskhD3.png" alt="Central Race Logo" draggable="false">
-    </div>
-    <div class="col-md-6">
-      <p>
-        A Central Race, localizada na Central RP, oferece serviços automotivos de qualidade, incluindo tunagem, pintura e conserto de veículos. Com mais de 5 anos de experiência no mercado, investimos em tecnologia e contamos com profissionais altamente qualificados, garantindo segurança e excelência em cada serviço. Nosso ambiente familiar proporciona boa sintonia entre clientes, colaboradores e fornecedores, sempre seguindo rigorosos padrões de qualidade.
-      </p>
-    </div>
+<h2 class="text-center mb-4">Sobre Nós</h2>
+<div class="row align-items-center">
+  <div class="col-md-6 text-center">
+    <img src="https://imgur.com/0iskhD3.png">
   </div>
+  <div class="col-md-6">
+    <p>A Central Race oferece serviços automotivos com qualidade e excelência.</p>
+  </div>
+</div>
 </section>
+</main>
 
-<!-- Footer -->
+<!-- MODAIS -->
+<div class="modal fade" id="ConsertoModal" tabindex="-1">
+<div class="modal-dialog modal-lg modal-dialog-centered">
+<div class="modal-content">
+<div class="modal-body modal-video">
+<iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="TunningModal" tabindex="-1">
+<div class="modal-dialog modal-lg modal-dialog-centered">
+<div class="modal-content">
+<div class="modal-body modal-video">
+<iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+</div>
+</div>
+</div>
+</div>
+
 <footer class="text-center py-4 text-muted">
-© <span id="year"></span> João Britto - Todos os direitos reservados
+© <span id="year"></span> Central Race
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-document.getElementById('year').textContent = new Date().getFullYear();
-
-// Bloqueio de inspeção e cópia
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.onkeydown = function(e) {
-    if (e.key === "F12" || 
-        (e.ctrlKey && e.shiftKey && ["I","J"].includes(e.key.toUpperCase())) || 
-        (e.ctrlKey && ["U","S"].includes(e.key.toUpperCase()))) {
-        e.preventDefault(); return false;
-    }
-};
-document.querySelectorAll("img").forEach(img => img.setAttribute("draggable","false"));
-
-// Hamburger toggle mobile
-const toggler = document.querySelector('.navbar-toggler');
-const mobileMenu = document.getElementById('mobileMenu');
-toggler.addEventListener('click', () => mobileMenu.classList.toggle('show'));
+document.getElementById('year').textContent=new Date().getFullYear();
+const toggler=document.querySelector('.navbar-toggler');
+const mobileMenu=document.getElementById('mobileMenu');
+toggler.addEventListener('click',()=>mobileMenu.classList.toggle('show'));
 </script>
 
 </body>
 </html>
-
-
-
-
