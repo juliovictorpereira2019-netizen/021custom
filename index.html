@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mecânica - Deboxe Customs</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Deboxe Customs - Mecânica Oficial</title>
 <link rel="icon" href="https://imgur.com/Nw9g2Q2.png">
 
 <!-- Bootstrap -->
@@ -19,27 +19,25 @@
 <style>
 :root{
   --preto:#0b0b0b;
-  --vermelho:#e10600;
-  --vermelho-claro:#ff2a1a;
+  --vermelho:#c40000;
   --dourado:#ffcc00;
+  --cinza:#f5f5f5;
 }
 
-/* ===== BASE ===== */
 body{
-  font-family:'Inter',system-ui,sans-serif;
-  background:#fff;
-  color:#222;
   margin:0;
+  font-family:'Inter',sans-serif;
+  background:#ffffff;
+  color:#222;
 }
 
-/* ===== TOPO ===== */
-.topbar{
-  background:linear-gradient(90deg,#000,#1a0000,#000);
-  border-bottom:3px solid var(--vermelho);
-  padding:14px 0;
+/* ===== MENU ===== */
+header, nav{
+  background:#000;
+  border-bottom:4px solid var(--vermelho);
 }
 
-.logo{
+.navbar-brand{
   font-weight:800;
   font-size:1.2rem;
   background:linear-gradient(135deg,var(--vermelho),var(--dourado));
@@ -47,237 +45,260 @@ body{
   -webkit-text-fill-color:transparent;
 }
 
-.nav-links a{
-  color:#f5f5f5;
-  margin-left:20px;
+.nav-link{
+  color:#fff !important;
   font-weight:600;
-  text-decoration:none;
-  position:relative;
-  transition:.3s;
 }
 
-.nav-links a::after{
-  content:"";
-  position:absolute;
-  bottom:-6px;
-  left:0;
-  width:0%;
-  height:2px;
-  background:linear-gradient(90deg,var(--vermelho),var(--dourado));
-  transition:.3s;
+.nav-link:hover{
+  color:var(--dourado) !important;
 }
 
-.nav-links a:hover{
-  color:var(--dourado);
-}
-
-.nav-links a:hover::after{
-  width:100%;
-}
-
-.discord-btn{
-  margin-left:25px;
-  padding:8px 16px;
-  border-radius:14px;
-  font-weight:700;
+.btn-discord{
   background:linear-gradient(135deg,var(--vermelho),var(--dourado));
   color:#000;
+  font-weight:700;
+  border-radius:14px;
+  padding:6px 14px;
   text-decoration:none;
-  transition:.25s;
 }
 
-.discord-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 25px rgba(255,204,0,.5);
+/* ===== HERO ===== */
+.hero{
+  padding:80px 20px;
+  text-align:center;
+}
+
+.hero img{
+  max-width:260px;
+}
+
+.hero h1{
+  font-weight:900;
+  margin-top:20px;
+}
+
+/* ===== SEÇÕES ===== */
+.section{
+  padding:70px 0;
+}
+
+.section-title{
+  text-align:center;
+  font-weight:900;
+  margin-bottom:50px;
+}
+
+.section-title::after{
+  content:"";
+  width:90px;
+  height:4px;
+  background:linear-gradient(90deg,var(--vermelho),var(--dourado));
+  display:block;
+  margin:15px auto 0;
+  border-radius:3px;
+}
+
+/* ===== SOBRE ESCURO ===== */
+#sobre{
+  background:#0b0b0b;
+  color:#f1f1f1;
+}
+
+#sobre p{
+  color:#dcdcdc;
 }
 
 /* ===== CURSOS ===== */
-.card-service{
-  border-radius:16px;
-  overflow:hidden;
-  background:#fff;
+.card-curso{
+  border-radius:18px;
   border:1px solid #ddd;
   transition:.3s;
+  background:#fff;
 }
 
-.card-service:hover{
-  transform:translateY(-5px);
-  box-shadow:0 10px 30px rgba(0,0,0,.15);
+.card-curso:hover{
+  transform:translateY(-6px);
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
 }
 
-.card-service img{
+.card-curso img{
   height:180px;
-  width:100%;
   object-fit:contain;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#f8f8f8;
-  padding:10px;
+  padding:15px;
+  background:#f7f7f7;
 }
 
-.card-service .card-body{
-  text-align:center;
-  font-weight:800;
-  font-size:1.05rem;
-  color:#000;
-  letter-spacing:.4px;
+.video-curso iframe{
+  border-radius:18px;
+  border:1px solid #ddd;
 }
 
 /* ===== REGRAS ===== */
-.cards-animated{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:25px;
-  margin-top:60px;
-}
-
-.card-animated{
+.regra-card{
   background:#fff;
-  border-radius:18px;
-  padding:30px 25px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  border:1px solid #e5e5e5;
-  transition:.3s;
-}
-
-.card-animated:hover{
-  transform:translateY(-5px);
-  box-shadow:0 10px 35px rgba(0,0,0,.15);
-}
-
-.card-animated::after{
-  content:"";
-  position:absolute;
-  top:0;
-  left:-100%;
-  width:100%;
-  height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,204,0,.35),transparent);
-}
-
-.card-animated:hover::after{
-  animation:runLine 1.2s linear infinite;
-}
-
-.glow-red{
-  color:var(--vermelho);
-  font-size:46px;
-}
-
-.glow-yellow{
-  color:var(--dourado);
-  font-size:46px;
-}
-
-/* ===== SOBRE ===== */
-.about-section{
-  background:#f9f9f9;
   border:1px solid #ddd;
   border-radius:18px;
-  padding:40px 25px;
-  margin-top:60px;
+  padding:30px;
+  text-align:center;
 }
 
-.about-section img{
-  max-width:240px;
+.regra-card i{
+  font-size:46px;
 }
+
+.red{color:var(--vermelho)}
+.gold{color:var(--dourado)}
 
 /* ===== FOOTER ===== */
 footer{
   background:#fff;
   border-top:1px solid #ddd;
-  color:#555;
+  text-align:center;
+  padding:20px;
+  font-size:.9rem;
 }
 
-@keyframes runLine{
-  from{left:-100%}
-  to{left:100%}
+body{
+  user-select:none;
 }
 </style>
 </head>
 
 <body oncontextmenu="return false">
 
-<header class="topbar">
-<div class="container d-flex justify-content-between align-items-center">
-  <div class="d-flex align-items-center gap-3">
-    <img src="https://imgur.com/Nw9g2Q2.png" height="80" draggable="false">
-    <div class="logo">Deboxe Customs</div>
-  </div>
+<!-- ===== MENU ===== -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">Deboxe Customs</a>
 
-  <nav class="d-none d-md-flex align-items-center nav-links">
-    <a href="#">Início</a>
-    <a href="tabela.html">Preços</a>
-    <a href="funcionarios.html">Funcionários</a>
-    <a href="https://discord.gg/YuUsJGfH" target="_blank" class="discord-btn">
-      <i class="fa-brands fa-discord"></i> Discord
-    </a>
-  </nav>
-</div>
-</header>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<main class="container my-5">
-
-<section class="mb-5">
-<h2 class="text-center mb-4">Nossos Cursos</h2>
-<div class="row justify-content-center">
-  <div class="col-md-4">
-    <div class="card card-service">
-      <img src="https://i.imgur.com/LTGWCKU.png">
-      <div class="card-body">Conserto de Veículos</div>
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="#inicio">Início</a></li>
+        <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+        <li class="nav-item"><a class="nav-link" href="#cursos">Cursos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#regras">Regras</a></li>
+        <li class="nav-item">
+          <a class="btn-discord ms-3" href="https://discord.gg/YuUsJGfH" target="_blank">
+            <i class="fa-brands fa-discord"></i> Discord
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="card card-service">
-      <img src="https://imgur.com/NnaqrpG.png">
-      <div class="card-body">Tunning de Veículos</div>
-    </div>
-  </div>
-</div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="inicio">
+  <img src="https://imgur.com/Nw9g2Q2.png">
+  <h1>Deboxe Customs</h1>
+  <p>Mecânica oficial focada em RP sério, organização e excelência.</p>
 </section>
 
-<section class="cards-animated">
-<div class="card-animated">
-  <i class="fa-solid fa-car glow-red"></i>
-  <h3>Veículos Restritos</h3>
-  <p>Proibido modificar veículos da prefeitura, viaturas e serviços públicos.</p>
-</div>
-
-<div class="card-animated">
-  <i class="fa-solid fa-coins glow-yellow"></i>
-  <h3>Valores da Tabela</h3>
-  <p>Cobranças fora da tabela resultam em punições severas.</p>
-</div>
-</section>
-
-<section class="about-section">
-<h2 class="text-center mb-4">Sobre Nós</h2>
-<div class="row align-items-center">
-  <div class="col-md-6 text-center">
-    <img src="https://imgur.com/Nw9g2Q2.png">
-  </div>
-  <div class="col-md-6">
-    <p>
-      A <strong>Deboxe Customs</strong> é referência em mecânica na Central RP,
-      oferecendo serviços de alto padrão, sempre respeitando as regras da cidade
-      e entregando profissionalismo em cada atendimento.
+<!-- ===== SOBRE ===== -->
+<section class="section" id="sobre">
+  <div class="container">
+    <h2 class="section-title text-light">Sobre Nós</h2>
+    <p class="text-center mx-auto" style="max-width:900px">
+      A <strong>Deboxe Customs</strong> é referência em mecânica dentro da cidade,
+      atuando com profissionalismo, hierarquia e respeito às regras.
+      Trabalhamos com consertos, tunagem e personalização, sempre mantendo
+      a imersão e o roleplay de alto nível.
     </p>
   </div>
-</div>
 </section>
 
-</main>
+<!-- ===== CURSOS + VÍDEOS ===== -->
+<section class="section" id="cursos">
+  <div class="container">
+    <h2 class="section-title">Cursos & Treinamentos</h2>
 
-<footer class="text-center py-4">
-© <span id="year"></span> Deboxe Customs — Todos os direitos reservados
+    <div class="row g-4 mb-5">
+      <div class="col-md-4">
+        <div class="card card-curso p-3 text-center">
+          <img src="https://i.imgur.com/LTGWCKU.png">
+          <h5>Conserto de Veículos</h5>
+          <p>Manutenção completa seguindo a tabela oficial.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card card-curso p-3 text-center">
+          <img src="https://imgur.com/NnaqrpG.png">
+          <h5>Tuning de Veículos</h5>
+          <p>Customizações autorizadas e RP técnico.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card card-curso p-3 text-center">
+          <img src="https://imgur.com/Nw9g2Q2.png">
+          <h5>Conduta RP</h5>
+          <p>Postura profissional e atendimento correto.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- VÍDEOS DOS CURSOS -->
+    <div class="row g-4 video-curso">
+      <div class="col-md-6">
+        <iframe width="100%" height="315"
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+      </div>
+      <div class="col-md-6">
+        <iframe width="100%" height="315"
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== REGRAS ===== -->
+<section class="section bg-light" id="regras">
+  <div class="container">
+    <h2 class="section-title">Regras</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="regra-card">
+          <i class="fa-solid fa-car red"></i>
+          <h5>Veículos Restritos</h5>
+          <p>Proibido modificar veículos públicos.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="regra-card">
+          <i class="fa-solid fa-coins gold"></i>
+          <h5>Tabela Oficial</h5>
+          <p>Valores fora da tabela resultam em punição.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="regra-card">
+          <i class="fa-solid fa-user-shield red"></i>
+          <h5>Conduta</h5>
+          <p>Respeito e hierarquia são obrigatórios.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="ano"></span> Deboxe Customs — Todos os direitos reservados
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById("ano").innerText = new Date().getFullYear();
+document.addEventListener("keydown", e=>{
+  if(e.keyCode==123) e.preventDefault();
+  if(e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) e.preventDefault();
+});
 </script>
 
 </body>
