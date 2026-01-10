@@ -20,7 +20,6 @@ body{
 .logo{font-weight:700}
 .nav-links a{color:#fff;margin-left:18px;text-decoration:none;font-weight:600}
 .nav-links a:hover{color:#cfcfcf}
-.discord-btn{background:linear-gradient(135deg,#7289da,#99a9f0);padding:8px 16px;border-radius:12px;color:#fff;text-decoration:none;font-weight:700}
 .dropdown{position:relative;margin-left:18px;font-weight:600;cursor:pointer}
 .dropdown-toggle::after{content:" ▼";font-size:.7em}
 .dropdown-menu{display:none;position:absolute;background:#2b2f33;min-width:230px;border-radius:6px;z-index:1000}
@@ -48,35 +47,40 @@ th{background:#f1f1f1}
 
 <body>
 
+<!-- MENU (AJUSTADO E FUNCIONAL) -->
 <header class="topbar">
-<div class="container container-max d-flex justify-content-between align-items-center">
-<div class="d-flex align-items-center gap-3">
-<img src="https://imgur.com/0iskhD3.png" style="height:80px;border-radius:8px">
-<div class="logo">Central Race</div>
-</div>
+  <div class="container container-max d-flex justify-content-between align-items-center">
 
-<nav class="d-none d-md-flex nav-links align-items-center">
-<a href="index.html">Início</a>
+    <div class="d-flex align-items-center gap-3">
+      <img src="https://imgur.com/0iskhD3.png" style="height:80px;border-radius:8px">
+      <div class="logo">Central Race</div>
+    </div>
 
-<div class="dropdown">
-<span class="dropdown-toggle">Preços</span>
-<div class="dropdown-menu">
-<a href="calculadora.html"><i class="fa-solid fa-calculator me-2"></i>Calculadora</a>
-</div>
-</div>
+    <nav class="d-none d-md-flex nav-links align-items-center">
+      <a href="index.html">Início</a>
 
+      <div class="dropdown">
+        <span class="dropdown-toggle">Preços</span>
+        <div class="dropdown-menu">
+          <a href="calculadora.html">
+            <i class="fa-solid fa-calculator me-2"></i>Calculadora
+          </a>
+        </div>
+      </div>
 
-<div class="dropdown">
-<span class="dropdown-toggle">Relatórios</span>
-<div class="dropdown-menu">
-<a href="reparo.html"><i class="fa-solid fa-screwdriver-wrench me-2"></i>Relatório de Reparo</a>
-</div>
-</div>
+      <div class="dropdown">
+        <span class="dropdown-toggle">Relatórios</span>
+        <div class="dropdown-menu">
+          <a href="reparo.html">
+            <i class="fa-solid fa-screwdriver-wrench me-2"></i>Relatório de Reparo
+          </a>
+        </div>
+      </div>
 
-<a href="funcionarios.html">Funcionários</a>
-</a>
-</nav>
-</div>
+      <a href="funcionarios.html">Funcionários</a>
+    </nav>
+
+  </div>
 </header>
 
 <main class="container container-max">
@@ -204,6 +208,7 @@ document.addEventListener('dragstart', e => e.preventDefault());
 
 </body>
 </html>
+
 
 
 
