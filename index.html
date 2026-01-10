@@ -12,16 +12,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+/* ===== CORES ===== */
 :root{
   --vermelho:#e10600;
   --dourado:#ffcc00;
 }
 
+/* ===== BASE ===== */
 body{
   font-family:'Inter',system-ui,sans-serif;
   background:#fff;
   color:#111;
   margin:0;
+  user-select:none;
 }
 
 /* ===== TOPO ===== */
@@ -90,35 +93,7 @@ body{
   object-fit:cover;
 }
 
-.card-service .card-body{
-  text-align:center;
-  font-weight:700;
-  font-size:1.1rem;
-}
-
-/* ===== REGRAS ===== */
-.cards-animated{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:25px;
-  margin-top:60px;
-}
-
-.card-animated{
-  background:#111;
-  color:#eee;
-  border-radius:18px;
-  padding:35px 25px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-}
-
-/* ANIMAÇÃO ÚNICA – PADRÃO LOGO */
+/* ===== ANIMAÇÃO PADRÃO LOGO ===== */
 @keyframes logoGlow{
   0%{box-shadow:0 0 12px rgba(225,6,0,.4)}
   50%{box-shadow:0 0 40px rgba(255,204,0,.9)}
@@ -131,6 +106,13 @@ body{
 }
 
 .card-animated{
+  background:#111;
+  color:#eee;
+  border-radius:18px;
+  padding:35px 25px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
   animation:logoGlow 3s infinite;
 }
 
@@ -145,38 +127,11 @@ body{
   animation:logoScan 2.2s linear infinite;
 }
 
-.card-animated:hover{
-  transform:translateY(-6px) scale(1.03);
-}
-
-.glow-red{
-  color:var(--vermelho);
-  font-size:46px;
-  margin-bottom:12px;
-}
-
-.glow-yellow{
-  color:var(--dourado);
-  font-size:46px;
-  margin-bottom:12px;
-}
-
-/* ===== SOBRE ===== */
 .about-section{
   background:#111;
   color:#eee;
   border-radius:18px;
   padding:45px 30px;
-  margin-top:60px;
-}
-
-.about-section img{
-  max-width:240px;
-}
-
-.about-section p{
-  line-height:1.7;
-  font-size:1rem;
 }
 
 /* ===== FOOTER ===== */
@@ -187,7 +142,7 @@ footer{
 </style>
 </head>
 
-<body>
+<body oncontextmenu="return false">
 
 <header class="topbar">
 <div class="container d-flex justify-content-between align-items-center">
@@ -207,73 +162,23 @@ footer{
 
 <main class="container my-5">
 
-<section class="mb-5">
-<h2 class="text-center mb-4">Nossos Cursos</h2>
-<div class="row justify-content-center">
-  <div class="col-md-4">
-    <div class="card card-service" data-bs-toggle="modal" data-bs-target="#ConsertoModal">
-      <img src="https://i.imgur.com/LTGWCKU.png">
-      <div class="card-body">Conserto de Veículos</div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card card-service" data-bs-toggle="modal" data-bs-target="#TunningModal">
-      <img src="https://imgur.com/NnaqrpG.png">
-      <div class="card-body">Tunning de Veículos</div>
-    </div>
-  </div>
-</div>
-</section>
-
 <section class="cards-animated">
   <div class="card-animated">
-    <i class="fa-solid fa-car glow-red"></i>
     <h3>Veículos Restritos</h3>
-    <p>
-      É expressamente proibido realizar qualquer tipo de modificação, reparo,
-      tunagem ou alteração estética em veículos pertencentes à prefeitura,
-      forças de segurança, serviços públicos ou veículos institucionais.
-    </p>
+    <p>Veículos governamentais, policiais e institucionais são proibidos.</p>
   </div>
-
   <div class="card-animated">
-    <i class="fa-solid fa-coins glow-yellow"></i>
     <h3>Valores da Tabela</h3>
-    <p>
-      Todos os serviços devem seguir rigorosamente a tabela oficial de preços.
-      Cobranças acima ou abaixo do valor estipulado resultam em advertências,
-      punições internas e possível desligamento da mecânica.
-    </p>
+    <p>Todos os valores devem seguir a tabela oficial da mecânica.</p>
   </div>
 </section>
 
-<section class="about-section">
+<section class="about-section mt-5">
 <h2 class="text-center mb-4">Sobre Nós</h2>
-<div class="row align-items-center">
-  <div class="col-md-6 text-center mb-4 mb-md-0">
-    <img src="https://imgur.com/Nw9g2Q2.png">
-  </div>
-  <div class="col-md-6">
-    <p>
-      A <strong>Deboxe Customs</strong> é uma mecânica consolidada dentro da Central RP,
-      reconhecida pela seriedade, organização e alto padrão de Roleplay.
-      Atuamos com serviços de conserto, manutenção, tunagem e personalização
-      de veículos, sempre respeitando as regras da cidade e prezando pela
-      imersão e profissionalismo.
-    </p>
-    <p>
-      Nossa equipe é composta por mecânicos experientes e comprometidos,
-      focados em oferecer atendimento de qualidade, preços justos e
-      transparência em todos os serviços prestados. Trabalhamos para manter
-      um ambiente organizado, respeitoso e alinhado com a administração da cidade.
-    </p>
-    <p>
-      Na Deboxe Customs, cada veículo é tratado com atenção aos detalhes,
-      garantindo segurança, desempenho e estética, sempre dentro dos limites
-      permitidos pelo RP.
-    </p>
-  </div>
-</div>
+<p class="text-center">
+A Deboxe Customs é referência em mecânica RP, focada em profissionalismo,
+qualidade e respeito às regras da cidade.
+</p>
 </section>
 
 </main>
@@ -282,31 +187,50 @@ footer{
 © <span id="year"></span> Deboxe Customs — Todos os direitos reservados
 </footer>
 
-<!-- MODAIS YOUTUBE -->
-<div class="modal fade" id="ConsertoModal" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body ratio ratio-16x9">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID_CONSERTO" allowfullscreen></iframe>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="TunningModal" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body ratio ratio-16x9">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID_TUNNING" allowfullscreen></iframe>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- ===== SEGURANÇA ===== -->
 <script>
+// BLOQUEIOS DE TECLAS
+document.addEventListener("keydown",function(e){
+  if(
+    e.key==="F12" ||
+    (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) ||
+    (e.ctrlKey && e.key==="U")
+  ){
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+});
+
+// BLOQUEIO COPIAR
+document.addEventListener("copy",e=>{
+  e.preventDefault();
+});
+
+// DETECTAR DEVTOOLS
+(function(){
+  const threshold = 160;
+  setInterval(()=>{
+    if(
+      window.outerWidth - window.innerWidth > threshold ||
+      window.outerHeight - window.innerHeight > threshold
+    ){
+      document.body.innerHTML =
+        "<h1 style='text-align:center;margin-top:20%;font-family:sans-serif'>Acesso bloqueado</h1>";
+    }
+  },1000);
+})();
+
+// TRAVAR CONSOLE
+console.log = function(){};
+console.warn = function(){};
+console.error = function(){};
+
+// ANO
 document.getElementById("year").textContent=new Date().getFullYear();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
