@@ -7,20 +7,25 @@
 
 <link rel="icon" href="https://imgur.com/Nw9g2Q2.png">
 
+<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
+
+<!-- Fonte -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ===== CORES ===== */
 :root{
   --vermelho:#e10600;
   --dourado:#ffcc00;
+  --preto:#111;
 }
 
 /* ===== BASE ===== */
 body{
-  font-family:'Inter',system-ui,sans-serif;
+  font-family:'Inter',sans-serif;
   background:#fff;
   color:#111;
   margin:0;
@@ -36,7 +41,7 @@ body{
 
 .logo{
   font-weight:800;
-  font-size:1.2rem;
+  font-size:1.3rem;
   background:linear-gradient(135deg,var(--vermelho),var(--dourado));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -55,12 +60,11 @@ body{
   position:absolute;
   bottom:-6px;
   left:0;
-  width:0%;
+  width:0;
   height:2px;
   background:linear-gradient(90deg,var(--vermelho),var(--dourado));
   transition:.3s;
 }
-
 .nav-links a:hover::after{width:100%;}
 
 .discord-btn{
@@ -81,28 +85,37 @@ body{
   border:1px solid #ddd;
   transition:.3s;
 }
-
 .card-service:hover{
   transform:translateY(-5px);
   box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
-
 .card-service img{
   height:180px;
   width:100%;
   object-fit:cover;
 }
-
-/* ===== ANIMAÇÃO PADRÃO LOGO ===== */
-@keyframes logoGlow{
-  0%{box-shadow:0 0 12px rgba(225,6,0,.4)}
-  50%{box-shadow:0 0 40px rgba(255,204,0,.9)}
-  100%{box-shadow:0 0 12px rgba(225,6,0,.4)}
+.card-service .card-body{
+  font-weight:700;
+  text-align:center;
 }
 
-@keyframes logoScan{
+/* ===== ANIMAÇÃO ÚNICA (LOGO STYLE) ===== */
+@keyframes glowLogo{
+  0%{box-shadow:0 0 15px rgba(225,6,0,.4)}
+  50%{box-shadow:0 0 40px rgba(255,204,0,.9)}
+  100%{box-shadow:0 0 15px rgba(225,6,0,.4)}
+}
+@keyframes scan{
   from{left:-100%}
   to{left:100%}
+}
+
+/* ===== REGRAS ===== */
+.cards-animated{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+  margin-top:60px;
 }
 
 .card-animated{
@@ -113,9 +126,8 @@ body{
   text-align:center;
   position:relative;
   overflow:hidden;
-  animation:logoGlow 3s infinite;
+  animation:glowLogo 3s infinite;
 }
-
 .card-animated::after{
   content:"";
   position:absolute;
@@ -123,15 +135,24 @@ body{
   left:-100%;
   width:100%;
   height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
-  animation:logoScan 2.2s linear infinite;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+  animation:scan 2.2s linear infinite;
+}
+.card-animated h3{
+  margin-top:15px;
+  font-weight:800;
 }
 
+/* ===== SOBRE ===== */
 .about-section{
   background:#111;
   color:#eee;
   border-radius:18px;
-  padding:45px 30px;
+  padding:50px 35px;
+  margin-top:70px;
+}
+.about-section img{
+  max-width:240px;
 }
 
 /* ===== FOOTER ===== */
@@ -144,10 +165,11 @@ footer{
 
 <body oncontextmenu="return false">
 
+<!-- ===== HEADER ===== -->
 <header class="topbar">
 <div class="container d-flex justify-content-between align-items-center">
   <div class="d-flex align-items-center gap-3">
-    <img src="https://imgur.com/Nw9g2Q2.png" height="80">
+    <img src="https://imgur.com/Nw9g2Q2.png" height="80" draggable="false">
     <div class="logo">Deboxe Customs</div>
   </div>
 
@@ -155,78 +177,120 @@ footer{
     <a href="#">Início</a>
     <a href="tabela.html">Preços</a>
     <a href="funcionarios.html">Funcionários</a>
-    <a href="#" class="discord-btn"><i class="fa-brands fa-discord"></i> Discord</a>
+    <a href="#" class="discord-btn">
+      <i class="fa-brands fa-discord"></i> Discord
+    </a>
   </nav>
 </div>
 </header>
 
+<!-- ===== CONTEÚDO ===== -->
 <main class="container my-5">
 
+<!-- CURSOS -->
+<section>
+<h2 class="text-center mb-4">Nossos Cursos</h2>
+<div class="row justify-content-center">
+  <div class="col-md-4 mb-4">
+    <div class="card card-service">
+      <img src="https://i.imgur.com/LTGWCKU.png">
+      <div class="card-body">Conserto de Veículos</div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-4">
+    <div class="card card-service">
+      <img src="https://imgur.com/NnaqrpG.png">
+      <div class="card-body">Tunning de Veículos</div>
+    </div>
+  </div>
+</div>
+
+<!-- YOUTUBE -->
+<div class="text-center mt-4">
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+title="YouTube video"
+frameborder="0"
+allowfullscreen></iframe>
+</div>
+</section>
+
+<!-- REGRAS -->
 <section class="cards-animated">
   <div class="card-animated">
+    <i class="fa-solid fa-car fa-3x text-danger"></i>
     <h3>Veículos Restritos</h3>
-    <p>Veículos governamentais, policiais e institucionais são proibidos.</p>
+    <p>
+      É terminantemente proibido realizar qualquer tipo de modificação
+      em veículos governamentais, viaturas policiais, ambulâncias ou
+      veículos de serviços públicos.
+    </p>
   </div>
+
   <div class="card-animated">
+    <i class="fa-solid fa-coins fa-3x text-warning"></i>
     <h3>Valores da Tabela</h3>
-    <p>Todos os valores devem seguir a tabela oficial da mecânica.</p>
+    <p>
+      Todos os serviços prestados devem seguir rigorosamente a tabela
+      oficial da mecânica. Cobranças indevidas resultarão em punições.
+    </p>
   </div>
 </section>
 
-<section class="about-section mt-5">
+<!-- SOBRE -->
+<section class="about-section">
 <h2 class="text-center mb-4">Sobre Nós</h2>
-<p class="text-center">
-A Deboxe Customs é referência em mecânica RP, focada em profissionalismo,
-qualidade e respeito às regras da cidade.
-</p>
+<div class="row align-items-center">
+  <div class="col-md-6 text-center mb-3">
+    <img src="https://imgur.com/Nw9g2Q2.png">
+  </div>
+  <div class="col-md-6">
+    <p>
+      A <strong>Deboxe Customs</strong> é uma mecânica referência dentro da
+      Central RP, reconhecida pela seriedade, organização e alto padrão
+      de atendimento.
+    </p>
+    <p>
+      Trabalhamos com consertos, tunagem, personalização e manutenção
+      completa de veículos, sempre respeitando as regras da cidade e
+      prezando pelo roleplay de qualidade.
+    </p>
+    <p>
+      Nosso objetivo é entregar um serviço profissional, justo e
+      transparente, garantindo a satisfação dos clientes e o bom
+      funcionamento da economia do servidor.
+    </p>
+  </div>
+</div>
 </section>
 
 </main>
 
+<!-- FOOTER -->
 <footer class="text-center py-4">
 © <span id="year"></span> Deboxe Customs — Todos os direitos reservados
 </footer>
 
 <!-- ===== SEGURANÇA ===== -->
 <script>
-// BLOQUEIOS DE TECLAS
-document.addEventListener("keydown",function(e){
+document.addEventListener("keydown",e=>{
   if(
     e.key==="F12" ||
     (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) ||
     (e.ctrlKey && e.key==="U")
   ){
     e.preventDefault();
-    e.stopPropagation();
-    return false;
   }
 });
+document.addEventListener("copy",e=>e.preventDefault());
 
-// BLOQUEIO COPIAR
-document.addEventListener("copy",e=>{
-  e.preventDefault();
-});
+setInterval(()=>{
+  if(window.outerWidth-window.innerWidth>160){
+    document.body.innerHTML="<h1 style='margin-top:20%;text-align:center'>Acesso bloqueado</h1>";
+  }
+},1000);
 
-// DETECTAR DEVTOOLS
-(function(){
-  const threshold = 160;
-  setInterval(()=>{
-    if(
-      window.outerWidth - window.innerWidth > threshold ||
-      window.outerHeight - window.innerHeight > threshold
-    ){
-      document.body.innerHTML =
-        "<h1 style='text-align:center;margin-top:20%;font-family:sans-serif'>Acesso bloqueado</h1>";
-    }
-  },1000);
-})();
-
-// TRAVAR CONSOLE
-console.log = function(){};
-console.warn = function(){};
-console.error = function(){};
-
-// ANO
+console.log=function(){};
 document.getElementById("year").textContent=new Date().getFullYear();
 </script>
 
