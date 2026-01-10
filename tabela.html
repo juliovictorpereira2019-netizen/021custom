@@ -19,7 +19,53 @@
 
   --bg:#f7f9fb;
 }
+/* ===== SUBMENU ===== */
+.menu-dropdown{
+  position:relative;
+  margin-left:20px;
+}
 
+.menu-dropdown > a{
+  color:#fff;
+  font-weight:600;
+  text-decoration:none;
+}
+
+.dropdown-content{
+  position:absolute;
+  top:130%;
+  left:0;
+  background:#000;
+  border-radius:12px;
+  min-width:200px;
+  padding:10px 0;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(10px);
+  transition:.25s ease;
+  box-shadow:0 10px 25px rgba(0,0,0,.4);
+  z-index:999;
+}
+
+.dropdown-content a{
+  display:block;
+  padding:10px 18px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:500;
+  white-space:nowrap;
+}
+
+.dropdown-content a:hover{
+  background:linear-gradient(90deg,var(--vermelho),var(--dourado));
+  color:#000;
+}
+
+.menu-dropdown:hover .dropdown-content{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateY(0);
+}
 body{
   font-family:'Inter',sans-serif;
   background:var(--bg);
@@ -146,34 +192,45 @@ th{background:#f1f1f1}
 
 <body>
 
-<nav class="d-none d-md-flex align-items-center nav-links">
+<header class="topbar">
+  <div class="container d-flex justify-content-between align-items-center">
 
-  <a href="index.html">Início</a>
-
-  <!-- PREÇOS -->
-  <div class="menu-dropdown">
-    <a href="#">Preços ▾</a>
-    <div class="dropdown-content">
-      <a href="precos-servicos.html">Serviços</a>
-      <a href="precos-pacotes.html">Pacotes</a>
+    <div class="d-flex align-items-center gap-3">
+      <img src="https://imgur.com/Nw9g2Q2.png" height="80">
+      <div class="logo">Deboxe Customs</div>
     </div>
+
+    <nav class="d-none d-md-flex align-items-center nav-links">
+
+      <a href="index.html">Início</a>
+
+      <!-- PREÇOS -->
+      <div class="menu-dropdown">
+        <a href="#">Preços ▾</a>
+        <div class="dropdown-content">
+          <a href="precos-servicos.html">Serviços</a>
+          <a href="precos-pacotes.html">Pacotes</a>
+        </div>
+      </div>
+
+      <!-- RELATÓRIO -->
+      <div class="menu-dropdown">
+        <a href="#">Relatório ▾</a>
+        <div class="dropdown-content">
+          <a href="relatorio-reparo.html">Relatório Reparo</a>
+        </div>
+      </div>
+
+      <a href="funcionarios.html">Funcionários</a>
+
+      <a href="https://discord.gg/" class="discord-btn">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
+
+    </nav>
+
   </div>
-
-  <!-- RELATÓRIO -->
-  <div class="menu-dropdown">
-    <a href="#">Relatório ▾</a>
-    <div class="dropdown-content">
-      <a href="relatorio-reparo.html">Relatório Reparo</a>
-    </div>
-  </div>
-
-  <a href="funcionarios.html">Funcionários</a>
-
-  <a href="https://discord.gg/" class="discord-btn">
-    <i class="fa-brands fa-discord"></i> Discord
-  </a>
-
-</nav>
+</header>
 
 <main class="container container-max">
 
@@ -300,6 +357,7 @@ document.addEventListener('dragstart', e => e.preventDefault());
 
 </body>
 </html>
+
 
 
 
