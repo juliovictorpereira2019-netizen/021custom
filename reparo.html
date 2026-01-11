@@ -26,7 +26,7 @@ body{
   padding-top:90px;
 }
 
-/* MENU */
+/* ===== MENU ===== */
 .topbar{
   background:linear-gradient(90deg,#000,#1a0000,#000);
   border-bottom:3px solid var(--vermelho);
@@ -50,6 +50,22 @@ body{
   margin-left:20px;
   font-weight:600;
   text-decoration:none;
+  position:relative;
+}
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  bottom:-6px;
+  left:0;
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--vermelho),var(--dourado));
+  transition:.3s;
+}
+
+.nav-links a:hover::after{
+  width:100%;
 }
 
 .discord-btn{
@@ -62,7 +78,7 @@ body{
   text-decoration:none;
 }
 
-/* CONTAINER */
+/* ===== RELATÓRIO ===== */
 .calc-container{
   max-width:800px;
   margin:40px auto;
@@ -70,6 +86,79 @@ body{
   border-radius:18px;
   box-shadow:0 20px 40px rgba(0,0,0,.08);
   padding:30px;
+}
+
+.calc-container h4{
+  font-weight:800;
+  text-align:center;
+  margin-bottom:25px;
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+}
+
+.form-group label{
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.form-group input{
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+.checkbox-group{
+  grid-column:1/3;
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  background:#f4f4f4;
+  padding:15px;
+  border-radius:12px;
+}
+
+.calc-actions{
+  display:flex;
+  gap:15px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.calc-btn,
+.discord-send,
+.clear-btn{
+  flex:1;
+  padding:12px;
+  border-radius:14px;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+}
+
+.calc-btn{
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  color:#000;
+}
+
+.discord-send{
+  background:#5865f2;
+  color:#fff;
+}
+
+.clear-btn{
+  background:#e0e0e0;
 }
 
 textarea{
@@ -93,35 +182,63 @@ textarea{
       <img src="https://imgur.com/Nw9g2Q2.png" height="65">
       <div class="logo">Deboxe Customs</div>
     </div>
+    <nav class="d-none d-md-flex align-items-center nav-links">
+      <a href="index.html">Início</a>
+      <a href="tabela.html">Preços</a>
+      <a href="funcionarios.html">Funcionarios</a>
+      <a href="https://discord.gg/Z72tjMRmUX" class="discord-btn">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
+    </nav>
   </div>
 </header>
 
 <div class="calc-container">
-  <h4 class="text-center fw-bold">RELATÓRIO DO REPARO</h4>
+  <h4>RELATÓRIO DO REPARO</h4>
 
-  <input id="nome" class="form-control mb-2" placeholder="Nome do Mecânico">
-  <input id="idMec" class="form-control mb-2" placeholder="ID Mecânico">
-  <input id="idCliente" class="form-control mb-2" placeholder="ID Cliente">
-  <input type="file" id="imagem" class="form-control mb-3" accept="image/*">
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Nome do Mecânico</label>
+      <input id="nome">
+    </div>
 
-  <label><input type="checkbox" value="Mecânica"> Mecânica</label><br>
-  <label><input type="checkbox" value="Cidade"> Cidade</label><br>
-  <label><input type="checkbox" value="Paleto/Norte"> Paleto / Norte</label><br>
-  <label><input type="checkbox" id="parceria"> Parceria</label><br><br>
+    <div class="form-group">
+      <label>ID Mecânico</label>
+      <input id="idMec">
+    </div>
 
-  <button class="btn btn-danger w-100 mb-2" onclick="gerarRelatorio()">Gerar Relatório</button>
-  <button class="btn btn-primary w-100 mb-2" onclick="enviarDiscord()">Enviar Discord</button>
+    <div class="form-group">
+      <label>ID do Cliente</label>
+      <input id="idCliente">
+    </div>
+
+    <div class="form-group">
+      <label>Imagem do Serviço</label>
+      <input type="file" id="imagem" accept="image/*">
+    </div>
+
+    <div class="checkbox-group">
+      <label><input type="checkbox" value="Mecânica"> Mecânica</label>
+      <label><input type="checkbox" value="Cidade"> Cidade</label>
+      <label><input type="checkbox" value="Paleto/Norte"> Paleto / Norte</label>
+      <label><input type="checkbox" id="parceria"> Parceria (Reparo Grátis)</label>
+    </div>
+  </div>
+
+  <div class="calc-actions">
+    <button class="calc-btn" onclick="gerarRelatorio()">Gerar Relatório</button>
+    <button class="discord-send" onclick="enviarDiscord()">Enviar no Discord</button>
+    <button class="clear-btn" onclick="limpar()">Limpar</button>
+  </div>
 
   <textarea id="relatorio" readonly></textarea>
 </div>
 
 <script>
-/* ================= PROTEÇÕES ================= */
-
-// Botão direito
+/* ===== PROTEÇÕES ===== */
 document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("dragstart", e => e.preventDefault());
 
-// Bloqueio de teclas
 document.addEventListener("keydown", function(e){
   if (
     e.key === "F12" ||
@@ -134,10 +251,7 @@ document.addEventListener("keydown", function(e){
   }
 });
 
-// Bloquear arrastar
-document.addEventListener("dragstart", e => e.preventDefault());
-
-// Detectar DevTools aberto
+// Detectar DevTools
 (function(){
   const limite = 160;
   setInterval(() => {
@@ -153,20 +267,20 @@ document.addEventListener("dragstart", e => e.preventDefault());
   }, 500);
 })();
 
-/* ================= SISTEMA ================= */
+/* ===== SISTEMA ORIGINAL ===== */
 
-const WEBHOOK_URL = "https://discord.com/api/webhooks/1458648416329666763/Ekeot6os1TxAq_eB3BvqD0j5AdnCHpKy-H4EfVj5ju0-KXfZQc3Qhr-4aSa3ebzeVKQs";
+const WEBHOOK_URL = "SEU_WEBHOOK_AQUI";
 
 const valores = {
-  "Mecânica":5000,
-  "Cidade":10000,
-  "Paleto/Norte":20000
+  "Mecânica": 5000,
+  "Cidade": 10000,
+  "Paleto/Norte": 20000
 };
 
 function gerarRelatorio(){
-  const nome = nome.value.trim();
-  const id = idMec.value.trim();
-  const cliente = idCliente.value.trim();
+  const nome = document.getElementById("nome").value.trim();
+  const id = document.getElementById("idMec").value.trim();
+  const cliente = document.getElementById("idCliente").value.trim();
 
   if(!nome || !id || !cliente){
     alert("Preencha todos os campos");
@@ -174,7 +288,7 @@ function gerarRelatorio(){
   }
 
   let total = 0;
-  let texto = "🛠️ RELATÓRIO DEBOXE 🛠️\n\n";
+  let texto = "🛠️ RELATÓRIO Deboxe Customs 🛠️\n\n";
 
   document.querySelectorAll("input[type=checkbox]:checked").forEach(c=>{
     if(c.id !== "parceria"){
@@ -183,32 +297,38 @@ function gerarRelatorio(){
     }
   });
 
-  if(parceria.checked){
-    texto += "🤝 Parceria (Grátis)\n";
+  if(document.getElementById("parceria").checked){
+    texto += "🤝 Parceria: Reparo Grátis\n";
     total = 0;
   }
 
-  texto += `\n👨‍🔧 Mecânico: ${nome} (${id})\n🛒 Cliente: ${cliente}\n💰 Total: ${total}`;
-  relatorio.value = texto;
+  texto += `\n👨‍🔧 Mecânico: ${nome} (ID ${id})\n🛒 Cliente: ${cliente}\n💰 Total: ${total}`;
+  document.getElementById("relatorio").value = texto;
 }
 
 async function enviarDiscord(){
-  if(!relatorio.value || !imagem.files[0]){
+  const texto = relatorio.value;
+  const imagem = document.getElementById("imagem").files[0];
+
+  if(!texto || !imagem){
     alert("Relatório ou imagem faltando");
     return;
   }
 
   const fd = new FormData();
-  fd.append("content", relatorio.value);
-  fd.append("file", imagem.files[0]);
+  fd.append("content", texto);
+  fd.append("file", imagem);
 
-  await fetch(WEBHOOK_URL,{method:"POST",body:fd});
-  alert("Enviado com sucesso!");
+  await fetch(WEBHOOK_URL, { method:"POST", body: fd });
+  alert("Relatório enviado!");
+}
+
+function limpar(){
+  document.querySelectorAll("input").forEach(i => i.value = "");
+  document.querySelectorAll("input[type=checkbox]").forEach(i => i.checked = false);
+  relatorio.value = "";
 }
 </script>
 
 </body>
 </html>
-
-
-
