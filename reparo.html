@@ -26,7 +26,7 @@ body{
   padding-top:90px;
 }
 
-/* ===== MENU ===== */
+/* MENU */
 .topbar{
   background:linear-gradient(90deg,#000,#1a0000,#000);
   border-bottom:3px solid var(--vermelho);
@@ -50,22 +50,6 @@ body{
   margin-left:20px;
   font-weight:600;
   text-decoration:none;
-  position:relative;
-}
-
-.nav-links a::after{
-  content:"";
-  position:absolute;
-  bottom:-6px;
-  left:0;
-  width:0;
-  height:2px;
-  background:linear-gradient(90deg,var(--vermelho),var(--dourado));
-  transition:.3s;
-}
-
-.nav-links a:hover::after{
-  width:100%;
 }
 
 .discord-btn{
@@ -78,48 +62,7 @@ body{
   text-decoration:none;
 }
 
-/* ===== SUBMENU ===== */
-.menu-dropdown{
-  position:relative;
-  display:inline-block;
-}
-
-.dropdown-content{
-  position:absolute;
-  top:calc(100% + 8px);
-  left:0;
-  background:#000;
-  border-radius:12px;
-  min-width:190px;
-  padding:8px 0;
-  opacity:0;
-  visibility:hidden;
-  transform:translateY(6px);
-  transition:.25s ease;
-  box-shadow:0 12px 30px rgba(0,0,0,.45);
-  z-index:999;
-}
-
-.dropdown-content a{
-  display:block;
-  padding:10px 18px;
-  color:#fff;
-  text-decoration:none;
-  font-weight:500;
-}
-
-.dropdown-content a:hover{
-  background:linear-gradient(90deg,var(--vermelho),var(--dourado));
-  color:#000;
-}
-
-.menu-dropdown:hover .dropdown-content{
-  opacity:1;
-  visibility:visible;
-  transform:translateY(0);
-}
-
-/* ===== LAYOUT RELATÓRIO ===== */
+/* CONTAINER */
 .calc-container{
   max-width:800px;
   margin:40px auto;
@@ -127,83 +70,6 @@ body{
   border-radius:18px;
   box-shadow:0 20px 40px rgba(0,0,0,.08);
   padding:30px;
-}
-
-.calc-container h4{
-  font-weight:800;
-  text-align:center;
-  margin-bottom:25px;
-  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-}
-
-.form-group{
-  display:flex;
-  flex-direction:column;
-}
-
-.form-group label{
-  font-weight:600;
-  margin-bottom:6px;
-}
-
-.form-group input{
-  padding:10px 12px;
-  border-radius:10px;
-  border:1px solid #ccc;
-}
-
-.checkbox-group{
-  grid-column:1/3;
-  display:flex;
-  flex-wrap:wrap;
-  gap:15px;
-  background:#f4f4f4;
-  padding:15px;
-  border-radius:12px;
-}
-
-.checkbox-group label{
-  font-weight:600;
-}
-
-.calc-actions{
-  display:flex;
-  gap:15px;
-  margin-top:20px;
-  flex-wrap:wrap;
-}
-
-.calc-btn,
-.discord-send,
-.clear-btn{
-  flex:1;
-  padding:12px;
-  border-radius:14px;
-  font-weight:700;
-  border:none;
-  cursor:pointer;
-}
-
-.calc-btn{
-  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
-  color:#000;
-}
-
-.discord-send{
-  background:#5865f2;
-  color:#fff;
-}
-
-.clear-btn{
-  background:#e0e0e0;
 }
 
 textarea{
@@ -216,236 +82,133 @@ textarea{
   font-family:monospace;
   resize:none;
 }
-
-/* ===== RODAPÉ ===== */
-footer{
-  margin-top:50px;
-}
 </style>
 </head>
 
 <body>
 
-<!-- MENU -->
 <header class="topbar">
   <div class="container d-flex justify-content-between align-items-center">
-
     <div class="d-flex align-items-center gap-3">
       <img src="https://imgur.com/Nw9g2Q2.png" height="65">
       <div class="logo">Deboxe Customs</div>
     </div>
-    
-    <nav class="d-none d-md-flex align-items-center nav-links">
-      <a href="index.html">Início</a>
-      <a href="tabela.html">Preços</a>
-      <a href="funcionarios.html">Funcionarios</a>
-      <a href="https://discord.gg/Z72tjMRmUX" class="discord-btn">
-        <i class="fa-brands fa-discord"></i> Discord
-      </a>
-    </nav>
-
   </div>
 </header>
 
-<!-- RELATÓRIO -->
 <div class="calc-container">
+  <h4 class="text-center fw-bold">RELATÓRIO DO REPARO</h4>
 
-  <h4>RELATÓRIO DO REPARO</h4>
+  <input id="nome" class="form-control mb-2" placeholder="Nome do Mecânico">
+  <input id="idMec" class="form-control mb-2" placeholder="ID Mecânico">
+  <input id="idCliente" class="form-control mb-2" placeholder="ID Cliente">
+  <input type="file" id="imagem" class="form-control mb-3" accept="image/*">
 
-  <div class="form-grid">
+  <label><input type="checkbox" value="Mecânica"> Mecânica</label><br>
+  <label><input type="checkbox" value="Cidade"> Cidade</label><br>
+  <label><input type="checkbox" value="Paleto/Norte"> Paleto / Norte</label><br>
+  <label><input type="checkbox" id="parceria"> Parceria</label><br><br>
 
-    <div class="form-group">
-      <label>Nome do Mecânico</label>
-      <input id="nome">
-    </div>
-
-    <div class="form-group">
-      <label>ID Mecânico</label>
-      <input id="idMec">
-    </div>
-
-    <div class="form-group">
-      <label>ID do Cliente</label>
-      <input id="idCliente">
-    </div>
-
-    <div class="form-group">
-      <label>Imagem do Serviço</label>
-      <input type="file" id="imagem" accept="image/*">
-    </div>
-
-    <div class="checkbox-group">
-      <label><input type="checkbox" value="Mecânica"> Mecânica</label>
-      <label><input type="checkbox" value="Cidade"> Cidade</label>
-      <label><input type="checkbox" value="Paleto/Norte"> Paleto / Norte</label>
-      <label><input type="checkbox" id="parceria"> Parceria (Reparo Grátis)</label>
-    </div>
-
-  </div>
-
-  <div class="calc-actions">
-    <button class="calc-btn" onclick="gerarRelatorio()">Gerar Relatório</button>
-    <button class="discord-send" onclick="enviarDiscord()">Enviar no Discord</button>
-    <button class="clear-btn" onclick="limpar()">Limpar</button>
-  </div>
+  <button class="btn btn-danger w-100 mb-2" onclick="gerarRelatorio()">Gerar Relatório</button>
+  <button class="btn btn-primary w-100 mb-2" onclick="enviarDiscord()">Enviar Discord</button>
 
   <textarea id="relatorio" readonly></textarea>
-
 </div>
 
-<footer class="text-center py-4 text-muted">
-© <span id="year"></span> Deboxe Customs
-</footer>
-
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
+/* ================= PROTEÇÕES ================= */
+
+// Botão direito
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+// Bloqueio de teclas
+document.addEventListener("keydown", function(e){
+  if (
+    e.key === "F12" ||
+    (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) ||
+    (e.ctrlKey && ["u","s","c","v","x","a"].includes(e.key.toLowerCase()))
+  ) {
+    e.preventDefault();
+    alert("Ação bloqueada!");
+    return false;
+  }
+});
+
+// Bloquear arrastar
+document.addEventListener("dragstart", e => e.preventDefault());
+
+// Detectar DevTools aberto
+(function(){
+  const limite = 160;
+  setInterval(() => {
+    if (
+      window.outerWidth - window.innerWidth > limite ||
+      window.outerHeight - window.innerHeight > limite
+    ) {
+      document.body.innerHTML = `
+      <div style="background:black;color:red;height:100vh;display:flex;align-items:center;justify-content:center;font-size:22px;">
+        🚫 Acesso bloqueado – DevTools detectado
+      </div>`;
+    }
+  }, 500);
+})();
+
+/* ================= SISTEMA ================= */
 
 const WEBHOOK_URL = "https://discord.com/api/webhooks/1458648416329666763/Ekeot6os1TxAq_eB3BvqD0j5AdnCHpKy-H4EfVj5ju0-KXfZQc3Qhr-4aSa3ebzeVKQs";
 
 const valores = {
-  "Mecânica": 5000,
-  "Cidade": 10000,
-  "Paleto/Norte": 20000
+  "Mecânica":5000,
+  "Cidade":10000,
+  "Paleto/Norte":20000
 };
 
-// Anti-colar e bloqueios
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && ['c','v','x','a'].includes(e.key.toLowerCase())) {
-        e.preventDefault();
-        alert("Ação proibida!");
-    }
-});
-document.addEventListener('dragstart', e => e.preventDefault());
-
-// Função para validar campos
-function validarCampos(nome, id, cliente) {
-  const nomeRegex = /^[A-Za-zÀ-ú ]+$/;
-  const idRegex = /^[0-9]+$/;
-
-  if (!nome || !id || !cliente) {
-    alert("Preencha todos os campos obrigatórios!");
-    return false;
-  }
-  if (!nomeRegex.test(nome)) {
-    alert("Nome deve conter apenas letras e espaços!");
-    return false;
-  }
-  if (!idRegex.test(id) || !idRegex.test(cliente)) {
-    alert("ID Mecânico e ID Cliente devem conter apenas números!");
-    return false;
-  }
-  return true;
-}
-
-// Controle de tentativas com bloqueio de 1 hora usando localStorage
-function verificarBloqueio() {
-  const bloqueio = JSON.parse(localStorage.getItem("bloqueioRelatorio")) || null;
-  if (bloqueio) {
-    const agora = new Date().getTime();
-    if (agora < bloqueio) {
-      const minutos = Math.ceil((bloqueio - agora) / 60000);
-      alert(`Você atingiu o limite de tentativas. Tente novamente em ${minutos} minuto(s).`);
-      return true; // bloqueado
-    } else {
-      localStorage.removeItem("bloqueioRelatorio");
-      localStorage.removeItem("tentativasRelatorio");
-      return false;
-    }
-  }
-  return false;
-}
-
 function gerarRelatorio(){
-  if(verificarBloqueio()) return;
+  const nome = nome.value.trim();
+  const id = idMec.value.trim();
+  const cliente = idCliente.value.trim();
 
-  const nome = document.getElementById("nome").value.trim();
-  const id = document.getElementById("idMec").value.trim();
-  const cliente = document.getElementById("idCliente").value.trim();
-  const relatorio = document.getElementById("relatorio");
-
-  // Tentativas
-  let tentativas = parseInt(localStorage.getItem("tentativasRelatorio")) || 0;
-
-  if(!validarCampos(nome, id, cliente)) {
-    tentativas++;
-    localStorage.setItem("tentativasRelatorio", tentativas);
-    if(tentativas >= 3){
-      const bloqueio = new Date().getTime() + 60*60*1000; // 1 hora
-      localStorage.setItem("bloqueioRelatorio", bloqueio);
-      alert("Você atingiu o limite de 3 tentativas! Aguarde 1 hora para tentar novamente.");
-    }
-    return;
-  }
-
-  const itens = [...document.querySelectorAll("input[type=checkbox]:checked")];
-  const isParceria = document.getElementById("parceria").checked;
-
-  if(itens.length === 0 && !isParceria){
-    alert("Selecione ao menos um item ou marque Parceria.");
+  if(!nome || !id || !cliente){
+    alert("Preencha todos os campos");
     return;
   }
 
   let total = 0;
-  let texto = "🛠️ RELATÓRIO Deboxe Customs 🛠️\n\n";
+  let texto = "🛠️ RELATÓRIO DEBOXE 🛠️\n\n";
 
-  itens.forEach(i => {
-    if(i.id !== "parceria") total += valores[i.value];
-    texto += `📌 ${i.value}\n`;
+  document.querySelectorAll("input[type=checkbox]:checked").forEach(c=>{
+    if(c.id !== "parceria"){
+      total += valores[c.value];
+      texto += `📌 ${c.value}\n`;
+    }
   });
 
-  if(isParceria){
-    texto += "🤝 Parceria: Reparo Grátis\n";
+  if(parceria.checked){
+    texto += "🤝 Parceria (Grátis)\n";
     total = 0;
   }
 
-  texto += `👨‍🔧 Mecânico: ${nome} (ID ${id})\n🛒 Cliente: ${cliente}\n💰 Total: ${total}`;
-
+  texto += `\n👨‍🔧 Mecânico: ${nome} (${id})\n🛒 Cliente: ${cliente}\n💰 Total: ${total}`;
   relatorio.value = texto;
 }
 
 async function enviarDiscord(){
-  const imagem = document.getElementById("imagem").files[0];
-  const texto = document.getElementById("relatorio").value;
-  const isParceria = document.getElementById("parceria").checked;
-
-  if(!texto){
-    alert("Gere o relatório antes de enviar");
+  if(!relatorio.value || !imagem.files[0]){
+    alert("Relatório ou imagem faltando");
     return;
-  }
-
-  if(!imagem){
-    alert("Envio bloqueado: selecione uma imagem do serviço");
-    return;
-  }
-
-  let mensagem = texto;
-  if(isParceria){
-    mensagem += "\n⚠️ Este relatório é referente a uma PARCERIA. O serviço foi realizado gratuitamente.";
   }
 
   const fd = new FormData();
-  fd.append("content", mensagem);
-  fd.append("file", imagem);
+  fd.append("content", relatorio.value);
+  fd.append("file", imagem.files[0]);
 
-  try{
-    await fetch(WEBHOOK_URL, { method: "POST", body: fd });
-    alert("Relatório enviado com sucesso!");
-  }catch{
-    alert("Erro ao enviar para o Discord");
-  }
-}
-
-function limpar(){
-  document.querySelectorAll("input").forEach(i => i.value = "");
-  document.querySelectorAll("input[type=checkbox]").forEach(i => i.checked = false);
-  document.getElementById("relatorio").value = "";
-  localStorage.removeItem("tentativasRelatorio");
-  localStorage.removeItem("bloqueioRelatorio");
+  await fetch(WEBHOOK_URL,{method:"POST",body:fd});
+  alert("Enviado com sucesso!");
 }
 </script>
 
 </body>
 </html>
+
 
 
