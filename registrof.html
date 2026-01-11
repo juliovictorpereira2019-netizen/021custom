@@ -1,144 +1,232 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="utf-8">
-<title>Admin - Funcionários | Central Race</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="icon" type="image/x-icon" href="https://imgur.com/0iskhD3.png">
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Mural de Parcerias</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
-  background:#f2f2f2;
-  font-family: "Inter", system-ui, sans-serif;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #fff;
+    display: flex;
+    justify-content: center;
 }
 
-/* TOPBAR */
-.topbar {
-  background:#2b2f33;
-  color:#fff;
-  padding:12px 0;
-}
-.logo {
-  font-weight:700;
-  letter-spacing:0.6px;
-}
-.nav-links a {
-  color:#fff;
-  text-decoration:none;
-  margin-left:18px;
-  font-weight:600;
-}
-.nav-links a:hover {
-  color:#cfcfcf;
+.container {
+    background: #020617;
+    width: 100%;
+    max-width: 750px;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
 }
 
-/* ADMIN CARD */
-.admin {
-  background:#fff;
-  max-width:420px;
-  margin:40px auto;
-  padding:25px;
-  border-radius:14px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+h2 {
+    text-align: center;
 }
 
-input, select, button {
-  width:100%;
-  padding:12px;
-  margin-top:12px;
-  border-radius:10px;
-  border:1px solid #ccc;
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.controls input,
+.controls select {
+    flex: 1;
+    padding: 8px;
+    background: #020617;
+    color: #fff;
+    border: 1px solid #334155;
+    border-radius: 6px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #334155;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background: #020617;
 }
 
 button {
-  background:#2b2f33;
-  color:#fff;
-  font-weight:700;
-  border:none;
-  transition:.2s;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-button:hover {
-  opacity:.9;
+.add-btn {
+    background: #2563eb;
+    color: #fff;
+}
+
+.del-btn {
+    background: #dc2626;
+    color: #fff;
+}
+
+.form {
+    margin-top: 20px;
+    border-top: 1px solid #334155;
+    padding-top: 15px;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    background: #020617;
+    color: #fff;
+    border: 1px solid #334155;
+    border-radius: 6px;
 }
 </style>
 </head>
-
 <body>
 
-<!-- TOPBAR -->
-<header class="topbar">
-  <div class="container d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center gap-3">
-      <img src="https://imgur.com/0iskhD3.png" style="height:55px;border-radius:8px;">
-      <div class="logo">Central Race</div>
-    </div>
-    <nav class="d-none d-md-flex nav-links">
-      <a href="index.html">Início</a>
-      <a href="tabela.html">Preços</a>
-      <a href="funcionarios.html">Funcionários</a>
-    </nav>
-  </div>
-</header>
+<div class="container">
+<h2>📋 Mural de Parcerias</h2>
 
-<!-- ADMIN -->
-<div class="admin">
-  <h4 class="text-center mb-3">Atualizar imagem do funcionário</h4>
-
-  <select id="cargo">
-    <option value="">Selecione o cargo</option>
-    <option value="resp-mec">Responsável Mecânica</option>
-    <option value="lider">Líder</option>
-    <option value="gerente">Gerente</option>
-  </select>
-
-  <input type="number" id="posicao" placeholder="Posição (1, 2, 3)">
-  <input type="file" id="imagem" accept="image/*">
-
-  <button onclick="atualizar()">Atualizar imagem</button>
+<div class="controls">
+    <input type="text" id="busca" placeholder="Buscar por nome" oninput="render()">
+    <select id="filtro" onchange="render()">
+        <option value="">Todas</option>
+        <option value="PM">PM</option>
+        <option value="PRF">PRF</option>
+        <option value="Parceria">Parceria</option>
+    </select>
 </div>
 
-<script>
-const CLOUD_NAME = "dfyiwxdhn";
-const UPLOAD_PRESET = "funcionarios";
+<table>
+<thead>
+<tr>
+    <th>Nome</th>
+    <th>Parceria</th>
+    <th>Ação</th>
+</tr>
+</thead>
+<tbody id="lista"></tbody>
+</table>
 
-const cargoEl = document.getElementById("cargo");
-const posicaoEl = document.getElementById("posicao");
+<div class="form">
+<h3>Adicionar (senha obrigatória)</h3>
 
-async function atualizar() {
-  const cargo = cargoEl.value;
-  const posicao = posicaoEl.value;
-  const imagem = document.getElementById("imagem").files[0];
+<input type="password" id="senha" placeholder="Senha admin">
+<input type="text" id="nome" placeholder="Nome">
+<select id="parceria">
+    <option value="">Selecione</option>
+    <option value="PM">PM</option>
+    <option value="PRF">PRF</option>
+    <option value="Parceria">Parceria</option>
+</select>
+<button class="add-btn" onclick="adicionar()">Adicionar</button>
+</div>
+</div>
 
-  if (!cargo || !posicao || !imagem) {
-    alert("Preencha todos os campos");
-    return;
-  }
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  const form = new FormData();
-  form.append("file", imagem);
-  form.append("upload_preset", UPLOAD_PRESET);
+const firebaseConfig = {
+  apiKey: "AIzaSyCWy_SS9eOJq23sWCGWNvq9Tlk_XXvixoo",
+  authDomain: "parceria-cc577.firebaseapp.com",
+  projectId: "parceria-cc577",
+  storageBucket: "parceria-cc577.firebasestorage.app",
+  messagingSenderId: "48532625032",
+  appId: "1:48532625032:web:b10581a2a533737f7f713d"
+};
 
-  const res = await fetch(
-    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-    { method: "POST", body: form }
-  );
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-  const data = await res.json();
-  const id = `${cargo}-${posicao}`;
+const SENHA_ADMIN = "admin123";
+let dados = [];
 
-  const fotos = JSON.parse(localStorage.getItem("fotosFuncionarios") || "{}");
-  fotos[id] = data.secure_url;
-  localStorage.setItem("fotosFuncionarios", JSON.stringify(fotos));
-
-  alert("Imagem atualizada com sucesso!");
+/* 🔄 CARREGAR */
+async function carregar() {
+    dados = [];
+    const snap = await getDocs(collection(db, "parcerias"));
+    snap.forEach(d => dados.push({ id: d.id, ...d.data() }));
+    render();
 }
+
+/* 🎯 FILTRO + BUSCA */
+window.render = function () {
+    const lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+    const busca = document.getElementById("busca").value.toLowerCase();
+    const filtro = document.getElementById("filtro").value;
+
+    dados
+    .filter(d =>
+        d.nome.toLowerCase().includes(busca) &&
+        (filtro === "" || d.parceria === filtro)
+    )
+    .forEach(d => {
+        lista.innerHTML += `
+        <tr>
+            <td>${d.nome}</td>
+            <td>${d.parceria}</td>
+            <td>
+                <button class="del-btn" onclick="remover('${d.id}')">🗑️</button>
+            </td>
+        </tr>`;
+    });
+};
+
+/* ➕ ADICIONAR (ANTI DUPLICADO) */
+window.adicionar = async function () {
+    const senha = document.getElementById("senha").value;
+    const nome = document.getElementById("nome").value.trim();
+    const parceria = document.getElementById("parceria").value;
+
+    if (senha !== SENHA_ADMIN) return alert("Senha incorreta");
+    if (!nome || !parceria) return alert("Preencha tudo");
+
+    if (dados.some(d => d.nome.toLowerCase() === nome.toLowerCase())) {
+        return alert("Nome já existe");
+    }
+
+    await addDoc(collection(db, "parcerias"), { nome, parceria });
+
+    document.getElementById("nome").value = "";
+    document.getElementById("parceria").value = "";
+    document.getElementById("senha").value = "";
+
+    carregar();
+};
+
+/* 🗑️ REMOVER (ADMIN) */
+window.remover = async function (id) {
+    const senha = prompt("Senha admin para remover:");
+    if (senha !== SENHA_ADMIN) return alert("Senha incorreta");
+
+    await deleteDoc(doc(db, "parcerias", id));
+    carregar();
+};
+
+carregar();
 </script>
 
 </body>
 </html>
-
