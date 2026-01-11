@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Central Race - RELATÓRIO DE PAGAMENTO RP</title>
+<title>Deboxe Customs - RELATÓRIO DE PAGAMENTO RP</title>
 
 <link rel="icon" type="image/x-icon" href="https://imgur.com/0iskhD3.png">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -35,7 +35,7 @@ button{width:100%;padding:10px;margin-top:12px;border:none;border-radius:8px;fon
 <div class="container d-flex justify-content-between align-items-center">
 <div class="d-flex align-items-center gap-3">
 <img src="https://imgur.com/0iskhD3.png" style="height:70px;border-radius:8px">
-<div class="logo">Central Race</div>
+<div class="logo">Deboxe Customs</div>
 </div>
 
 <nav class="d-none d-md-flex align-items-center nav-links">
@@ -99,7 +99,7 @@ function gerarRelatorio(){
 
   // Relatório RP visual
   let texto = `════════════════════════════════\n`;
-  texto += `🛠️ **Central Race – PAGAMENTO SEMANAL** 🛠️\n`;
+  texto += `🛠️ **Deboxe Customs – PAGAMENTO SEMANAL** 🛠️\n`;
   texto += `════════════════════════════════\n\n`;
   texto += `👤 **Funcionário:** ${nome} (ID: ${idMes})\n`;
   texto += `🏷️ **Cargo:** ${cargo}\n`;
@@ -107,10 +107,10 @@ function gerarRelatorio(){
   texto += `💰 **Status do Pagamento:** ✅ Realizado\n`;
   texto += `O pagamento semanal da mecânica (R$ 1.000.000) foi efetuado mantendo sua oficina ativa e regularizada.\n\n`;
   texto += `🙏 **Agradecimento pelo serviço:**\n`;
-  texto += `A Central Race agradece pelo empenho e dedicação. Graças a você, a oficina continua funcionando de forma eficiente e organizada.\n\n`;
+  texto += `A Deboxe Customs agradece pelo empenho e dedicação. Graças a você, a oficina continua funcionando de forma eficiente e organizada.\n\n`;
   texto += `⚡ **Lembrete:**\n`;
   texto += `O pagamento semanal garante upgrades, benefícios e manutenção da mecânica.\n\n`;
-  texto += `🔧 **Central Race – Mantenha sua mecânica em dia e evolua sempre!**\n`;
+  texto += `🔧 **Deboxe Customs – Mantenha sua mecânica em dia e evolua sempre!**\n`;
   texto += `════════════════════════════════`;
 
   relatorio.value = texto;
