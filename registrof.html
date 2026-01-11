@@ -2,30 +2,44 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Mural de Parcerias</title>
+<title>Mural Oficial de Parcerias</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #020617, #0f172a);
     color: #fff;
     display: flex;
     justify-content: center;
 }
 
 .container {
-    background: #020617;
     width: 100%;
-    max-width: 750px;
-    margin: 20px;
-    padding: 20px;
-    border-radius: 10px;
+    max-width: 850px;
+    margin: 25px;
+    background: rgba(2,6,23,.95);
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 0 40px rgba(0,0,0,.6);
 }
 
-h2 {
+.header {
     text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+.header p {
+    opacity: .8;
+    margin-top: 5px;
 }
 
 .controls {
@@ -37,70 +51,108 @@ h2 {
 .controls input,
 .controls select {
     flex: 1;
-    padding: 8px;
+    padding: 10px;
     background: #020617;
-    color: #fff;
     border: 1px solid #334155;
-    border-radius: 6px;
+    border-radius: 8px;
+    color: #fff;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 10px;
 }
 
 th, td {
-    border: 1px solid #334155;
-    padding: 8px;
+    padding: 12px;
     text-align: center;
 }
 
 th {
     background: #020617;
+    border-bottom: 1px solid #334155;
 }
 
-button {
-    padding: 6px 10px;
-    border: none;
-    border-radius: 6px;
+tr:nth-child(even) {
+    background: rgba(255,255,255,.03);
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.PM { background: #1e40af; }
+.PRF { background: #065f46; }
+.Parceria { background: #7c2d12; }
+
+.admin-toggle {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.admin-toggle button {
+    background: transparent;
+    border: 1px dashed #334155;
+    color: #94a3b8;
+    padding: 8px 14px;
+    border-radius: 8px;
     cursor: pointer;
-    font-weight: bold;
 }
 
-.add-btn {
-    background: #2563eb;
-    color: #fff;
-}
-
-.del-btn {
-    background: #dc2626;
-    color: #fff;
-}
-
-.form {
+.admin {
+    display: none;
     margin-top: 20px;
     border-top: 1px solid #334155;
-    padding-top: 15px;
+    padding-top: 20px;
 }
 
-input, select {
+.admin input, .admin select {
     width: 100%;
-    padding: 8px;
-    margin-top: 8px;
+    padding: 10px;
+    margin-top: 10px;
     background: #020617;
-    color: #fff;
     border: 1px solid #334155;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.admin button {
+    margin-top: 10px;
+    width: 100%;
+    background: #2563eb;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.del {
+    background: #dc2626;
+    border: none;
+    padding: 6px 10px;
     border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-<h2>📋 Mural de Parcerias</h2>
+<div class="header">
+    <h1>📋 Mural Oficial de Parcerias</h1>
+    <p>Lista pública de integrantes e parcerias ativas</p>
+</div>
 
 <div class="controls">
-    <input type="text" id="busca" placeholder="Buscar por nome" oninput="render()">
+    <input id="busca" placeholder="🔍 Buscar nome" oninput="render()">
     <select id="filtro" onchange="render()">
         <option value="">Todas</option>
         <option value="PM">PM</option>
@@ -114,24 +166,29 @@ input, select {
 <tr>
     <th>Nome</th>
     <th>Parceria</th>
-    <th>Ação</th>
+    <th></th>
 </tr>
 </thead>
 <tbody id="lista"></tbody>
 </table>
 
-<div class="form">
-<h3>Adicionar (senha obrigatória)</h3>
+<div class="admin-toggle">
+    <button onclick="toggleAdmin()">Acesso Admin</button>
+</div>
 
-<input type="password" id="senha" placeholder="Senha admin">
-<input type="text" id="nome" placeholder="Nome">
-<select id="parceria">
-    <option value="">Selecione</option>
-    <option value="PM">PM</option>
-    <option value="PRF">PRF</option>
-    <option value="Parceria">Parceria</option>
-</select>
-<button class="add-btn" onclick="adicionar()">Adicionar</button>
+<div class="admin" id="admin">
+    <h3>Área Administrativa</h3>
+
+    <input type="password" id="senha" placeholder="Senha admin">
+    <input id="nome" placeholder="Nome">
+    <select id="parceria">
+        <option value="">Selecione</option>
+        <option value="PM">PM</option>
+        <option value="PRF">PRF</option>
+        <option value="Parceria">Parceria</option>
+    </select>
+
+    <button onclick="adicionar()">Adicionar</button>
 </div>
 </div>
 
@@ -158,10 +215,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const SENHA_ADMIN = "admin123";
+const SENHA = "admin123";
 let dados = [];
+let adminLiberado = false;
 
-/* 🔄 CARREGAR */
 async function carregar() {
     dados = [];
     const snap = await getDocs(collection(db, "parcerias"));
@@ -169,38 +226,41 @@ async function carregar() {
     render();
 }
 
-/* 🎯 FILTRO + BUSCA */
 window.render = function () {
     const lista = document.getElementById("lista");
     lista.innerHTML = "";
 
-    const busca = document.getElementById("busca").value.toLowerCase();
-    const filtro = document.getElementById("filtro").value;
+    const busca = buscaInput.value.toLowerCase();
+    const filtro = filtroInput.value;
 
-    dados
-    .filter(d =>
+    dados.filter(d =>
         d.nome.toLowerCase().includes(busca) &&
         (filtro === "" || d.parceria === filtro)
-    )
-    .forEach(d => {
+    ).forEach(d => {
         lista.innerHTML += `
         <tr>
             <td>${d.nome}</td>
-            <td>${d.parceria}</td>
-            <td>
-                <button class="del-btn" onclick="remover('${d.id}')">🗑️</button>
-            </td>
+            <td><span class="badge ${d.parceria}">${d.parceria}</span></td>
+            <td>${adminLiberado ? `<button class="del" onclick="remover('${d.id}')">🗑️</button>` : ""}</td>
         </tr>`;
     });
 };
 
-/* ➕ ADICIONAR (ANTI DUPLICADO) */
-window.adicionar = async function () {
-    const senha = document.getElementById("senha").value;
-    const nome = document.getElementById("nome").value.trim();
-    const parceria = document.getElementById("parceria").value;
+window.toggleAdmin = function () {
+    const senha = prompt("Senha admin:");
+    if (senha !== SENHA) return alert("Senha incorreta");
 
-    if (senha !== SENHA_ADMIN) return alert("Senha incorreta");
+    adminLiberado = true;
+    document.getElementById("admin").style.display = "block";
+    render();
+};
+
+window.adicionar = async function () {
+    const nome = nomeInput.value.trim();
+    const parceria = parceriaSelect.value;
+    const senha = senhaInput.value;
+
+    if (senha !== SENHA) return alert("Senha incorreta");
     if (!nome || !parceria) return alert("Preencha tudo");
 
     if (dados.some(d => d.nome.toLowerCase() === nome.toLowerCase())) {
@@ -209,21 +269,24 @@ window.adicionar = async function () {
 
     await addDoc(collection(db, "parcerias"), { nome, parceria });
 
-    document.getElementById("nome").value = "";
-    document.getElementById("parceria").value = "";
-    document.getElementById("senha").value = "";
+    nomeInput.value = "";
+    parceriaSelect.value = "";
+    senhaInput.value = "";
 
     carregar();
 };
 
-/* 🗑️ REMOVER (ADMIN) */
 window.remover = async function (id) {
-    const senha = prompt("Senha admin para remover:");
-    if (senha !== SENHA_ADMIN) return alert("Senha incorreta");
-
+    if (!confirm("Remover este nome?")) return;
     await deleteDoc(doc(db, "parcerias", id));
     carregar();
 };
+
+const buscaInput = document.getElementById("busca");
+const filtroInput = document.getElementById("filtro");
+const nomeInput = document.getElementById("nome");
+const parceriaSelect = document.getElementById("parceria");
+const senhaInput = document.getElementById("senha");
 
 carregar();
 </script>
