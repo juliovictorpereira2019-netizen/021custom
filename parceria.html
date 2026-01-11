@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Deboxe Customs - Mural de Parcerias</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" href="https://imgur.com/Nw9g2Q2.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
+
+<style>
+:root{
+  --vermelho:#e10600;
+  --dourado:#ffcc00;
+  --bg:#f7f9fb;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:#111;
+  margin:0;
+  padding-top:90px;
+  user-select:none;
+}
+
+/* ===== MENU ===== */
+.topbar{
+  background:linear-gradient(90deg,#000,#1a0000,#000);
+  border-bottom:3px solid var(--vermelho);
+  padding:14px 0;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1000;
+}
+
+.logo{
+  font-weight:800;
+  font-size:1.3rem;
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.nav-links a{
+  color:#fff;
+  margin-left:20px;
+  font-weight:600;
+  text-decoration:none;
+  position:relative;
+}
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  bottom:-6px;
+  left:0;
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--vermelho),var(--dourado));
+  transition:.3s;
+}
+.nav-links a:hover::after{width:100%}
+
+.discord-btn{
+  margin-left:25px;
+  padding:8px 16px;
+  border-radius:14px;
+  font-weight:700;
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  color:#000;
+  text-decoration:none;
+}
+
+/* ===== CARD ===== */
+.card{
+  border-radius:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,.12);
+}
+
+.card-header{
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  color:#000;
+  font-weight:800;
+  text-align:center;
+  border-radius:18px 18px 0 0;
+}
+
+.badge-oficial{
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  color:#000;
+  padding:6px 14px;
+  border-radius:20px;
+  font-weight:700;
+}
+
+.del{
+  background:#dc2626;
+  border:none;
+  color:#fff;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.admin{
+  display:none;
+  margin-top:30px;
+  border-top:2px dashed #ccc;
+  padding-top:25px;
+}
+
+.beneficios{
+  margin-top:35px;
+  padding:24px;
+  border:1px solid #ccc;
+  border-radius:16px;
+  background:#fafafa;
+}
+
+.beneficios .obs{
+  font-size:14px;
+  color:#444;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MENU -->
+<header class="topbar">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+      <img src="https://imgur.com/Nw9g2Q2.png" height="55">
+      <div class="logo">Deboxe Customs</div>
+    </div>
+    <nav class="d-none d-md-flex align-items-center nav-links">
+      <a href="index.html">Início</a>
+      <a href="tabela.html">Preços</a>
+      <a href="funcionarios.html">Funcionários</a>
+      <a href="https://discord.gg/Z72tjMRmUX" class="discord-btn">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
+    </nav>
+  </div>
+</header>
+
+<div class="container mt-4">
+
+<div class="card">
+<div class="card-header">📋 Mural Oficial de Parcerias</div>
+
+<div class="card-body">
+
+<div class="row mb-3">
+  <div class="col-md-6">
+    <input id="busca" class="form-control" placeholder="🔍 Buscar nome" oninput="render()">
+  </div>
+  <div class="col-md-6">
+    <select id="filtro" class="form-control" onchange="render()">
+      <option value="">Todas</option>
+      <option value="OFICIAL">Parcerias Oficiais</option>
+    </select>
+  </div>
+</div>
+
+<div class="table-responsive">
+<table class="table table-bordered text-center">
+<thead>
+<tr>
+  <th>Nome</th>
+  <th>Grupo</th>
+  <th>Ação</th>
+</tr>
+</thead>
+<tbody id="lista"></tbody>
+</table>
+</div>
+
+<div class="text-center mt-3">
+<button class="btn btn-outline-dark" onclick="toggleAdmin()">Acesso Administrativo</button>
+</div>
+
+<div class="admin" id="admin">
+<h5 class="mt-4">Área Administrativa</h5>
+<input type="password" id="senha" class="form-control mb-2" placeholder="Senha admin">
+<input id="nome" class="form-control mb-2" placeholder="Nome do integrante">
+<input id="grupo" class="form-control mb-2" placeholder="Grupo (PM, PRF, BOPE...)">
+<button class="btn btn-danger w-100" onclick="adicionar()">Adicionar ao mural</button>
+</div>
+
+<div class="beneficios">
+<h5>🎁 Benefícios para Parceiros</h5>
+<ul>
+<li>🔧 Reparo totalmente grátis</li>
+<li>💸 10% de desconto na tunagem</li>
+</ul>
+<p class="obs">
+ℹ️ Para receber os benefícios, é necessário fazer parte do grupo parceiro e estar na lista.<br>
+⚠️ Caso não esteja na lista, mas esteja fardado com a roupa oficial do grupo, os benefícios poderão ser concedidos.
+</p>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- ===== FIREBASE ===== -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCWy_SS9eOJq23sWCGWNvq9Tlk_XXvixoo",
+  authDomain: "parceria-cc577.firebaseapp.com",
+  projectId: "parceria-cc577",
+  storageBucket: "parceria-cc577.firebasestorage.app",
+  messagingSenderId: "48532625032",
+  appId: "1:48532625032:web:b10581a2a533737f7f713d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const SENHA="admin123";
+let dados=[],admin=false;
+
+async function carregar(){
+  dados=[];
+  const snap=await getDocs(collection(db,"parcerias"));
+  snap.forEach(d=>dados.push({id:d.id,...d.data()}));
+  render();
+}
+
+window.render=function(){
+  lista.innerHTML="";
+  const b=busca.value.toLowerCase();
+  const f=filtro.value;
+  dados.filter(d=>d.nome.toLowerCase().includes(b))
+  .filter(d=>f==="OFICIAL"?d.oficial:true)
+  .forEach(d=>{
+    lista.innerHTML+=`
+    <tr>
+      <td>${d.nome}</td>
+      <td><span class="badge-oficial">${d.grupo}</span></td>
+      <td>${admin?`<button class="del" onclick="remover('${d.id}')">🗑️</button>`:""}</td>
+    </tr>`;
+  });
+}
+
+window.toggleAdmin=function(){
+  if(prompt("Senha admin:")!==SENHA) return alert("Senha incorreta");
+  admin=true;
+  adminDiv.style.display="block";
+  render();
+}
+
+window.adicionar=async function(){
+  if(senha.value!==SENHA||!nome.value||!grupo.value) return alert("Erro");
+  await addDoc(collection(db,"parcerias"),{nome:nome.value,grupo:grupo.value,oficial:true});
+  nome.value=grupo.value=senha.value="";
+  carregar();
+}
+
+window.remover=async function(id){
+  if(confirm("Remover?")){
+    await deleteDoc(doc(db,"parcerias",id));
+    carregar();
+  }
+}
+
+const lista=document.getElementById("lista");
+const busca=document.getElementById("busca");
+const filtro=document.getElementById("filtro");
+const adminDiv=document.getElementById("admin");
+const nome=document.getElementById("nome");
+const grupo=document.getElementById("grupo");
+const senha=document.getElementById("senha");
+
+carregar();
+</script>
+
+<!-- ===== SEGURANÇA ===== -->
+<script>
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("selectstart",e=>e.preventDefault());
+document.addEventListener("dragstart",e=>e.preventDefault());
+
+document.addEventListener("keydown",e=>{
+  if(
+    e.key==="F12" ||
+    (e.ctrlKey&&e.shiftKey&&["I","J","C","K"].includes(e.key.toUpperCase())) ||
+    (e.ctrlKey&&["U","S","C","V","X","A","P"].includes(e.key.toUpperCase()))
+  ){
+    e.preventDefault(); return false;
+  }
+});
+
+(function(){
+  const d=new Image();
+  Object.defineProperty(d,"id",{get:function(){
+    document.body.innerHTML='<div style="background:black;color:white;height:100vh;display:flex;align-items:center;justify-content:center"><h1>⛔ ACESSO BLOQUEADO</h1></div>';
+    throw new Error();
+  }});
+  setInterval(()=>console.log(d),1000);
+})();
+
+document.querySelectorAll("img").forEach(img=>{
+  img.setAttribute("draggable","false");
+  img.style.pointerEvents="none";
+});
+</script>
+
+</body>
+</html>
