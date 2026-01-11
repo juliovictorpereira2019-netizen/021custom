@@ -8,239 +8,196 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-    --bg:#020617;
-    --bg2:#0f172a;
-    --card:#020617;
-    --border:#1e293b;
-    --text:#e5e7eb;
-    --muted:#94a3b8;
-    --primary:#2563eb;
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #020617, #0f172a);
+    color: #fff;
+    display: flex;
+    justify-content: center;
 }
 
-*{box-sizing:border-box}
-
-body{
-    margin:0;
-    font-family:'Inter',sans-serif;
-    background:linear-gradient(135deg,var(--bg),var(--bg2));
-    color:var(--text);
-    display:flex;
-    justify-content:center;
+.container {
+    width: 100%;
+    max-width: 950px;
+    margin: 30px;
+    background: rgba(2,6,23,.96);
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 0 60px rgba(0,0,0,.7);
 }
 
-.container{
-    width:100%;
-    max-width:980px;
-    margin:30px;
-    background:rgba(2,6,23,.97);
-    border-radius:18px;
-    padding:30px;
-    box-shadow:0 20px 60px rgba(0,0,0,.7);
+.header {
+    text-align: center;
+    margin-bottom: 25px;
 }
 
-/* HEADER */
-.header{
-    text-align:center;
-    margin-bottom:30px;
+.header h1 {
+    margin: 0;
+    font-size: 30px;
 }
 
-.header h1{
-    margin:0;
-    font-size:30px;
-    font-weight:700;
+.header p {
+    opacity: .8;
+    margin-top: 6px;
 }
 
-.header p{
-    margin-top:8px;
-    color:var(--muted);
-    font-size:15px;
-}
-
-/* CONTROLS */
-.controls{
-    display:flex;
-    gap:12px;
-    margin-bottom:20px;
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
 }
 
 .controls input,
-.controls select{
-    flex:1;
-    padding:12px;
-    background:var(--bg);
-    border:1px solid var(--border);
-    border-radius:10px;
-    color:var(--text);
-    font-size:14px;
+.controls select {
+    flex: 1;
+    padding: 12px;
+    background: #020617;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    color: #fff;
 }
 
-/* TABLE */
-.table-card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:14px;
-    overflow:hidden;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 14px;
+    overflow: hidden;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
+th, td {
+    padding: 14px;
+    text-align: center;
 }
 
-th,td{
-    padding:14px;
-    text-align:center;
-    font-size:14px;
+th {
+    background: #020617;
+    border-bottom: 1px solid #334155;
 }
 
-th{
-    background:#020617;
-    color:#cbd5f5;
-    border-bottom:1px solid var(--border);
+tr:nth-child(even) {
+    background: rgba(255,255,255,.03);
 }
 
-tr:nth-child(even){
-    background:rgba(255,255,255,.03);
+.badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
 }
 
-/* BADGES */
-.badge{
-    padding:6px 14px;
-    border-radius:999px;
-    font-size:12px;
-    font-weight:600;
+.OFICIAL {
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+    box-shadow: 0 0 12px rgba(34,197,94,.6);
 }
 
-.PM{background:#1e40af}
-.PRF{background:#065f46}
-.DEBOXE_CUSTOMS{background:#7c2d12}
-
-/* ADMIN */
-.admin-toggle{
-    margin-top:25px;
-    text-align:center;
+.del {
+    background: #dc2626;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
 }
 
-.admin-toggle button{
-    background:transparent;
-    border:1px dashed var(--border);
-    color:var(--muted);
-    padding:10px 16px;
-    border-radius:10px;
-    cursor:pointer;
+.admin-toggle {
+    margin-top: 25px;
+    text-align: center;
 }
 
-.admin{
-    display:none;
-    margin-top:30px;
-    padding-top:25px;
-    border-top:1px solid var(--border);
+.admin-toggle button {
+    background: transparent;
+    border: 1px dashed #475569;
+    color: #94a3b8;
+    padding: 9px 18px;
+    border-radius: 12px;
+    cursor: pointer;
 }
 
-.admin h3{
-    margin-top:0;
-    font-size:18px;
+.admin {
+    display: none;
+    margin-top: 30px;
+    border-top: 1px solid #334155;
+    padding-top: 25px;
 }
 
-.admin input,
-.admin select{
-    width:100%;
-    padding:12px;
-    margin-top:12px;
-    background:var(--bg);
-    border:1px solid var(--border);
-    border-radius:10px;
-    color:var(--text);
+.admin input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #020617;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    color: #fff;
 }
 
-.admin button{
-    margin-top:14px;
-    width:100%;
-    background:var(--primary);
-    color:#fff;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    font-weight:600;
-    cursor:pointer;
+.admin button {
+    margin-top: 14px;
+    width: 100%;
+    background: #2563eb;
+    color: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.del{
-    background:#dc2626;
-    border:none;
-    padding:6px 10px;
-    border-radius:8px;
-    cursor:pointer;
-    color:#fff;
+.beneficios {
+    margin-top: 40px;
+    padding: 24px;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    background: rgba(15,23,42,.6);
 }
 
-/* BENEFITS */
-.beneficios{
-    margin-top:35px;
-    padding:25px;
-    background:linear-gradient(135deg,#020617,#020617);
-    border:1px solid var(--border);
-    border-radius:16px;
+.beneficios h3 {
+    margin-top: 0;
+    color: #38bdf8;
 }
 
-.beneficios h3{
-    margin-top:0;
-    margin-bottom:12px;
-    font-size:20px;
-    color:#38bdf8;
+.beneficios ul {
+    list-style: none;
+    padding: 0;
 }
 
-.beneficios ul{
-    list-style:none;
-    padding:0;
-    margin:0;
+.beneficios li {
+    margin-bottom: 8px;
 }
 
-.beneficios li{
-    margin-bottom:10px;
-    font-size:15px;
-}
-
-.beneficios .obs{
-    margin-top:14px;
-    font-size:14px;
-    color:var(--muted);
-    line-height:1.5;
+.beneficios .obs {
+    font-size: 13px;
+    opacity: .85;
 }
 </style>
 </head>
-<body>
 
+<body>
 <div class="container">
 
 <div class="header">
     <h1>📋 Mural Oficial de Parcerias</h1>
-    <p>Registro público de parceiros ativos e benefícios oficiais</p>
+    <p>Lista pública de integrantes e parcerias ativas</p>
 </div>
 
 <div class="controls">
-    <input id="busca" placeholder="🔍 Buscar parceiro" oninput="render()">
+    <input id="busca" placeholder="🔍 Buscar nome" oninput="render()">
     <select id="filtro" onchange="render()">
-        <option value="">Todas as parcerias</option>
-        <option value="PM">PM</option>
-        <option value="PRF">PRF</option>
-        <option value="DEBOXE CUSTOMS">DEBOXE CUSTOMS</option>
+        <option value="">Todas</option>
+        <option value="OFICIAL">Parcerias Oficiais</option>
     </select>
 </div>
 
-<div class="table-card">
 <table>
 <thead>
 <tr>
     <th>Nome</th>
-    <th>Parceria</th>
+    <th>Grupo</th>
     <th></th>
 </tr>
 </thead>
 <tbody id="lista"></tbody>
 </table>
-</div>
 
 <div class="admin-toggle">
     <button onclick="toggleAdmin()">Acesso Administrativo</button>
@@ -248,33 +205,21 @@ tr:nth-child(even){
 
 <div class="admin" id="admin">
     <h3>Área Administrativa</h3>
-
-    <input type="password" id="senhaAdmin" placeholder="Senha admin">
-    <input type="password" id="senhaDeboxe" placeholder="Senha DEBOXE CUSTOMS" style="display:none">
-
-    <input id="nome" placeholder="Nome do parceiro">
-
-    <select id="parceria" onchange="verificarParceria()">
-        <option value="">Selecione a parceria</option>
-        <option value="PM">PM</option>
-        <option value="PRF">PRF</option>
-        <option value="DEBOXE CUSTOMS">DEBOXE CUSTOMS</option>
-    </select>
-
-    <button onclick="adicionar()">Adicionar parceiro</button>
+    <input type="password" id="senha" placeholder="Senha admin">
+    <input id="nome" placeholder="Nome do integrante">
+    <input id="grupo" placeholder="Grupo (PM, PRF, BOPE, etc)">
+    <button onclick="adicionar()">Adicionar ao mural</button>
 </div>
 
 <div class="beneficios">
     <h3>🎁 Benefícios para Parceiros</h3>
     <ul>
-        <li>🔧 <strong>Reparo totalmente grátis</strong></li>
-        <li>💸 <strong>10% de desconto na tunagem</strong></li>
+        <li>🔧 Reparo totalmente grátis</li>
+        <li>💸 10% de desconto na tunagem</li>
     </ul>
-
     <p class="obs">
-        ℹ️ Para receber os benefícios, o ideal é <strong>fazer parte do grupo parceiro e estar na lista oficial</strong>.<br>
-        ⚠️ <strong>Exceção:</strong> Caso o parceiro não esteja na lista, mas esteja <strong>fardado com a roupa oficial</strong>,
-        os benefícios poderão ser concedidos.
+        ℹ️ Para receber os benefícios, é necessário fazer parte do grupo parceiro e estar na lista.<br>
+        ⚠️ Caso não esteja na lista, mas esteja fardado com a roupa oficial do grupo, os benefícios poderão ser concedidos.
     </p>
 </div>
 
@@ -282,14 +227,7 @@ tr:nth-child(even){
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCWy_SS9eOJq23sWCGWNvq9Tlk_XXvixoo",
@@ -303,72 +241,78 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const SENHA_ADMIN="admin123";
-const SENHA_DEBOXE="deboxe123";
+const SENHA = "admin123";
+let dados = [];
+let admin = false;
 
-let dados=[];
-let admin=false;
-
-async function carregar(){
-    dados=[];
-    const snap=await getDocs(collection(db,"parcerias"));
-    snap.forEach(d=>dados.push({id:d.id,...d.data()}));
+async function carregar() {
+    dados = [];
+    const snap = await getDocs(collection(db, "parcerias"));
+    snap.forEach(d => dados.push({ id: d.id, ...d.data() }));
     render();
 }
 
-window.render=function(){
-    lista.innerHTML="";
+window.render = function () {
+    const lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+    const busca = document.getElementById("busca").value.toLowerCase();
+    const filtro = document.getElementById("filtro").value;
+
     dados
-    .filter(d=>d.nome.toLowerCase().includes(busca.value.toLowerCase())
-        && (filtro.value===""||d.parceria===filtro.value))
-    .forEach(d=>{
-        lista.innerHTML+=`
+    .filter(d => d.nome.toLowerCase().includes(busca))
+    .filter(d => filtro === "OFICIAL" ? d.oficial === true : true)
+    .forEach(d => {
+        lista.innerHTML += `
         <tr>
             <td>${d.nome}</td>
-            <td><span class="badge ${d.parceria.replace(/\s/g,"_")}">${d.parceria}</span></td>
-            <td>${admin?`<button class="del" onclick="remover('${d.id}')">🗑️</button>`:""}</td>
+            <td><span class="badge OFICIAL">${d.grupo}</span></td>
+            <td>${admin ? `<button class="del" onclick="remover('${d.id}')">🗑️</button>` : ""}</td>
         </tr>`;
     });
-}
+};
 
-window.toggleAdmin=function(){
-    if(prompt("Senha admin:")!==SENHA_ADMIN)return alert("Senha incorreta");
-    admin=true;
-    document.getElementById("admin").style.display="block";
+window.toggleAdmin = function () {
+    const senha = prompt("Senha admin:");
+    if (senha !== SENHA) return alert("Senha incorreta");
+    admin = true;
+    document.getElementById("admin").style.display = "block";
     render();
-}
+};
 
-window.verificarParceria=function(){
-    senhaDeboxe.style.display=parceria.value==="DEBOXE CUSTOMS"?"block":"none";
-}
+window.adicionar = async function () {
+    const nome = nomeInput.value.trim();
+    const grupo = grupoInput.value.trim();
+    const senha = senhaInput.value;
 
-window.adicionar=async function(){
-    if(senhaAdmin.value!==SENHA_ADMIN)return alert("Senha admin incorreta");
-    if(parceria.value==="DEBOXE CUSTOMS"&&senhaDeboxe.value!==SENHA_DEBOXE)
-        return alert("Senha DEBOXE CUSTOMS incorreta");
+    if (senha !== SENHA) return alert("Senha incorreta");
+    if (!nome || !grupo) return alert("Preencha tudo");
 
-    if(!nome.value||!parceria.value)return alert("Preencha tudo");
-    if(dados.some(d=>d.nome.toLowerCase()===nome.value.toLowerCase()))
-        return alert("Nome já existe");
+    if (dados.some(d => d.nome.toLowerCase() === nome.toLowerCase())) {
+        return alert("Nome duplicado");
+    }
 
-    await addDoc(collection(db,"parcerias"),{nome:nome.value.trim(),parceria:parceria.value});
-    nome.value="";parceria.value="";senhaDeboxe.value="";
+    await addDoc(collection(db, "parcerias"), {
+        nome,
+        grupo,
+        oficial: true
+    });
+
+    nomeInput.value = "";
+    grupoInput.value = "";
+    senhaInput.value = "";
     carregar();
-}
+};
 
-window.remover=async function(id){
-    if(!confirm("Remover parceiro?"))return;
-    await deleteDoc(doc(db,"parcerias",id));
+window.remover = async function (id) {
+    if (!confirm("Remover este nome?")) return;
+    await deleteDoc(doc(db, "parcerias", id));
     carregar();
-}
+};
 
-const busca=document.getElementById("busca");
-const filtro=document.getElementById("filtro");
-const lista=document.getElementById("lista");
-const nome=document.getElementById("nome");
-const parceria=document.getElementById("parceria");
-const senhaAdmin=document.getElementById("senhaAdmin");
-const senhaDeboxe=document.getElementById("senhaDeboxe");
+const nomeInput = document.getElementById("nome");
+const grupoInput = document.getElementById("grupo");
+const senhaInput = document.getElementById("senha");
 
 carregar();
 </script>
