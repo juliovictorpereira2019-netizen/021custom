@@ -25,7 +25,15 @@ body{
   user-select:none;
   padding-top:90px;
 }
-
+/* ===== BLOQUEIO DE SELEÇÃO ===== */
+body, body * {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE/Edge */
+  user-select: none;         /* Padrão */
+  -webkit-touch-callout: none; /* Bloqueia menu de toque longo iOS */
+  -webkit-user-drag: none;     /* Desativa arrastar imagens */
+}
 /* ===== MENU ===== */
 .topbar{
   background:linear-gradient(90deg,#000,#1a0000,#000);
@@ -230,7 +238,7 @@ th{background:#f1f1f1}
 
 <hr>
 <div class="form-check"><input class="form-check-input item" id="turbo" data-nome="Turbo" data-valor="50000" type="checkbox"> Turbo</div>
-<div class="form-check"><input class="form-check-input item" id="full turning" data-nome="FullTurnagem" data-valor="350000" type="checkbox"> Full Turning</div>
+<input class="form-check-input item" id="fulltunagem" data-nome="Full Turnagem" data-valor="350000" type="checkbox">
 <div class="form-check"><input class="form-check-input item" data-nome="Blindagem" data-valor="500000" type="checkbox"> Blindagem</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Blindagem Pneus" data-valor="1000000" type="checkbox"> Blindagem Pneus</div>
 <div class="form-check"><input class="form-check-input item" data-nome="Blindagem Full" data-valor="1500000" type="checkbox"> Blindagem Full</div>
@@ -406,90 +414,38 @@ function limpar(){
   texto.value="";
 }
 
-// Validação nome/ID
-nome.addEventListener("input",()=>nome.value=nome.value.replace(/[^a-zA-ZÀ-ÿ\s]/g,""));
-id.addEventListener("input",()=>id.value=id.value.replace(/\D/g,""));
+// ===== BLOQUEIO DE COPIAR - DESKTOP + MOBILE =====
+const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
-// Segurança
-document.addEventListener("contextmenu",e=>e.preventDefault());
-document.addEventListener("selectstart",e=>e.preventDefault());
-document.addEventListener("keydown",e=>{
-  if(e.key==="F12") e.preventDefault();
-  if(e.ctrlKey && e.shiftKey && ["I","J","C","K"].includes(e.key.toUpperCase())) e.preventDefault();
-  if(e.ctrlKey && ["u","c","v","x","a"].includes(e.key.toLowerCase())) e.preventDefault();
-});
-(function(){
-  const d=new Image();
-  Object.defineProperty(d,"id",{get:function(){
-    document.body.innerHTML='<div style="background:black;color:white;height:100vh;display:flex;align-items:center;justify-content:center"><h1>⛔ ACESSO BLOQUEADO</h1></div>';
-    throw new Error();
-  }});
-  setInterval(()=>console.log(d),1000);
-})();
-</script>
-<script>
-/* ================= PROTEÇÃO GERAL ================= */
-
-// Bloquear botão direito
+// Bloqueio de clique direito
 document.addEventListener("contextmenu", e => e.preventDefault());
 
-// Bloquear arrastar
-document.addEventListener("dragstart", e => e.preventDefault());
-
-// Bloquear copiar
-document.addEventListener("copy", e => e.preventDefault());
-
-// Bloquear teclas (F12, DevTools, copiar etc.)
-document.addEventListener("keydown", function(e) {
-
-  // F12
-  if (e.key === "F12") {
-    e.preventDefault();
-    alert("Ação bloqueada!");
-    return false;
-  }
-
-  // Ctrl + Shift + I / J / C (DevTools)
-  if (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) {
-    e.preventDefault();
-    alert("Ação bloqueada!");
-    return false;
-  }
-
-  // Ctrl + U / S / C / V / X / A
-  if (e.ctrlKey && ["u","s","c","v","x","a"].includes(e.key.toLowerCase())) {
-    e.preventDefault();
-    alert("Ação bloqueada!");
-    return false;
+// Bloqueio de teclas desktop
+document.addEventListener("keydown", function(e){
+  if (!isMobile) {
+    // Teclas de desenvolvedor
+    if (e.key === "F12") e.preventDefault();
+    if (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) e.preventDefault();
+    // Bloqueio de visualizar código, salvar e copiar
+    if (e.ctrlKey && ["u","s","c"].includes(e.key.toLowerCase())) e.preventDefault();
   }
 });
 
-/* ===== DETECTAR DEVTOOLS ABERTO ===== */
-(function(){
-  const limite = 160;
+// Bloqueio de copiar em mobile
+if (isMobile) {
+  // Bloqueia seleção de texto
+  document.body.addEventListener("selectstart", e => e.preventDefault());
 
-  setInterval(() => {
-    const width = window.outerWidth - window.innerWidth > limite;
-    const height = window.outerHeight - window.innerHeight > limite;
+  // Bloqueia toque longo em imagens e texto
+  document.body.addEventListener("touchstart", function(e){
+    if (e.target.tagName === "IMG") e.preventDefault();
+  }, {passive:false});
 
-    if (width || height) {
-      document.body.innerHTML = `
-      <div style="
-        background:#000;
-        color:#ff0000;
-        height:100vh;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        font-family:Inter, sans-serif;
-        font-size:22px;
-        text-align:center;">
-        🚫 Acesso bloqueado<br>
-        Ferramentas de desenvolvedor detectadas
-      </div>`;
-    }
-  }, 500);
-})();
+  // Remove seleção após toque
+  document.body.addEventListener("touchend", e => {
+    window.getSelection().removeAllRanges();
+  });
+}
 </script>
 
 </body>
