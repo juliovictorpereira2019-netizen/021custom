@@ -269,98 +269,44 @@ footer{
 <footer class="text-center py-4">
 © <span id="year"></span> Deboxe Customs — Todos os direitos reservados
 </footer>
+</script>
+
+<!-- ===== SEGURANÇA ===== -->
 <script>
-(()=>{
-/* ========= CONFIG ========= */
-const MOBILE = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-const LIMITE = 160;
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("selectstart",e=>e.preventDefault());
+document.addEventListener("dragstart",e=>e.preventDefault());
 
-/* ========= BLOQUEIO TOTAL ========= */
-function kill(){
-  if (document.__dead) return;
-  document.__dead = true;
+document.addEventListener("keydown",e=>{
+  if(
+    e.key==="F12" ||
+    (e.ctrlKey&&e.shiftKey&&["I","J","C","K"].includes(e.key.toUpperCase())) ||
+    (e.ctrlKey&&["U","S","C","V","X","A","P"].includes(e.key.toUpperCase()))
+  ){
+    e.preventDefault(); return false;
+  }
+});
 
-  try{
-    document.head && document.head.remove();
-    document.body && document.body.remove();
-    document.documentElement.innerHTML = "";
-  }catch(e){}
-
-  const o = document.createElement("div");
-  o.id = "x";
-  o.style.cssText = `
-    position:fixed;
-    inset:0;
-    background:#000;
-    color:#f00;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font:22px Arial;
-    z-index:999999;
-    text-align:center;
-  `;
-  o.innerHTML = "🚫 ACESSO BLOQUEADO<br><br>Ferramentas de desenvolvedor detectadas";
-
-  document.documentElement.appendChild(o);
-
-  // Anti-remoção
-  new MutationObserver(()=>{
-    if (!document.getElementById("x")) {
-      document.documentElement.appendChild(o);
-    }
-  }).observe(document.documentElement, { childList:true });
-
-  // Anti-debug pesado
-  setInterval(()=>{
-    debugger;
-    document.documentElement.innerHTML = "";
-    document.documentElement.appendChild(o);
-  }, 80);
-}
-
-/* ========= DETECÇÕES ========= */
-if (!MOBILE) {
-
-  // Teclas DevTools
-  document.addEventListener("keydown", e => {
-    if (
-      e.key === "F12" ||
-      (e.ctrlKey && e.shiftKey && "IJC".includes(e.key.toUpperCase())) ||
-      (e.ctrlKey && e.key.toLowerCase() === "u")
-    ) {
-      e.preventDefault();
-      kill();
-    }
-  });
-
-  // Mouse
-  document.addEventListener("contextmenu", e => e.preventDefault());
-  document.addEventListener("dragstart", e => e.preventDefault());
-
-  // DevTools docked
-  setInterval(()=>{
-    if (
-      window.outerWidth - window.innerWidth > LIMITE ||
-      window.outerHeight - window.innerHeight > LIMITE
-    ) kill();
-  }, 300);
-
-  // Console detect
-  const img = new Image();
-  Object.defineProperty(img, "id", { get: () => kill() });
-  setInterval(()=>{
-    console.clear();
-    console.log(img);
-  }, 600);
-}
+(function(){
+  const d=new Image();
+  Object.defineProperty(d,"id",{get:function(){
+    document.body.innerHTML='<div style="background:black;color:white;height:100vh;display:flex;align-items:center;justify-content:center"><h1>⛔ ACESSO BLOQUEADO</h1></div>';
+    throw new Error();
+  }});
+  setInterval(()=>console.log(d),1000);
 })();
+
+document.querySelectorAll("img").forEach(img=>{
+  img.setAttribute("draggable","false");
+  img.style.pointerEvents="none";
+});
 </script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 
 
