@@ -269,54 +269,24 @@ footer{
 <footer class="text-center py-4">
 © <span id="year"></span> Deboxe Customs — Todos os direitos reservados
 </footer>
-
-<!-- 🔒 PROTEÇÕES -->
 <script>
-document.addEventListener("contextmenu", e => e.preventDefault());
-document.addEventListener("dragstart", e => e.preventDefault());
+/* =========================
+   🔒 PROTEÇÃO AVANÇADA REFINADA
+========================= */
 
-document.addEventListener("keydown", function(e){
-  if(
-    e.key === "F12" ||
-    (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) ||
-    (e.ctrlKey && ["u","s","c","v","x","a"].includes(e.key.toLowerCase()))
-  ){
-    e.preventDefault();
-    alert("Ação bloqueada!");
-  }
-});
-
-// Detectar DevTools
-(function(){
-  const limite = 160;
-  setInterval(() => {
-    if(
-      window.outerWidth - window.innerWidth > limite ||
-      window.outerHeight - window.innerHeight > limite
-    ){
-      document.body.innerHTML = `
-      <div style="background:black;color:red;height:100vh;display:flex;align-items:center;justify-content:center;font-size:22px;">
-        🚫 Acesso bloqueado – DevTools detectado
-      </div>`;
-    }
-  }, 500);
-})();
-
-document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-<script>
 // Detectar mobile
 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 if (!isMobile) {
-  // ❌ Clique direito
+
+  // ❌ Bloquear clique direito
   document.addEventListener("contextmenu", e => e.preventDefault());
 
-  // ❌ Arrastar elementos/imagens
+  // ❌ Bloquear arrastar imagens/elementos
   document.addEventListener("dragstart", e => e.preventDefault());
 
-  // ❌ Atalhos comuns de DevTools
-  document.addEventListener("keydown", function(e){
+  // ❌ Bloquear atalhos comuns de DevTools
+  document.addEventListener("keydown", e => {
     if (
       e.key === "F12" ||
       (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) ||
@@ -327,31 +297,28 @@ if (!isMobile) {
     }
   });
 
-  // 🔍 Detectar DevTools por dimensão
+  // 🔍 Detectar DevTools pela diferença de dimensões
   (function(){
     const limite = 160;
     setInterval(() => {
-      const devtoolsAberto =
-        window.outerWidth - window.innerWidth > limite ||
-        window.outerHeight - window.innerHeight > limite;
-
-      if (devtoolsAberto) bloquearTela();
-    }, 400);
+      const aberto = window.outerWidth - window.innerWidth > limite ||
+                     window.outerHeight - window.innerHeight > limite;
+      if (aberto) bloquearTela();
+    }, 500); // Checagem a cada 0.5s
   })();
 
   // 🧠 Detectar DevTools pelo console
   (function(){
     const detect = new Image();
     Object.defineProperty(detect, "id", {
-      get: function () {
-        bloquearTela();
-      }
+      get: function () { bloquearTela(); }
     });
     setInterval(() => {
       console.clear();
       console.log(detect);
-    }, 800);
+    }, 1000);
   })();
+
 }
 
 // 🛑 Função de bloqueio total
@@ -385,20 +352,20 @@ function bloquearTela(){
   document.body.appendChild(tela);
 
   // Loop anti-debug
-  setInterval(() => {
-    debugger;
-  }, 100);
+  setInterval(() => { debugger; }, 200);
 }
 
-// 🔄 Atualiza o ano (mantém seu footer funcionando)
+// 🔄 Atualiza o ano no footer
 const year = document.getElementById("year");
 if (year) year.textContent = new Date().getFullYear();
 </script>
 
 
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 
 
