@@ -270,104 +270,107 @@ footer{
 © <span id="year"></span> Deboxe Customs — Todos os direitos reservados
 </footer>
 <script>
-/* =========================
-   🔒 PROTEÇÃO ULTRA (HTML invisível no DevTools)
-========================= */
+(()=>{
 
-// Detectar dispositivos móveis
-const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+/* ========= CONFIG ========= */
+const MOBILE=/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+const LIMITE=160;
 
-if (!isMobile) {
+/* ========= BLOQUEIO TOTAL ========= */
+function kill(){
+  if(document.__dead)return;
+  document.__dead=true;
 
-  // ❌ Bloquear clique direito
-  document.addEventListener("contextmenu", e => e.preventDefault());
+  try{
+    document.head&&document.head.remove();
+    document.body&&document.body.remove();
+    document.documentElement.innerHTML="";
+  }catch(e){}
 
-  // ❌ Bloquear arrastar imagens/elementos
-  document.addEventListener("dragstart", e => e.preventDefault());
+  const o=document.createElement("div");
+  o.id="x";
+  o.style.cssText="position:fixed;inset:0;background:#000;color:#f00;display:flex;align-items:center;justify-content:center;font:22px Arial;z-index:999999;text-align:center";
+  o.innerHTML="🚫 ACESSO BLOQUEADO<br><br>DevTools detectado";
 
-  // ❌ Bloquear atalhos DevTools
-  document.addEventListener("keydown", e => {
-    if (
-      e.key === "F12" ||
-      (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) ||
-      (e.ctrlKey && e.key.toLowerCase() === "u")
-    ) {
-      e.preventDefault();
-      e.stopPropagation();
-      bloquearTela(); // Bloquear imediatamente
+  document.documentElement.appendChild(o);
+
+  // Anti-remoção
+  new MutationObserver(()=>{
+    if(!document.getElementById("x")){
+      document.documentElement.appendChild(o);
     }
+  }).observe(document.documentElement,{childList:true});
+
+  // Anti-debug hard
+  setInterval(()=>{
+    debugger;
+    document.documentElement.innerHTML="";
+    document.documentElement.appendChild(o);
+  },80);
+}
+
+/* ========= DETECÇÕES ========= */
+if(!MOBILE){
+
+  // Teclas
+  document.addEventListener("keydown",e=>{
+    if(
+      e.key==="F12"||
+      (e.ctrlKey&&e.shiftKey&&"IJC".includes(e.key.toUpperCase()))||
+      (e.ctrlKey&&e.key.toLowerCase()==="u")
+    ){e.preventDefault();kill();}
   });
 
-  // 🔍 Detectar DevTools por dimensões
-  (function(){
-    const limite = 160;
-    setInterval(() => {
-      const aberto = window.outerWidth - window.innerWidth > limite ||
-                     window.outerHeight - window.innerHeight > limite;
-      if (aberto) bloquearTela();
-    }, 400);
-  })();
+  // Mouse
+  document.addEventListener("contextmenu",e=>e.preventDefault());
+  document.addEventListener("dragstart",e=>e.preventDefault());
 
-  // 🧠 Detectar DevTools pelo console
-  (function(){
-    const detect = new Image();
-    Object.defineProperty(detect, "id", {
-      get: function () { bloquearTela(); }
-    });
-    setInterval(() => {
-      console.clear();
-      console.log(detect);
-    }, 800);
-  })();
+  // Dimensão
+  setInterval(()=>{
+    if(
+      window.outerWidth-window.innerWidth>LIMITE||
+      window.outerHeight-window.innerHeight>LIMITE
+    )kill();
+  },300);
 
+  // Console
+  const i=new Image();
+  Object.defineProperty(i,"id",{get:()=>kill()});
+  setInterval(()=>{
+    console.clear();
+    console.log(i);
+  },600);
 }
 
-// 🛑 Função de bloqueio TOTAL
-function bloquearTela() {
-  if (document.getElementById("bloqueio-total")) return;
+/* ========= CONSTRUÇÃO DINÂMICA ========= */
+function build(){
+  if(document.__dead)return;
 
-  // Remove completamente todo o HTML original
-  document.documentElement.innerHTML = "";
-  document.documentElement.style.background = "#000";
+  document.body=document.createElement("body");
+  document.body.style.cssText="margin:0;background:#111;color:#fff;font-family:Arial";
 
-  // Cria overlay de aviso
-  const tela = document.createElement("div");
-  tela.id = "bloqueio-total";
-  tela.style.cssText = `
-    position:fixed;
-    inset:0;
-    background:#000;
-    color:#ff0000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:22px;
-    font-family:Arial, sans-serif;
-    z-index:999999;
-    text-align:center;
-  `;
-  tela.innerHTML = `
-    🚫 Acesso bloqueado<br><br>
-    Ferramentas de desenvolvedor detectadas
+  const a=document.createElement("div");
+  a.style.cssText="padding:40px";
+
+  a.innerHTML=`
+    <h1>Deboxe Customs</h1>
+    <p>Mecânica Premium • FiveM</p>
+    <button style="padding:10px 20px">Entrar</button>
   `;
 
-  // Adiciona ao body (mesmo que ele seja recriado)
-  document.body.appendChild(tela);
-
-  // Loop anti-debug para travar DevTools
-  setInterval(() => { debugger; }, 100);
+  document.body.appendChild(a);
 }
 
-// 🔄 Atualiza o ano no footer se existir
-const year = document.getElementById("year");
-if (year) year.textContent = new Date().getFullYear();
+/* Delay proposital */
+setTimeout(build,200);
+
+})();
 </script>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 
 
