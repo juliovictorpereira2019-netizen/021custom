@@ -271,10 +271,10 @@ footer{
 </footer>
 <script>
 /* =========================
-   🔒 PROTEÇÃO AVANÇADA REFINADA
+   🔒 PROTEÇÃO ULTRA (HTML invisível no DevTools)
 ========================= */
 
-// Detectar mobile
+// Detectar dispositivos móveis
 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 if (!isMobile) {
@@ -285,7 +285,7 @@ if (!isMobile) {
   // ❌ Bloquear arrastar imagens/elementos
   document.addEventListener("dragstart", e => e.preventDefault());
 
-  // ❌ Bloquear atalhos comuns de DevTools
+  // ❌ Bloquear atalhos DevTools
   document.addEventListener("keydown", e => {
     if (
       e.key === "F12" ||
@@ -294,17 +294,18 @@ if (!isMobile) {
     ) {
       e.preventDefault();
       e.stopPropagation();
+      bloquearTela(); // Bloquear imediatamente
     }
   });
 
-  // 🔍 Detectar DevTools pela diferença de dimensões
+  // 🔍 Detectar DevTools por dimensões
   (function(){
     const limite = 160;
     setInterval(() => {
       const aberto = window.outerWidth - window.innerWidth > limite ||
                      window.outerHeight - window.innerHeight > limite;
       if (aberto) bloquearTela();
-    }, 500); // Checagem a cada 0.5s
+    }, 400);
   })();
 
   // 🧠 Detectar DevTools pelo console
@@ -316,18 +317,20 @@ if (!isMobile) {
     setInterval(() => {
       console.clear();
       console.log(detect);
-    }, 1000);
+    }, 800);
   })();
 
 }
 
-// 🛑 Função de bloqueio total
-function bloquearTela(){
+// 🛑 Função de bloqueio TOTAL
+function bloquearTela() {
   if (document.getElementById("bloqueio-total")) return;
 
-  document.body.innerHTML = "";
-  document.body.style.margin = "0";
+  // Remove completamente todo o HTML original
+  document.documentElement.innerHTML = "";
+  document.documentElement.style.background = "#000";
 
+  // Cria overlay de aviso
   const tela = document.createElement("div");
   tela.id = "bloqueio-total";
   tela.style.cssText = `
@@ -343,19 +346,19 @@ function bloquearTela(){
     z-index:999999;
     text-align:center;
   `;
-
   tela.innerHTML = `
     🚫 Acesso bloqueado<br><br>
     Ferramentas de desenvolvedor detectadas
   `;
 
+  // Adiciona ao body (mesmo que ele seja recriado)
   document.body.appendChild(tela);
 
-  // Loop anti-debug
-  setInterval(() => { debugger; }, 200);
+  // Loop anti-debug para travar DevTools
+  setInterval(() => { debugger; }, 100);
 }
 
-// 🔄 Atualiza o ano no footer
+// 🔄 Atualiza o ano no footer se existir
 const year = document.getElementById("year");
 if (year) year.textContent = new Date().getFullYear();
 </script>
@@ -365,6 +368,7 @@ if (year) year.textContent = new Date().getFullYear();
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 
 
