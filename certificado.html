@@ -208,7 +208,7 @@ document.getElementById('certForm').addEventListener('submit', async function(e)
 
 function enviarParaDiscord(pdfDoc,nome,instrutor,curso){
   const blob = pdfDoc.output('blob');
-  const webhookURL = "COLOQUE_SEU_WEBHOOK_AQUI";
+  const webhookURL = "https://discord.com/api/webhooks/1458828067362439241/nrWY2gJn15JJuveGP-FBpAFYvwzNeftZxNsqXdEh8ewTNynnMfNAUsD8dzWGld6waYhb";
 
   const file = new File([blob], `${nome}-certificado.pdf`, { type: 'application/pdf' });
   const formData = new FormData();
@@ -296,5 +296,6 @@ document.addEventListener("keydown", function(e) {
 </script>
 
 </html>
+
 
 
