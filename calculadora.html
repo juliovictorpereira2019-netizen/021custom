@@ -406,13 +406,24 @@ function enviarDiscord(){
   }).then(()=>alert("Relatório enviado para o Discord ✅"));
 }
 
+<script>
 function limpar(){
-  document.querySelectorAll(".item").forEach(i=>i.checked=false);
-  nome.value="";
-  id.value="";
-  totalInput.value="";
-  texto.value="";
+  // Desmarca todos os itens
+  document.querySelectorAll(".item").forEach(i => i.checked = false);
+
+  // Remove parceria
+  parceria.checked = false;
+
+  // Limpa campos
+  nome.value = "";
+  id.value = "";
+  totalInput.value = "";
+  texto.value = "";
+
+  // Recalcula para garantir que não fique desconto aplicado
+  calc();
 }
+</script>
 
 // ===== BLOQUEIO DE COPIAR - DESKTOP + MOBILE =====
 const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
@@ -450,6 +461,7 @@ if (isMobile) {
 
 </body>
 </html>
+
 
 
 
