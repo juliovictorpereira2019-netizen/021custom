@@ -14,7 +14,7 @@
 :root{
   --vermelho:#e10600;
   --dourado:#ffcc00;
-  --bg:#f7f9fb;
+  --bg:#ffffff;
 }
 
 body{
@@ -24,9 +24,13 @@ body{
   margin:0;
   padding-top:90px;
   user-select:none;
+  display:flex;
+  justify-content:center;
 }
 
-/* ===== MENU ===== */
+.container-mural{ max-width:1000px; width:100%; }
+
+/* ===== TOPBAR ===== */
 .topbar{
   background:linear-gradient(90deg,#000,#1a0000,#000);
   border-bottom:3px solid var(--vermelho);
@@ -52,7 +56,6 @@ body{
   text-decoration:none;
   position:relative;
 }
-
 .nav-links a::after{
   content:"";
   position:absolute;
@@ -78,69 +81,91 @@ body{
 /* ===== CARD ===== */
 .card{
   border-radius:18px;
-  box-shadow:0 20px 40px rgba(0,0,0,.12);
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
 .card-header{
-  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  background: linear-gradient(135deg,var(--vermelho),var(--dourado));
   color:#000;
-  font-weight:800;
+  font-weight:900;
   text-align:center;
+  font-size:1.5rem;
+  letter-spacing:1px;
   border-radius:18px 18px 0 0;
 }
 
-.badge-oficial{
-  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
-  color:#000;
-  padding:6px 14px;
-  border-radius:20px;
-  font-weight:700;
+/* ===== GRUPO ===== */
+.group-name{
+  font-weight:900;
+  font-size:1.5rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  background:linear-gradient(135deg,#e10600,#ffcc00);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  display:inline-block;
+  transition: transform .3s ease, filter .3s ease, text-shadow .3s ease;
+}
+.group-name:hover{
+  transform: scale(1.15);
+  filter: brightness(1.3);
+  text-shadow: 0 0 10px #ffcc00, 0 0 20px #e10600;
 }
 
-.del{
-  background:#dc2626;
+/* ===== TABELA ===== */
+.table{
+  background:#f7f7f7;
+  border-radius:16px;
+  overflow:hidden;
+}
+thead{ background:#e10600; color:#ffcc00; font-weight:700; font-size:1rem; }
+tbody tr{ transition:background .2s ease, transform .2s ease; }
+tbody tr:hover{ background:rgba(225,6,0,0.1); transform:scale(1.01); }
+
+.del,.edit{
   border:none;
   color:#fff;
   padding:6px 10px;
   border-radius:8px;
   cursor:pointer;
 }
+.del{background:#dc2626;}
+.edit{background:#1a73e8;margin-right:5px;}
 
-.admin{
-  display:none;
-  margin-top:30px;
-  border-top:2px dashed #ccc;
-  padding-top:25px;
+/* ===== ADMIN ===== */
+.admin{ display:none; margin-top:30px; border-top:2px dashed #ffcc00; padding:20px; border-radius:16px; background:#f0f0f0; }
+
+input, select{
+  background:#fff;
+  color:#111;
+  border:2px solid #e10600;
+  border-radius:12px;
+  padding:10px;
+  margin-bottom:10px;
 }
 
-.beneficios{
-  margin-top:35px;
-  padding:24px;
-  border:1px solid #ccc;
-  border-radius:16px;
-  background:#fafafa;
-}
-
-.beneficios .obs{
-  font-size:14px;
-  color:#444;
+.btn-gradient{
+  font-weight:700;
+  border-radius:14px;
+  color:#000;
+  padding:10px 20px;
+  margin:5px;
 }
 </style>
 </head>
-
 <body>
 
-<!-- MENU -->
+<!-- ===== TOPBAR ===== -->
 <header class="topbar">
   <div class="container d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center gap-3">
-      <img src="https://imgur.com/Nw9g2Q2.png" height="55">
+      <img src="https://imgur.com/Nw9g2Q2.png" height="55" alt="Deboxe Logo">
       <div class="logo">Deboxe Customs</div>
     </div>
     <nav class="d-none d-md-flex align-items-center nav-links">
-      <a href="index.html">Início</a>
-      <a href="tabela.html">Preços</a>
-      <a href="funcionarios.html">Funcionários</a>
+      <a href="#">Início</a>
+      <a href="#">Preços</a>
+      <a href="#">Funcionários</a>
       <a href="https://discord.gg/Z72tjMRmUX" class="discord-btn">
         <i class="fa-brands fa-discord"></i> Discord
       </a>
@@ -148,120 +173,148 @@ body{
   </div>
 </header>
 
-<div class="container mt-4">
+<!-- ===== MURAL ===== -->
+<div class="container-mural mt-5">
+  <div class="card">
+    <div class="card-header">📋 Mural Oficial de Parcerias</div>
+    <div class="card-body">
 
-<div class="card">
-<div class="card-header">📋 Mural Oficial de Parcerias</div>
+      <div class="row mb-4">
+        <div class="col-md-12 mb-2">
+          <input id="busca" class="form-control" placeholder="🔍 Buscar grupo" oninput="render()">
+        </div>
+      </div>
 
-<div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered text-center align-middle">
+          <thead>
+            <tr>
+              <th>GRUPO</th>
+              <th>BENEFÍCIO</th>
+              <th>DEVER</th>
+              <th>CHAVE DE ACESSO</th>
+              <th>AÇÃO</th>
+            </tr>
+          </thead>
+          <tbody id="lista"></tbody>
+        </table>
+      </div>
 
-<div class="row mb-3">
-  <div class="col-md-6">
-    <input id="busca" class="form-control" placeholder="🔍 Buscar nome" oninput="render()">
+      <div class="text-center mt-4">
+        <button class="btn btn-gradient" style="background:linear-gradient(135deg,#e10600,#ffcc00);" onclick="toggleAdmin()">Acesso Gerencia</button>
+        <button class="btn btn-gradient" style="background:linear-gradient(135deg,#ffcc00,#e10600);" onclick="toggleMecanico()">Acesso Mecânico</button>
+      </div>
+
+      <div class="admin mt-4" id="admin">
+        <h5 style="color:#e10600;">Área Administrativa</h5>
+        <input type="password" id="senha" placeholder="Senha admin">
+        <input id="grupo" placeholder="Nome do grupo">
+        <input id="beneficio" placeholder="Benefício">
+        <input id="dever" placeholder="Dever">
+        <input id="chave" placeholder="Chave de Acesso">
+        <button class="btn btn-gradient w-100" style="background:linear-gradient(135deg,#e10600,#ffcc00);" onclick="adicionar()">Salvar</button>
+      </div>
+
+    </div>
   </div>
-  <div class="col-md-6">
-    <select id="filtro" class="form-control" onchange="render()">
-      <option value="">Todas</option>
-      <option value="OFICIAL">Parcerias Oficiais</option>
-    </select>
-  </div>
-</div>
-
-<div class="table-responsive">
-<table class="table table-bordered text-center">
-<thead>
-<tr>
-  <th>Nome</th>
-  <th>Grupo</th>
-  <th>Ação</th>
-</tr>
-</thead>
-<tbody id="lista"></tbody>
-</table>
-</div>
-
-<div class="text-center mt-3">
-<button class="btn btn-outline-dark" onclick="toggleAdmin()">Acesso Administrativo</button>
-</div>
-
-<div class="admin" id="admin">
-<h5 class="mt-4">Área Administrativa</h5>
-<input type="password" id="senha" class="form-control mb-2" placeholder="Senha admin">
-<input id="nome" class="form-control mb-2" placeholder="Nome do integrante">
-<input id="grupo" class="form-control mb-2" placeholder="Grupo (PM, PRF, BOPE...)">
-<button class="btn btn-danger w-100" onclick="adicionar()">Adicionar ao mural</button>
-</div>
-
-<div class="beneficios">
-<h5>🎁 Benefícios para Parceiros</h5>
-<ul>
-<li>🔧 Reparo totalmente grátis</li>
-<li>💸 10% de desconto na tunagem</li>
-</ul>
-<p class="obs">
-ℹ️ Para receber os benefícios, é necessário fazer parte do grupo parceiro e estar na lista.<br>
-⚠️ Caso não esteja na lista, mas esteja fardado com a roupa oficial do grupo, os benefícios poderão ser concedidos.
-</p>
-</div>
-
-</div>
-</div>
 </div>
 
 <!-- ===== FIREBASE ===== -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCWy_SS9eOJq23sWCGWNvq9Tlk_XXvixoo",
   authDomain: "parceria-cc577.firebaseapp.com",
-  projectId: "parceria-cc577",
-  storageBucket: "parceria-cc577.firebasestorage.app",
-  messagingSenderId: "48532625032",
-  appId: "1:48532625032:web:b10581a2a533737f7f713d"
+  projectId: "parceria-cc577"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const SENHA="centraldeboxe26oficial";
-let dados=[],admin=false;
+// 🔒 Senhas ofuscadas
+const hash = s => s.split('').map(c=>c.charCodeAt(0)+1).join('-');
+const SENHA_HASH = hash("gerencia456");
+const SENHA_MECANICO_HASH = hash("mecanicorace26");
+
+function checkSenha(input, hashReal){
+    return hash(input) === hashReal;
+}
+
+let dados = [], admin = false, mecanico = false;
+
+const lista = document.getElementById("lista");
+const busca = document.getElementById("busca");
+const adminDiv = document.getElementById("admin");
+const grupo = document.getElementById("grupo");
+const beneficio = document.getElementById("beneficio");
+const dever = document.getElementById("dever");
+const chave = document.getElementById("chave");
+const senha = document.getElementById("senha");
 
 async function carregar(){
-  dados=[];
-  const snap=await getDocs(collection(db,"parcerias"));
+  dados = [];
+  const snap = await getDocs(collection(db,"parcerias"));
   snap.forEach(d=>dados.push({id:d.id,...d.data()}));
   render();
 }
 
-window.render=function(){
+window.render = function(){
   lista.innerHTML="";
-  const b=busca.value.toLowerCase();
-  const f=filtro.value;
-  dados.filter(d=>d.nome.toLowerCase().includes(b))
-  .filter(d=>f==="OFICIAL"?d.oficial:true)
+  const b = busca.value.toLowerCase();
+  dados.filter(d=>d.grupo.toLowerCase().includes(b))
   .forEach(d=>{
     lista.innerHTML+=`
-    <tr>
-      <td>${d.nome}</td>
-      <td><span class="badge-oficial">${d.grupo}</span></td>
-      <td>${admin?`<button class="del" onclick="remover('${d.id}')">🗑️</button>`:""}</td>
-    </tr>`;
+      <tr>
+        <td><span class="group-name">${d.grupo}</span></td>
+        <td>${d.beneficio}</td>
+        <td>${d.dever}</td>
+        <td>${(admin || mecanico)?(d.chave||''):'🔒'}</td>
+        <td>${admin?`<button class="edit" onclick="editar('${d.id}')">✏️</button><button class="del" onclick="remover('${d.id}')">🗑️</button>`:''}</td>
+      </tr>`;
   });
 }
 
 window.toggleAdmin=function(){
-  if(prompt("Senha admin:")!==SENHA) return alert("Senha incorreta");
+  const input = prompt("Senha admin:");
+  if(!checkSenha(input,SENHA_HASH)) return alert("Senha incorreta");
   admin=true;
   adminDiv.style.display="block";
   render();
 }
 
+window.toggleMecanico=function(){
+  const input = prompt("Senha mecânico:");
+  if(!checkSenha(input,SENHA_MECANICO_HASH)) return alert("Senha incorreta");
+  mecanico=true;
+  alert("Acesso mecânico liberado! Você agora pode ver as chaves de acesso.");
+  render();
+}
+
 window.adicionar=async function(){
-  if(senha.value!==SENHA||!nome.value||!grupo.value) return alert("Erro");
-  await addDoc(collection(db,"parcerias"),{nome:nome.value,grupo:grupo.value,oficial:true});
-  nome.value=grupo.value=senha.value="";
+  if(senha.value!=="" && !checkSenha(senha.value,SENHA_HASH) || !grupo.value || !beneficio.value || !dever.value) 
+    return alert("Preencha tudo corretamente");
+  
+  const q=query(collection(db,"parcerias"),where("grupo","==",grupo.value));
+  const snap=await getDocs(q);
+  if(!snap.empty){
+    snap.forEach(async d=>{
+      await updateDoc(doc(db,"parcerias",d.id),{
+        beneficio: beneficio.value,
+        dever: dever.value,
+        chave: chave.value
+      });
+    });
+  }else{
+    await addDoc(collection(db,"parcerias"),{
+      grupo: grupo.value,
+      beneficio: beneficio.value,
+      dever: dever.value,
+      chave: chave.value
+    });
+  }
+  grupo.value=beneficio.value=dever.value=chave.value=senha.value="";
   carregar();
 }
 
@@ -272,48 +325,52 @@ window.remover=async function(id){
   }
 }
 
-const lista=document.getElementById("lista");
-const busca=document.getElementById("busca");
-const filtro=document.getElementById("filtro");
-const adminDiv=document.getElementById("admin");
-const nome=document.getElementById("nome");
-const grupo=document.getElementById("grupo");
-const senha=document.getElementById("senha");
+window.editar=function(id){
+  const d=dados.find(x=>x.id===id);
+  if(!d) return;
+  grupo.value=d.grupo;
+  beneficio.value=d.beneficio;
+  dever.value=d.dever;
+  chave.value=d.chave||"";
+}
 
 carregar();
 </script>
 
-<!-- ===== SEGURANÇA ===== -->
+<!-- ===== BLOQUEIO DE COPIAR + IMAGENS ===== -->
 <script>
-document.addEventListener("contextmenu",e=>e.preventDefault());
-document.addEventListener("selectstart",e=>e.preventDefault());
-document.addEventListener("dragstart",e=>e.preventDefault());
+function bloquearCopiar(){
+    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
-document.addEventListener("keydown",e=>{
-  if(
-    e.key==="F12" ||
-    (e.ctrlKey&&e.shiftKey&&["I","J","C","K"].includes(e.key.toUpperCase())) ||
-    (e.ctrlKey&&["U","S","C","V","X","A","P"].includes(e.key.toUpperCase()))
-  ){
-    e.preventDefault(); return false;
-  }
-});
+    // Bloqueios gerais
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("keydown", e => {
+        if(e.key === "F12") e.preventDefault();
+        if(e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) e.preventDefault();
+        if(e.ctrlKey && ["u","s","c"].includes(e.key.toLowerCase())) e.preventDefault();
+    });
+    document.addEventListener("copy", e => e.preventDefault());
+    document.addEventListener("cut", e => e.preventDefault());
+    document.body.addEventListener("selectstart", e => e.preventDefault());
 
-(function(){
-  const d=new Image();
-  Object.defineProperty(d,"id",{get:function(){
-    document.body.innerHTML='<div style="background:black;color:white;height:100vh;display:flex;align-items:center;justify-content:center"><h1>⛔ ACESSO BLOQUEADO</h1></div>';
-    throw new Error();
-  }});
-  setInterval(()=>console.log(d),1000);
-})();
+    // Bloqueio de imagens
+    const imgs = document.querySelectorAll("img");
+    imgs.forEach(img=>{
+        img.addEventListener("dragstart", e => e.preventDefault());
+        img.addEventListener("mousedown", e => e.preventDefault());
+        img.addEventListener("touchstart", e => e.preventDefault(), {passive:false});
+        img.addEventListener("contextmenu", e => e.preventDefault());
+    });
 
-document.querySelectorAll("img").forEach(img=>{
-  img.setAttribute("draggable","false");
-  img.style.pointerEvents="none";
-});
+    // Bloqueio toque longo em mobile
+    if(isMobile){
+        document.body.addEventListener("touchend", e=>{
+            window.getSelection().removeAllRanges();
+        });
+    }
+}
+bloquearCopiar();
 </script>
 
 </body>
-
 </html>
