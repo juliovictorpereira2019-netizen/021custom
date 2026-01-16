@@ -408,22 +408,22 @@ function enviarDiscord(){
 
 <script>
 function limpar(){
-  // Desmarca todos os itens
-  document.querySelectorAll(".item").forEach(i => i.checked = false);
+  // Desmarca TODOS os checkboxes (itens + parceria)
+  document.querySelectorAll("input[type='checkbox']").forEach(el => {
+    el.checked = false;
+  });
 
-  // Remove parceria
-  parceria.checked = false;
+  // Limpa campos de texto
+  document.getElementById("nome").value = "";
+  document.getElementById("id").value = "";
+  document.getElementById("total").value = "";
+  document.getElementById("texto").value = "";
 
-  // Limpa campos
-  nome.value = "";
-  id.value = "";
-  totalInput.value = "";
-  texto.value = "";
-
-  // Recalcula para garantir que não fique desconto aplicado
+  // Força recálculo zerado
   calc();
 }
 </script>
+
 
 // ===== BLOQUEIO DE COPIAR - DESKTOP + MOBILE =====
 const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
@@ -461,6 +461,7 @@ if (isMobile) {
 
 </body>
 </html>
+
 
 
 
