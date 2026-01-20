@@ -11,27 +11,106 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --vermelho:#e10600;
+  --dourado:#ffcc00;
+}
+*{user-select:none}
 body{
   font-family:'Inter',sans-serif;
   background:#fff;
-  padding-top:60px;
+  color:#111;
+  padding-top:130px;
+}
+.topbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1000;
+  background:linear-gradient(90deg,#000,#1a0000,#000);
+  border-bottom:3px solid var(--vermelho);
+  padding:18px 0;
+}
+.logo{
+  font-weight:800;
+  font-size:1.35rem;
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.nav-links a{
+  color:#fff;
+  margin-left:26px;
+  font-weight:600;
+  text-decoration:none;
+}
+.nav-links a:hover{color:var(--dourado)}
+.discord-btn{
+  margin-left:28px;
+  padding:10px 18px;
+  border-radius:16px;
+  font-weight:700;
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  color:#000;
+  text-decoration:none;
 }
 .box{
   background:#fff;
   padding:30px;
   border-radius:18px;
   max-width:780px;
-  margin:auto;
+  margin:60px auto;
   box-shadow:0 10px 30px rgba(0,0,0,.12);
 }
 .checkbox-group{display:flex;flex-wrap:wrap;gap:12px}
 .checkbox-group label{background:#eee;padding:7px 12px;border-radius:8px}
 textarea{width:100%;height:220px;font-family:monospace}
+
+#adminBtn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  border:none;
+  background:#ff9800;
+  font-size:22px;
+  font-weight:700;
+  z-index:3000;
+}
+#adminPanel{
+  display:none;
+  margin-top:20px;
+  background:#f1f1f1;
+  padding:18px;
+  border-radius:14px;
+}
 </style>
 </head>
 
 <body>
 
+<!-- MENU -->
+<header class="topbar">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+      <img src="https://imgur.com/Nw9g2Q2.png" height="80">
+      <div class="logo">Deboxe Customs</div>
+    </div>
+
+    <nav class="d-none d-md-flex align-items-center nav-links">
+      <a href="index.html">Início</a>
+      <a href="tabela.html">Preços</a>
+      <a href="funcionarios.html">Funcionários</a>
+      <a href="#" class="discord-btn">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- CONTEÚDO -->
 <div class="box">
 <h3 class="text-center">Relatório do Baú</h3>
 
@@ -44,7 +123,7 @@ oninput="this.value=this.value.replace(/[^A-Za-zÀ-ÿ\s]/g,'')">
 inputmode="numeric"
 oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 
-<label>ID Comprador / Funcionário</label>
+<label>ID Mecânico / Funcionário</label>
 <input id="idC" class="form-control"
 inputmode="numeric"
 oninput="this.value=this.value.replace(/[^0-9]/g,'')">
@@ -58,19 +137,25 @@ oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 </button>
 
 <textarea id="saida" readonly></textarea>
+
+<div id="adminPanel">
+  <h5>Área Administrativa</h5>
+  <input class="form-control mt-2" placeholder="Painel restrito">
 </div>
+</div>
+
+<button id="adminBtn">⚙️</button>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-/* ================= CONFIG ================= */
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1463030474879533253/JWef5V8rb0fVTnAV8E6vjKPa5b7mbuV5KfgBlYASbhBDd-WQA0MJ3Gwgy-sNWqttMDIC";
-
-// IDS DOS GERENTES AUTORIZADOS
+/* ===== CONFIG ===== */
+const DISCORD_WEBHOOK = "SEU_WEBHOOK_AQUI";
 const GERENTES = ["52853","48824","55586","53730"];
+const SENHA_ADMIN = "gerencia456";
 
-/* ================= FIREBASE ================= */
+/* ===== FIREBASE ===== */
 const app = initializeApp({
   apiKey:"AIzaSyD2zieCD4d-_olcWE6oOOqlepyxWvLGhyI",
   authDomain:"centralrace-c4ad0.firebaseapp.com",
@@ -78,40 +163,18 @@ const app = initializeApp({
 });
 const db = getFirestore(app);
 
-/* ================= VARIÁVEIS ================= */
+/* ===== VAR ===== */
 const container = document.getElementById("itens");
 const saida = document.getElementById("saida");
+let estoque={}, itensSelecionados=[], relatorioGerado=false;
 
-let estoque = {};
-let itensSelecionados = [];
-let relatorioGerado = false;
-
-/* ================= SEGURANÇA ================= */
+/* ===== SEGURANÇA ===== */
 function ehGerente(){
-  return GERENTES.includes(document.getElementById("idM").value.trim());
+  return GERENTES.includes(idM.value.trim());
 }
 
-function validarDados(){
-  const nome = document.getElementById("nome").value.trim();
-  const idM  = document.getElementById("idM").value.trim();
-  const idC  = document.getElementById("idC").value.trim();
-
-  if(!/^[A-Za-zÀ-ÿ\s]{3,}$/.test(nome)){
-    alert("❌ Nome inválido. Use somente letras.");
-    return false;
-  }
-
-  if(!/^[0-9]{3,}$/.test(idM)){
-    alert("❌ ID do gerente inválido.");
-    return false;
-  }
-
-  if(!/^[0-9]{3,}$/.test(idC)){
-    alert("❌ ID do funcionário inválido.");
-    return false;
-  }
-
-  return true;
+function validarNome(){
+  return /^[A-Za-zÀ-ÿ\s]{3,}$/.test(nome.value.trim());
 }
 
 function bloquearTudo(){
@@ -124,88 +187,73 @@ function liberarTudo(){
   saida.value="";
 }
 
-/* ================= EVENTO ID GERENTE ================= */
-document.getElementById("idM").addEventListener("input",()=>{
-  if(ehGerente()) liberarTudo();
-  else bloquearTudo();
+idM.addEventListener("input",()=>{
+  ehGerente() ? liberarTudo() : bloquearTudo();
 });
 
-/* ================= ESTOQUE ================= */
+/* ===== ESTOQUE ===== */
 async function carregarEstoque(){
   container.innerHTML="";
-  estoque={};
-
   const snap = await getDocs(collection(db,"estoque"));
   snap.forEach(d=>{
     estoque[d.id]=d.data();
-    const label=document.createElement("label");
-    const cb=document.createElement("input");
-    cb.type="checkbox";
-    cb.value=d.id;
-    label.appendChild(cb);
-    label.append(` ${d.id} | Qtd: ${estoque[d.id].qtd}`);
-    container.appendChild(label);
+    const l=document.createElement("label");
+    const c=document.createElement("input");
+    c.type="checkbox"; c.value=d.id;
+    l.appendChild(c);
+    l.append(` ${d.id} | Qtd: ${d.data().qtd}`);
+    container.appendChild(l);
   });
 }
 
-/* ================= RELATÓRIO ================= */
-window.gerarRelatorio = async function(){
+/* ===== RELATÓRIO ===== */
+window.gerarRelatorio=async()=>{
   if(!ehGerente()) return alert("🚫 Apenas gerentes.");
-  if(!validarDados()) return;
+  if(!validarNome()) return alert("Nome inválido.");
 
   const sel=[...document.querySelectorAll("input[type=checkbox]:checked")].map(i=>i.value);
   if(!sel.length) return alert("Selecione itens");
 
   let total=0;
-  let texto=`🛠️ RELATÓRIO DO BAÚ\n\n`;
-  texto+=`👤 Gerente: ${nome.value}\n`;
-  texto+=`🆔 ID Gerente: ${idM.value}\n`;
-  texto+=`🧾 ID Funcionário: ${idC.value}\n\n`;
+  let txt=`🛠️ RELATÓRIO DO BAÚ\n\n👤 Gerente: ${nome.value}\n🆔 ID: ${idM.value}\n🧾 Mecânico: ${idC.value}\n\n`;
+  sel.forEach(i=>{ total+=estoque[i].preco; txt+=`${i} - R$ ${estoque[i].preco}\n`; });
+  txt+=`\nTOTAL: R$ ${total}`;
 
-  sel.forEach(i=>{
-    total+=estoque[i].preco;
-    texto+=`${i} - R$ ${estoque[i].preco}\n`;
-  });
-
-  texto+=`\nTOTAL: R$ ${total}`;
-  saida.value=texto;
-
+  saida.value=txt;
   itensSelecionados=sel;
   relatorioGerado=true;
-}
+};
 
-/* ================= DISCORD ================= */
-window.enviarDiscord = async function(){
+window.enviarDiscord=async()=>{
   if(!ehGerente()) return alert("🚫 Apenas gerentes.");
-  if(!validarDados()) return;
   if(!relatorioGerado) return alert("Gere o relatório primeiro");
 
   await fetch(DISCORD_WEBHOOK,{
     method:"POST",
     headers:{ "Content-Type":"application/json" },
     body:JSON.stringify({
-      username:"Deboxe Relatórios",
-      embeds:[{
-        title:"🛠️ Relatório do Baú",
-        description:"```"+saida.value+"```",
-        color:0xe10600
-      }]
+      embeds:[{title:"🛠️ Relatório do Baú",description:"```"+saida.value+"```",color:0xe10600}]
     })
   });
 
-  for(const item of itensSelecionados){
-    await updateDoc(doc(db,"estoque",item),{
-      qtd: estoque[item].qtd - 1
-    });
+  for(const i of itensSelecionados){
+    await updateDoc(doc(db,"estoque",i),{qtd:estoque[i].qtd-1});
   }
 
-  alert("Relatório enviado com sucesso!");
+  alert("Relatório enviado!");
   relatorioGerado=false;
-  itensSelecionados=[];
   carregarEstoque();
-}
+};
 
-/* ================= INIT ================= */
+/* ===== ADMIN ===== */
+adminBtn.onclick=()=>{
+  const s=prompt("Senha admin:");
+  if(s===SENHA_ADMIN){
+    adminPanel.style.display=adminPanel.style.display==="block"?"none":"block";
+  }else alert("Senha incorreta");
+};
+
+/* ===== INIT ===== */
 bloquearTudo();
 carregarEstoque();
 </script>
