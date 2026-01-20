@@ -287,7 +287,42 @@ window.limpar=limpar;
 
 carregarEstoque();
 </script>
+<script>
+// ===== BLOQUEIO DE COPIAR - DESKTOP + MOBILE =====
+const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+// Bloqueio de clique direito
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+// Bloqueio de teclas desktop
+document.addEventListener("keydown", function(e){
+  if (!isMobile) {
+    // Teclas de desenvolvedor
+    if (e.key === "F12") e.preventDefault();
+    if (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) e.preventDefault();
+    // Bloqueio de visualizar código, salvar e copiar
+    if (e.ctrlKey && ["u","s","c"].includes(e.key.toLowerCase())) e.preventDefault();
+  }
+});
+
+// Bloqueio de copiar em mobile
+if (isMobile) {
+  // Bloqueia seleção de texto
+  document.body.addEventListener("selectstart", e => e.preventDefault());
+
+  // Bloqueia toque longo em imagens e texto
+  document.body.addEventListener("touchstart", function(e){
+    if (e.target.tagName === "IMG") e.preventDefault();
+  }, {passive:false});
+
+  // Remove seleção após toque
+  document.body.addEventListener("touchend", e => {
+    window.getSelection().removeAllRanges();
+  });
+}
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
