@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deboxe Customs - Relatório</title>
+
+<link rel="icon" href="https://imgur.com/Nw9g2Q2.png">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --vermelho:#e10600;
+  --dourado:#ffcc00;
+}
+*{user-select:none}
+body{
+  font-family:'Inter',sans-serif;
+  background:#fff;
+  color:#111;
+  padding-top:130px;
+}
+.topbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1000;
+  background:linear-gradient(90deg,#000,#1a0000,#000);
+  border-bottom:3px solid var(--vermelho);
+  padding:18px 0;
+}
+.logo{
+  font-weight:800;
+  font-size:1.35rem;
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.nav-links a{
+  color:#fff;
+  margin-left:26px;
+  font-weight:600;
+  text-decoration:none;
+}
+.nav-links a:hover{color:var(--dourado)}
+.discord-btn{
+  margin-left:28px;
+  padding:10px 18px;
+  border-radius:16px;
+  font-weight:700;
+  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
+  color:#000;
+  text-decoration:none;
+}
+.box{
+  background:#fff;
+  padding:30px;
+  border-radius:18px;
+  max-width:780px;
+  margin:60px auto;
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+textarea{
+  width:100%;
+  height:200px;
+  margin-top:15px;
+  font-family:monospace;
+}
+.checkbox-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.checkbox-group label{
+  background:#eee;
+  padding:7px 12px;
+  border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== HEADER / MENU ===== -->
+<header class="topbar">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+      <img src="https://imgur.com/Nw9g2Q2.png" height="80">
+      <div class="logo">Deboxe Customs</div>
+    </div>
+
+    <button class="btn btn-outline-light d-md-none" data-bs-toggle="collapse" data-bs-target="#menuMobile">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <nav class="d-none d-md-flex align-items-center nav-links">
+      <a href="index.html">Início</a>
+      <a href="tabela.html">Preços</a>
+      <a href="funcionarios.html">Funcionários</a>
+      <a href="https://discord.gg/Z72tjMRmUX" class="discord-btn">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
+    </nav>
+  </div>
+
+  <div class="collapse bg-dark d-md-none" id="menuMobile">
+    <div class="p-4 text-center">
+      <a class="d-block text-white py-2" href="index.html">Início</a>
+      <a class="d-block text-white py-2" href="tabela.html">Preços</a>
+      <a class="d-block text-white py-2" href="funcionarios.html">Funcionários</a>
+      <a class="d-block text-warning py-2 fw-bold" href="relatorio.html">Relatório</a>
+      <a class="d-block text-white py-2" href="https://discord.gg/Z72tjMRmUX">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== CONTEÚDO ===== -->
+<div class="box">
+<h3 class="text-center">Relatório do Baú</h3>
+
+<label>Gerente Responsável</label>
+<input id="nome" class="form-control" placeholder="Somente letras">
+
+<label>ID Responsável</label>
+<input id="idM" class="form-control" placeholder="Somente números">
+
+<label>ID Comprador / Funcionário</label>
+<input id="idC" class="form-control" placeholder="Somente números">
+
+<label class="mt-3">Itens</label>
+<div id="itens" class="checkbox-group mt-2"></div>
+
+<button class="btn btn-success mt-3 w-100" onclick="gerarRelatorio()">Gerar Relatório</button>
+<button class="btn btn-primary mt-2 w-100" onclick="enviarDiscord()">
+  <i class="fa-brands fa-discord"></i> Enviar para o Discord
+</button>
+<button class="btn btn-danger mt-2 w-100" onclick="limpar()">Limpar</button>
+
+<textarea id="saida" readonly></textarea>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+
+const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1463030474879533253/JWef5V8rb0fVTnAV8E6vjKPa5b7mbuV5KfgBlYASbhBDd-WQA0MJ3Gwgy-sNWqttMDIC";
+
+const app = initializeApp({
+  apiKey:"AIzaSyD2zieCD4d-_olcWE6oOOqlepyxWvLGhyI",
+  authDomain:"centralrace-c4ad0.firebaseapp.com",
+  projectId:"centralrace-c4ad0"
+});
+const db = getFirestore(app);
+
+const container = document.getElementById("itens");
+const saida = document.getElementById("saida");
+
+let estoque = {};
+let relatorioGerado = false;
+let itensSelecionados = [];
+
+function somenteNumeros(el){ el.value = el.value.replace(/\D/g,''); }
+function somenteLetras(el){ el.value = el.value.replace(/[^a-zA-ZÀ-ÿ\s]/g,''); }
+
+nome.addEventListener("input",()=>somenteLetras(nome));
+idM.addEventListener("input",()=>somenteNumeros(idM));
+idC.addEventListener("input",()=>somenteNumeros(idC));
+
+async function carregarEstoque(){
+  container.innerHTML="";
+  estoque={};
+  const snap = await getDocs(collection(db,"estoque"));
+  snap.forEach(d=>estoque[d.id]=d.data());
+
+  for(const item in estoque){
+    const label=document.createElement("label");
+    const cb=document.createElement("input");
+    cb.type="checkbox";
+    cb.value=item;
+    label.appendChild(cb);
+    label.append(` ${item} | Qtd: ${estoque[item].qtd}`);
+    container.appendChild(label);
+  }
+}
+
+async function gerarRelatorio(){
+  const sel=[...document.querySelectorAll("input[type=checkbox]:checked")].map(i=>i.value);
+  if(!sel.length) return alert("Selecione itens");
+  if(!nome.value||!idM.value||!idC.value) return alert("Preencha todos os campos");
+
+  let total=0;
+  let texto=`🛠️ RELATÓRIO DO BAÚ
+Gerente: ${nome.value}
+ID: ${idM.value}
+Comprador: ${idC.value}
+
+`;
+
+  for(const item of sel){
+    total+=estoque[item].preco;
+    texto+=`${item} - R$ ${estoque[item].preco}\n`;
+  }
+
+  texto+=`\nTOTAL: R$ ${total}`;
+  saida.value=texto;
+
+  itensSelecionados = sel;
+  relatorioGerado = true;
+}
+
+async function enviarDiscord(){
+  if(!relatorioGerado) return alert("Gere o relatório primeiro");
+
+  await fetch(DISCORD_WEBHOOK,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      username:"Deboxe Relatórios",
+      embeds:[{
+        title:"🛠️ Relatório do Baú",
+        color:0xe10600,
+        description:"```"+saida.value+"```",
+        timestamp:new Date().toISOString()
+      }]
+    })
+  });
+
+  for(const item of itensSelecionados){
+    await updateDoc(doc(db,"estoque",item),{
+      qtd: estoque[item].qtd - 1
+    });
+  }
+
+  alert("Relatório enviado e estoque atualizado!");
+  relatorioGerado=false;
+  itensSelecionados=[];
+  carregarEstoque();
+}
+
+function limpar(){
+  document.querySelectorAll("input").forEach(i=>{
+    if(i.type==="checkbox") i.checked=false;
+    else i.value="";
+  });
+  saida.value="";
+  relatorioGerado=false;
+  itensSelecionados=[];
+}
+
+window.gerarRelatorio=gerarRelatorio;
+window.enviarDiscord=enviarDiscord;
+window.limpar=limpar;
+
+carregarEstoque();
+</script>
+<script>
+// ===== BLOQUEIO DE COPIAR - DESKTOP + MOBILE =====
+const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+// Bloqueio de clique direito
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+// Bloqueio de teclas desktop
+document.addEventListener("keydown", function(e){
+  if (!isMobile) {
+    // Teclas de desenvolvedor
+    if (e.key === "F12") e.preventDefault();
+    if (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) e.preventDefault();
+    // Bloqueio de visualizar código, salvar e copiar
+    if (e.ctrlKey && ["u","s","c"].includes(e.key.toLowerCase())) e.preventDefault();
+  }
+});
+
+// Bloqueio de copiar em mobile
+if (isMobile) {
+  // Bloqueia seleção de texto
+  document.body.addEventListener("selectstart", e => e.preventDefault());
+
+  // Bloqueia toque longo em imagens e texto
+  document.body.addEventListener("touchstart", function(e){
+    if (e.target.tagName === "IMG") e.preventDefault();
+  }, {passive:false});
+
+  // Remove seleção após toque
+  document.body.addEventListener("touchend", e => {
+    window.getSelection().removeAllRanges();
+  });
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
