@@ -38,22 +38,6 @@ body{
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-.nav-links a{
-  color:#fff;
-  margin-left:26px;
-  font-weight:600;
-  text-decoration:none;
-}
-.nav-links a:hover{color:var(--dourado)}
-.discord-btn{
-  margin-left:28px;
-  padding:10px 18px;
-  border-radius:16px;
-  font-weight:700;
-  background:linear-gradient(135deg,var(--vermelho),var(--dourado));
-  color:#000;
-  text-decoration:none;
-}
 .box{
   background:#fff;
   padding:30px;
@@ -62,125 +46,53 @@ body{
   margin:60px auto;
   box-shadow:0 10px 30px rgba(0,0,0,.12);
 }
-textarea{
-  width:100%;
-  height:200px;
-  margin-top:15px;
-  font-family:monospace;
-}
-.checkbox-group{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-}
-.checkbox-group label{
-  background:#eee;
-  padding:7px 12px;
-  border-radius:8px;
-}
-#adminBtn{
-  position:fixed;
-  bottom:18px;
-  right:18px;
-  width:46px;
-  height:46px;
-  border-radius:50%;
-  border:none;
-  background:#ff9800;
-  color:#000;
-  font-size:20px;
-  font-weight:700;
-  cursor:pointer;
-  z-index:3000;
-  box-shadow:0 6px 16px rgba(0,0,0,.25);
-}
-#adminBtn:hover{background:#ffcc00}
-#adminPanel{
-  display:none;
-  background:#f1f1f1;
-  padding:18px;
-  border-radius:14px;
-  margin-top:20px;
-}
+textarea{width:100%;height:220px;font-family:monospace}
+.checkbox-group{display:flex;flex-wrap:wrap;gap:12px}
+.checkbox-group label{background:#eee;padding:7px 12px;border-radius:8px}
 </style>
 </head>
 
 <body>
 
-<!-- MENU -->
-<header class="topbar">
-  <div class="container d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center gap-3">
-      <img src="https://imgur.com/Nw9g2Q2.png" height="80">
-      <div class="logo">Deboxe Customs</div>
-    </div>
-
-    <button class="btn btn-outline-light d-md-none" data-bs-toggle="collapse" data-bs-target="#menuMobile">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-
-    <nav class="d-none d-md-flex align-items-center nav-links">
-      <a href="index.html">Início</a>
-      <a href="tabela.html">Preços</a>
-      <a href="funcionarios.html">Funcionários</a>
-      <a href="https://discord.gg/Z72tjMRmUX" class="discord-btn">
-        <i class="fa-brands fa-discord"></i> Discord
-      </a>
-    </nav>
-  </div>
-
-  <div class="collapse bg-dark d-md-none" id="menuMobile">
-    <div class="p-4 text-center">
-      <a class="d-block text-white py-2" href="index.html">Início</a>
-      <a class="d-block text-white py-2" href="tabela.html">Preços</a>
-      <a class="d-block text-white py-2" href="funcionarios.html">Funcionários</a>
-      <a class="d-block text-warning py-2 fw-bold" href="relatorio.html">Relatório</a>
-      <a class="d-block text-white py-2" href="https://discord.gg/Z72tjMRmUX">
-        <i class="fa-brands fa-discord"></i> Discord
-      </a>
-    </div>
-  </div>
-</header>
-
-<!-- CONTEÚDO -->
 <div class="box">
 <h3 class="text-center">Relatório do Baú</h3>
 
 <label>Gerente Responsável</label>
-<input id="nome" class="form-control">
+<input id="nome" class="form-control"
+oninput="this.value=this.value.replace(/[^A-Za-zÀ-ÿ\s]/g,'')">
 
-<label>ID Responsável</label>
-<input id="idM" class="form-control">
+<label>ID Responsável (Gerente)</label>
+<input id="idM" class="form-control"
+inputmode="numeric"
+oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 
 <label>ID Comprador / Funcionário</label>
-<input id="idC" class="form-control">
+<input id="idC" class="form-control"
+inputmode="numeric"
+oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 
 <label class="mt-3">Itens</label>
 <div id="itens" class="checkbox-group mt-2"></div>
 
-<button class="btn btn-success mt-3 w-100" onclick="gerarRelatorio()">Gerar Relatório</button>
-<button class="btn btn-primary mt-2 w-100" onclick="enviarDiscord()">
+<button id="btnGerar" class="btn btn-success mt-3 w-100" onclick="gerarRelatorio()">Gerar Relatório</button>
+<button id="btnEnviar" class="btn btn-primary mt-2 w-100" onclick="enviarDiscord()">
 <i class="fa-brands fa-discord"></i> Enviar para o Discord
 </button>
-<button class="btn btn-danger mt-2 w-100" onclick="limpar()">Limpar</button>
 
 <textarea id="saida" readonly></textarea>
-
-<div id="adminPanel">
-  <h5>Administração do Estoque</h5>
-  <input class="form-control mt-2" placeholder="Área restrita">
 </div>
-</div>
-
-<button id="adminBtn">⚙️</button>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1463030474879533253/JWef5V8rb0fVTnAV8E6vjKPa5b7mbuV5KfgBlYASbhBDd-WQA0MJ3Gwgy-sNWqttMDIC";
-const SENHA_ADMIN = "gerencia456";
+// ===== CONFIG =====
+const DISCORD_WEBHOOK = "SEU_WEBHOOK_AQUI";
 
+// 🔐 IDS DE GERENTES AUTORIZADOS
+const GERENTES = ["12345","67890","99999"];
+
+// FIREBASE
 const app = initializeApp({
   apiKey:"AIzaSyD2zieCD4d-_olcWE6oOOqlepyxWvLGhyI",
   authDomain:"centralrace-c4ad0.firebaseapp.com",
@@ -188,51 +100,80 @@ const app = initializeApp({
 });
 const db = getFirestore(app);
 
+// ELEMENTOS
 const container = document.getElementById("itens");
 const saida = document.getElementById("saida");
-const adminPanel = document.getElementById("adminPanel");
+const btnGerar = document.getElementById("btnGerar");
+const btnEnviar = document.getElementById("btnEnviar");
 
 let estoque = {};
-let relatorioGerado = false;
 let itensSelecionados = [];
+let relatorioGerado = false;
 
+// ===== SEGURANÇA =====
+function ehGerente(){
+  return GERENTES.includes(document.getElementById("idM").value.trim());
+}
+
+function bloquearTudo(){
+  document.querySelectorAll("input,button").forEach(e=>e.disabled=true);
+  saida.value="🚫 ACESSO RESTRITO\nSomente gerentes autorizados.";
+}
+
+function liberarTudo(){
+  document.querySelectorAll("input,button").forEach(e=>e.disabled=false);
+  saida.value="";
+}
+
+// ===== EVENTO AUTOMÁTICO =====
+document.getElementById("idM").addEventListener("input",()=>{
+  if(ehGerente()) liberarTudo();
+  else bloquearTudo();
+});
+
+// ===== ESTOQUE =====
 async function carregarEstoque(){
   container.innerHTML="";
-  estoque={};
   const snap = await getDocs(collection(db,"estoque"));
-  snap.forEach(d=>estoque[d.id]=d.data());
-
-  for(const item in estoque){
+  snap.forEach(d=>{
+    estoque[d.id]=d.data();
     const label=document.createElement("label");
     const cb=document.createElement("input");
     cb.type="checkbox";
-    cb.value=item;
+    cb.value=d.id;
     label.appendChild(cb);
-    label.append(` ${item} | Qtd: ${estoque[item].qtd}`);
+    label.append(` ${d.id} | Qtd: ${estoque[d.id].qtd}`);
     container.appendChild(label);
-  }
+  });
 }
 
-async function gerarRelatorio(){
+// ===== GERAR RELATÓRIO =====
+window.gerarRelatorio = async function(){
+  if(!ehGerente()) return alert("🚫 Apenas gerentes.");
+
   const sel=[...document.querySelectorAll("input[type=checkbox]:checked")].map(i=>i.value);
   if(!sel.length) return alert("Selecione itens");
 
   let total=0;
   let texto=`🛠️ RELATÓRIO DO BAÚ\n\n`;
+  texto+=`👤 Gerente: ${nome.value}\n`;
+  texto+=`🆔 ID Gerente: ${idM.value}\n`;
+  texto+=`🧾 ID Funcionário: ${idC.value}\n\n`;
 
-  for(const item of sel){
-    total+=estoque[item].preco;
-    texto+=`${item} - R$ ${estoque[item].preco}\n`;
-  }
+  sel.forEach(i=>{
+    total+=estoque[i].preco;
+    texto+=`${i} - R$ ${estoque[i].preco}\n`;
+  });
 
   texto+=`\nTOTAL: R$ ${total}`;
   saida.value=texto;
-
-  itensSelecionados = sel;
-  relatorioGerado = true;
+  itensSelecionados=sel;
+  relatorioGerado=true;
 }
 
-async function enviarDiscord(){
+// ===== ENVIAR DISCORD =====
+window.enviarDiscord = async function(){
+  if(!ehGerente()) return alert("🚫 Apenas gerentes.");
   if(!relatorioGerado) return alert("Gere o relatório primeiro");
 
   await fetch(DISCORD_WEBHOOK,{
@@ -254,75 +195,16 @@ async function enviarDiscord(){
     });
   }
 
-  alert("Relatório enviado e estoque atualizado!");
+  alert("Relatório enviado!");
   relatorioGerado=false;
   itensSelecionados=[];
   carregarEstoque();
 }
 
-function limpar(){
-  document.querySelectorAll("input").forEach(i=>{
-    if(i.type==="checkbox") i.checked=false;
-    else i.value="";
-  });
-  saida.value="";
-  relatorioGerado=false;
-  itensSelecionados=[];
-}
-
-document.getElementById("adminBtn").onclick=()=>{
-  const senha = prompt("Senha de administração:");
-  if(senha===SENHA_ADMIN){
-    adminPanel.style.display =
-      adminPanel.style.display==="block"?"none":"block";
-  }else{
-    alert("Senha incorreta");
-  }
-};
-
-window.gerarRelatorio=gerarRelatorio;
-window.enviarDiscord=enviarDiscord;
-window.limpar=limpar;
-
+// ===== INIT =====
+bloquearTudo();
 carregarEstoque();
 </script>
-<script>
-// ===== BLOQUEIO DE COPIAR - DESKTOP + MOBILE =====
-const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
-// Bloqueio de clique direito
-document.addEventListener("contextmenu", e => e.preventDefault());
-
-// Bloqueio de teclas desktop
-document.addEventListener("keydown", function(e){
-  if (!isMobile) {
-    // Teclas de desenvolvedor
-    if (e.key === "F12") e.preventDefault();
-    if (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) e.preventDefault();
-    // Bloqueio de visualizar código, salvar e copiar
-    if (e.ctrlKey && ["u","s","c"].includes(e.key.toLowerCase())) e.preventDefault();
-  }
-});
-
-// Bloqueio de copiar em mobile
-if (isMobile) {
-  // Bloqueia seleção de texto
-  document.body.addEventListener("selectstart", e => e.preventDefault());
-
-  // Bloqueia toque longo em imagens e texto
-  document.body.addEventListener("touchstart", function(e){
-    if (e.target.tagName === "IMG") e.preventDefault();
-  }, {passive:false});
-
-  // Remove seleção após toque
-  document.body.addEventListener("touchend", e => {
-    window.getSelection().removeAllRanges();
-  });
-}
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
